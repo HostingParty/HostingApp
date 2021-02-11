@@ -13,6 +13,10 @@ const UserSchema = new mongoose.Schema({
       required: true,
     },
   },
+  phone: {
+    type: String,
+    require: true,
+  },
   email: {
     type: String,
     match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, "Please add a valid email"],
@@ -25,6 +29,7 @@ const UserSchema = new mongoose.Schema({
   },
   allergies: [String],
   preferences: [String],
+  favoriteRecipes: [String],
   events: {
     hosting: [
       {
