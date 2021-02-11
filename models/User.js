@@ -23,6 +23,8 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  allergies: [String],
+  preferences: [String],
   events: {
     hosting: [
       {
