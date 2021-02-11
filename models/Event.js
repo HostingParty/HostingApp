@@ -43,6 +43,18 @@ const EventSchema = new mongoose.Schema({
   ],
 });
 
+EventSchema.pre("save"),
+  function (next) {
+    let event = this;
+
+    if (event.isModified("title") || event.isModified("description")) {
+      let now = new Date();
+      this.dateUpdated = now;
+    }
+
+    next();
+  };
+
 const Event = mongoose.model("Event", EventSchema);
 
 module.exports = Event;
