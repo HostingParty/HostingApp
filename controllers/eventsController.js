@@ -5,7 +5,12 @@ const db = require("../models");
 // @access  Public
 exports.getEvents = (req, res, next) => {
   db.Event.find({}).exec((err, events) => {
-    if (err) throw err;
+    if (err) {
+      return res.status(400).json({
+        success: false,
+        data: err,
+      });
+    }
 
     res.status(200).json({
       success: true,
@@ -24,11 +29,48 @@ exports.getSingleEvent = (req, res, next) => {
   db.Event.find({ _id: id })
     .populate("hosting pending accepted decline", "name email")
     .exec((err, event) => {
-      if (err) throw err;
+      if (err) {
+        return res.status(400).json({
+          success: false,
+          data: err,
+        });
+      }
 
       res.status(200).json({
         success: true,
         data: event,
       });
     });
+};
+
+// @desc    Add an event
+// @route   POST /api/v1/events/
+// @access  Public
+exports.addEvent = async (req, res, next) => {
+  //req.body needs the following parameters (title, description, eventDate) - See Model for full fields list
+  db.Event.create(req.body, (err, event) => {
+    if (err) return res.status(400).json({ success: false, msg: err });
+
+    res.status(200).json({
+      success: true,
+      data: event,
+    });
+  });
+};
+
+// @desc    Delete an Event
+// @route   DELETE /api/v1/events/:id
+// @access  Public
+exports.deleteEvent = async (req, res, next) => {
+  let id = req.params.id;
+
+  db.Event.deleteOne({ _id: id }, (err, data) => {
+    if (err) return res.status(400).json({ success: false, msg: err });
+    if (data.deletedCount === 0) return res.status(400).json({ success: false, msg: "Nothing was deleted" });
+
+    res.status(200).json({
+      success: true,
+      data: data,
+    });
+  });
 };
