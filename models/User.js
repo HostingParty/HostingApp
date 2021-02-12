@@ -1,66 +1,73 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
+const Schema = mongoose.Schema;
 const saltRounds = 10;
 
-const UserSchema = new mongoose.Schema({
-  name: {
-    first: {
+const UserSchema = new mongoose.Schema(
+  {
+    name: {
+      first: {
+        type: String,
+        required: true,
+      },
+      last: {
+        type: String,
+        required: true,
+      },
+    },
+    phone: {
       type: String,
       required: true,
     },
-    last: {
+    email: {
+      type: String,
+      match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, "Please add a valid email"],
+      unique: true,
+      required: true,
+    },
+    password: {
       type: String,
       required: true,
     },
-  },
-  phone: {
-    type: String,
-    require: true,
-  },
-  email: {
-    type: String,
-    match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, "Please add a valid email"],
-    unique: true,
-    required: true,
-  },
-  password: {
-    type: String,
-    required: true,
-  },
-  allergies: [String],
-  preferences: [String],
-  favoriteRecipes: [String],
-  events: {
+    friends: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+    },
+    pictureUrl: String,
+    allergies: [String],
+    preferences: [String],
+    favoriteRecipes: [String],
     hosting: [
       {
-        type: Schema.ObjectId,
+        type: Schema.Types.ObjectId,
         ref: "Event",
       },
     ],
     pending: [
       {
-        type: Schema.ObjectId,
+        type: Schema.Types.ObjectId,
         ref: "Event",
       },
     ],
     accepted: [
       {
-        type: Schema.ObjectId,
+        type: Schema.Types.ObjectId,
         ref: "Event",
       },
     ],
     declined: [
       {
-        type: Schema.ObjectId,
+        type: Schema.Types.ObjectId,
         ref: "Event",
       },
     ],
+    memberSince: {
+      type: Date,
+      default: Date.now,
+    },
   },
-  memberSince: {
-    type: Date,
-    default: Date.now,
-  },
-});
+  { collection: "User" }
+);
 
 // For hashing the password - NOTE: these hooks are not executed on update() and findOneAndUpdate()
 UserSchema.pre("save", function (next) {
