@@ -1,37 +1,34 @@
 const db = require("../models");
 
-// Defining methods for the booksController
-// module.exports = {
-//   findAll: function(req, res) {
-//     db.Book
-//       .find(req.query)
-//       .sort({ date: -1 })
-//       .then(dbModel => res.json(dbModel))
-//       .catch(err => res.status(422).json(err));
-//   },
-//   findById: function(req, res) {
-//     db.Book
-//       .findById(req.params.id)
-//       .then(dbModel => res.json(dbModel))
-//       .catch(err => res.status(422).json(err));
-//   },
-//   create: function(req, res) {
-//     db.Book
-//       .create(req.body)
-//       .then(dbModel => res.json(dbModel))
-//       .catch(err => res.status(422).json(err));
-//   },
-//   update: function(req, res) {
-//     db.Book
-//       .findOneAndUpdate({ _id: req.params.id }, req.body)
-//       .then(dbModel => res.json(dbModel))
-//       .catch(err => res.status(422).json(err));
-//   },
-//   remove: function(req, res) {
-//     db.Book
-//       .findById({ _id: req.params.id })
-//       .then(dbModel => dbModel.remove())
-//       .then(dbModel => res.json(dbModel))
-//       .catch(err => res.status(422).json(err));
-//   }
-// };
+// @desc    Get all events
+// @route   GET /api/v1/events
+// @access  Public
+exports.getEvents = (req, res, next) => {
+  db.Event.find({}).exec((err, events) => {
+    if (err) throw err;
+
+    res.status(200).json({
+      success: true,
+      data: events,
+    });
+  });
+};
+
+// @desc    Get a single event
+// @route   GET /api/v1/events/:id
+// @access  Public
+exports.getSingleEvent = (req, res, next) => {
+  let id = req.params.id;
+
+  // Currently only returns user name and email. Edit populate for more user info.
+  db.Event.find({ _id: id })
+    .populate("hosting pending accepted decline", "name email")
+    .exec((err, event) => {
+      if (err) throw err;
+
+      res.status(200).json({
+        success: true,
+        data: event,
+      });
+    });
+};
