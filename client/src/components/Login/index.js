@@ -83,12 +83,6 @@ this.setState({
 }
 required
 />
-
-<Grid item>
-<TextField type="text" placeholder="picture" variant="outlined">
-
-</TextField>
-</Grid>
 </Grid>
 <Grid item>
 <Button variant="contained" color="primary" type="submit" className="button-block"
