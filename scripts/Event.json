@@ -1,0 +1,82 @@
+[{
+  "_id": {
+    "$oid": "6025e9bba968960008f31a20"
+  },
+  "title": "BBQ Cookoff",
+  "description": "Bring your best BBQ skills to this competition",
+  "eventDate": "2020-02-17",
+  "dateCreated": 1613097392510,
+  "hosting": [
+    {
+      "$oid": "6025eb70e7fba90108abd749"
+    }
+  ],
+  "pending": [
+    {
+      "$oid": "6025eb70e7fba90108abd748"
+    }
+  ],
+  "accepted": [
+    {
+      "$oid": "6025eb70e7fba90108abd74a"
+    },
+    {
+      "$oid": "6025eb70e7fba90108abd74b"
+    }
+  ],
+  "declined": []
+},{
+  "_id": {
+    "$oid": "6025e9bba968960008f31a21"
+  },
+  "title": "Chili Quest",
+  "description": "Let's go searching for the best Chili!",
+  "eventDate": "2020-02-19",
+  "dateCreated": 1613097392510,
+  "hosting": [
+    {
+      "$oid": "6025eb70e7fba90108abd748"
+    }
+  ],
+  "pending": [
+    {
+      "$oid": "6025eb70e7fba90108abd749"
+    }
+  ],
+  "accepted": [
+    {
+      "$oid": "6025eb70e7fba90108abd74a"
+    },
+    {
+      "$oid": "6025eb70e7fba90108abd74b"
+    }
+  ],
+  "declined": []
+},{
+  "_id": {
+    "$oid": "6025e9bba968960008f31a22"
+  },
+  "title": "Graduation Party",
+  "description": "Let's Celebrate!",
+  "eventDate": "2020-02-27",
+  "dateCreated": 1613097392510,
+  "hosting": [
+    {
+      "$oid": "6025eb70e7fba90108abd74a"
+    }
+  ],
+  "pending": [
+    {
+      "$oid": "6025eb70e7fba90108abd74b"
+    }
+  ],
+  "accepted": [
+    {
+      "$oid": "6025eb70e7fba90108abd749"
+    },
+    {
+      "$oid": "6025eb70e7fba90108abd748"
+    }
+  ],
+  "declined": []
+}]

@@ -1,0 +1,107 @@
+[{
+  "_id": {
+    "$oid": "6025eb70e7fba90108abd748"
+  },
+  "name": {
+    "first": "brandon",
+    "last": "hexsel"
+  },
+  "phone": "7134127111",
+  "email": "brandon@b.com",
+  "password": "password",
+  "hosting": [
+    {
+      "$oid": "6025e9bba968960008f31a21"
+    }
+  ],
+  "pending": [
+    {
+      "$oid": "6025e9bba968960008f31a20"
+    }
+  ],
+  "accepted": [
+    {
+      "$oid": "6025e9bba968960008f31a22"
+    }
+  ],
+  "declined": []
+},{
+  "_id": {
+    "$oid": "6025eb70e7fba90108abd749"
+  },
+  "name": {
+    "first": "ben",
+    "last": "robinson"
+  },
+  "phone": "2061234567",
+  "email": "ben@b.com",
+  "password": "password",
+  "hosting": [
+    {
+      "$oid": "6025e9bba968960008f31a20"
+    }
+  ],
+  "pending": [
+    {
+      "$oid": "6025e9bba968960008f31a21"
+    }
+  ],
+  "accepted": [
+    {
+      "$oid": "6025e9bba968960008f31a22"
+    }
+  ],
+  "declined": []
+},{
+  "_id": {
+    "$oid": "6025eb70e7fba90108abd74a"
+  },
+  "name": {
+    "first": "dan",
+    "last": "cornutt"
+  },
+  "phone": "2061231233",
+  "email": "dan@b.com",
+  "password": "password",
+  "hosting": [
+    {
+      "$oid": "6025e9bba968960008f31a22"
+    }
+  ],
+  "pending": [],
+  "accepted": [
+    {
+      "$oid": "6025e9bba968960008f31a20"
+    },
+    {
+      "$oid": "6025e9bba968960008f31a21"
+    }
+  ],
+  "declined": []
+},{
+  "_id": {
+    "$oid": "6025eb70e7fba90108abd74b"
+  },
+  "name": {
+    "first": "maranda",
+    "last": "z"
+  },
+  "phone": "2060987654",
+  "email": "maranda@b.com",
+  "password": "password",
+  "hosting": [],
+  "pending": [
+    {
+      "$oid": "6025e9bba968960008f31a22"
+    }
+  ],
+  "accepted": [
+    {
+      "$oid": "6025e9bba968960008f31a20"
+    },
+    {
+      "$oid": "6025e9bba968960008f31a21"
+    }
+  ],
+  "declined": []
+}]
