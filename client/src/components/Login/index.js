@@ -12,7 +12,7 @@ Link,
 IconButton,
 Badge,
 } from "@material-ui/core";
-import MailIcon from '@material-ui/icons/Mail';
+import MailIcon from "@material-ui/icons/Mail";
 
 
 
@@ -31,7 +31,7 @@ event.preventDefault();
 if (this.state.username == 'admin@littech.in' && this.state.password == 'secret') {
 this.props.history.push("/home");
 } else {
-alert('Incorrect Credntials!');
+alert('Incorrect Credentials!');
 }
 }
 render() {
