@@ -17,26 +17,30 @@
 // export default Nav;
 
 import React from 'react';
+import { Link } from "react-router-dom";
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import Drawer from '@material-ui/core/Drawer';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import List from '@material-ui/core/List';
-import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
-import IconButton from '@material-ui/core/IconButton';
+import { 
+  Drawer, 
+  AppBar, 
+  Toolbar, 
+  CssBaseline, 
+  List, 
+  Typography, 
+  Divider, 
+  IconButton, 
+  ListItem, 
+  ListItemIcon, 
+  ListItemText 
+      } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import EventIcon from '@material-ui/icons/Event';
 import PersonIcon from '@material-ui/icons/Person';
 import FastfoodIcon from '@material-ui/icons/Fastfood';
+import { Events } from "events";
 
 const drawerWidth = 240;
 
@@ -156,7 +160,22 @@ export default function PersistentDrawerRight() {
           </IconButton>
         </div>
         <Divider />
-        <List>
+          <List>
+            <ListItem component={ Link } to="/events"> 
+              Events
+            </ListItem>
+            <ListItem component={ Link } to="/profile">
+              Profile
+            </ListItem>
+            <ListItem>
+              Recipes
+            </ListItem>
+            <ListItem>
+              Log Out
+            </ListItem>
+          </List>
+
+        {/* <List>
           {['Events', 'Profile'].map((text, index) => (
             <ListItem button key={text}>
               <ListItemIcon>{index % 2 === 0 ? <EventIcon /> : <PersonIcon />}</ListItemIcon>
@@ -172,7 +191,7 @@ export default function PersistentDrawerRight() {
               <ListItemText primary={text} />
             </ListItem>
           ))}
-        </List>
+        </List> */}
 
         <Divider />
       </Drawer>
