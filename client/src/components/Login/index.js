@@ -39,7 +39,7 @@ function Login() {
 >
 <Grid item>
 <Typography component="h1" variant="h5">
-Sign in
+Login
 </Typography>
 </Grid>
 <Grid item>
