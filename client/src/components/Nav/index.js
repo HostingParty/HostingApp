@@ -33,10 +33,10 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import EventIcon from '@material-ui/icons/Event';
+import PersonIcon from '@material-ui/icons/Person';
+import FastfoodIcon from '@material-ui/icons/Fastfood';
 
 const drawerWidth = 240;
 
@@ -121,7 +121,7 @@ export default function PersistentDrawerRight() {
       >
         <Toolbar>
           <Typography variant="h6" noWrap className={classes.title}>
-            Persistent drawer
+            Hosting Party
           </Typography>
           <IconButton
             color="inherit"
@@ -157,22 +157,24 @@ export default function PersistentDrawerRight() {
         </div>
         <Divider />
         <List>
-          {['Inbox', 'Starred', 'Send email', 'Log Out'].map((text, index) => (
+          {['Events', 'Profile'].map((text, index) => (
             <ListItem button key={text}>
-              <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+              <ListItemIcon>{index % 2 === 0 ? <EventIcon /> : <PersonIcon />}</ListItemIcon>
               <ListItemText primary={text} />
             </ListItem>
           ))}
         </List>
-        <Divider />
+
         <List>
-          {['All mail', 'Trash', 'Spam'].map((text, index) => (
+          {['Recipes', 'Log Out'].map((text, index) => (
             <ListItem button key={text}>
-              <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+              <ListItemIcon>{index % 2 === 0 ? <FastfoodIcon /> : <ExitToAppIcon />}</ListItemIcon>
               <ListItemText primary={text} />
             </ListItem>
           ))}
         </List>
+
+        <Divider />
       </Drawer>
     </div>
   );
