@@ -14,14 +14,14 @@ Badge,
 } from "@material-ui/core";
 import MailIcon from '@material-ui/icons/Mail';
 
-function Login() {
+function CreateUser() {
     return (
         <div>
             <AppBar position="static" alignitems="center" color="primary">
 <Toolbar>
 <Grid container justify="center" wrap="wrap">
 <Grid item>
-<Typography variant="h6">Hosting Party</Typography>
+<Typography variant="h6">Create User</Typography>
 </Grid>
 </Grid>
 <IconButton aria-label="show 4 new mails" color="inherit">
@@ -39,25 +39,39 @@ function Login() {
 >
 <Grid item>
 <Typography component="h1" variant="h5">
-Sign in
+Create User
 </Typography>
 </Grid>
 <Grid item>
 <form>
 <Grid container direction="column" spacing={2}>
 <Grid item>
-<TextField type="email" placeholder="Email" fullWidth name="username" variant="outlined" 
+<TextField type="email" placeholder="Upload Profile Picture" variant="outlined" 
 />
 </Grid>
 <Grid item>
-<TextField type="password" placeholder="Password" fullWidth name="password" variant="outlined" 
+<TextField type="text" placeholder="Full Name" variant="outlined" 
 />
 </Grid>
 <Grid item>
+<TextField type="text" placeholder="Phone Number" variant="outlined" 
+/>
+</Grid>
+<Grid item>
+<TextField type="text" placeholder="Email" variant="outlined" 
+/>
+</Grid>
+<Grid item>
+<TextField type="text" placeholder="Password" variant="outlined" 
+/>
+</Grid>
+<Grid item>
+    <Link to="/login">
 <Button variant="contained" color="primary" type="submit" className="button-block"
 >
 Submit
 </Button>
+</Link>
 </Grid>
 </Grid>
 </form>
@@ -76,4 +90,4 @@ Forgot Password?
     )
 }
 
-export default Login;
+export default CreateUser;
