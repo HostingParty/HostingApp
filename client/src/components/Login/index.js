@@ -1,5 +1,6 @@
 import React from "react";
 import "./style.css";
+import NavBar from "../Nav/index"
 import {
 Button,
 TextField,
@@ -14,23 +15,11 @@ Badge,
 } from "@material-ui/core";
 import MailIcon from '@material-ui/icons/Mail';
 
+
 function Login() {
     return (
         <div>
-            <AppBar position="static" alignitems="center" color="primary">
-<Toolbar>
-<Grid container justify="center" wrap="wrap">
-<Grid item>
-<Typography variant="h6">Hosting Party</Typography>
-</Grid>
-</Grid>
-<IconButton aria-label="show 4 new mails" color="inherit">
-          <Badge color="secondary">
-            <MailIcon />
-          </Badge>
-        </IconButton>
-</Toolbar>
-</AppBar>
+ <NavBar />
 <Grid container spacing={0} justify="center" direction="row">
 <Grid item>
 <Grid container direction="column" justify="center" spacing={2} className="login-form"
