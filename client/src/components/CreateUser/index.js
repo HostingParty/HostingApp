@@ -1,6 +1,7 @@
 import React from "react";
 import "./style.css";
 import NavBar from "../Nav/index";
+import Login from "../Login/index";
 import {
 Button,
 TextField,
@@ -13,10 +14,23 @@ Link,
 IconButton,
 Badge,
 } from "@material-ui/core";
+import { makeStyles } from '@material-ui/core/styles';
 import MailIcon from '@material-ui/icons/Mail';
 
 
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    '& > * + *': {
+      marginLeft: theme.spacing(2),
+    },
+  },
+}));
+
 function CreateUser() {
+  const classes = useStyles();
+  const preventDefault = (event) => event.preventDefault();
+
     return (
         <div>
   <NavBar />
@@ -68,15 +82,20 @@ Submit
 <Grid item>
 <Link
   to="/login"
-   className={window.location.pathname === "/login" ? "nav-link active" : "nav-link"}
- >
-  Login
- </Link>
+  component="button"
+  variant="body2"
+  onClick={() => {
+    console.info("I'm a button.");
+  }}
+>
+  Forgot Password
+</Link>
 </Grid>
 </Paper>
 </Grid>
 </Grid>
 </Grid>
+
 
         </div>
     )
