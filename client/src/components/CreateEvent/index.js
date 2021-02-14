@@ -29,6 +29,13 @@ const useStyles = makeStyles((theme) => ({
       marginRight: theme.spacing(1),
       width: 200,
     },
+    root: {
+      margin: theme.spacing(3),
+      width: "25ch",
+      marginTop: "150px",
+      
+
+    }
   }));
 
 function CreateEvent() {
@@ -38,21 +45,15 @@ function CreateEvent() {
     return (
         <div>
             <NavBar />
-
-            <PopupState variant="popover" popupId="demo-popup-menu">
-      {(popupState) => (
-        <React.Fragment>
-          <Button variant="contained" color="primary" {...bindTrigger(popupState)}>
-            Create Event
-          </Button>
-          <Menu {...bindMenu(popupState)}>
-            <MenuItem onClick={popupState.close}>Vitural</MenuItem>
-            <MenuItem onClick={popupState.close}>In Person</MenuItem>
-          </Menu>
-        </React.Fragment>
-      )}
-    </PopupState>
-            <form className={classes.container} noValidate>
+        <Grid container spacing={0} justify="center" direction="row">
+            <form className={classes.root} noValidate autoComplete="off">
+      <TextField id="" label="Host Name" variant="outlined" />
+      <TextField id="" label="Event Name" variant="outlined" />
+      <TextField id="" label="Location" variant="outlined" />
+    </form>
+    </Grid>
+      <Grid container spacing={0} justify="center" direction="row">
+    <form className={classes.container} noValidate>
       <TextField
         id="datetime-local"
         label="Date of Event"
@@ -64,6 +65,29 @@ function CreateEvent() {
         }}
       />
     </form>
+    </Grid>
+    
+        <div className="btn">
+            <PopupState variant="popover" popupId="demo-popup-menu">
+      {(popupState) => (
+        <React.Fragment>
+          <Button variant="contained" color="primary" {...bindTrigger(popupState)}>
+            Create Event
+          </Button>
+          <Menu {...bindMenu(popupState)}>
+            <MenuItem onClick={popupState.close}>Vitural</MenuItem>
+            <MenuItem onClick={popupState.close}>In Person</MenuItem>
+          </Menu>
+        </React.Fragment>
+        
+      )}
+      
+    </PopupState>
+    </div>
+    
+   
+    
+    
         </div>
     )
 }
