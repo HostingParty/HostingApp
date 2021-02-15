@@ -4,6 +4,7 @@ import { Events } from "./pages/events"
 import { Profile } from "./pages/profile"
 import logo from './logo.svg';
 import './App.css';
+import CreateUser from "./components/CreateUser/index";
 import Login from "./components/Login/index";
 import Nav from "./components/Nav/index";
 import { StoreProvider } from "./utils/globalState";

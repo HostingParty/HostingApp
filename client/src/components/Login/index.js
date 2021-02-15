@@ -15,7 +15,6 @@ Badge,
 import MailIcon from "@material-ui/icons/Mail";
 
 
-
 class Login extends React.Component {
 constructor(props) {
 super(props);
@@ -59,29 +58,18 @@ return (
 >
 <Grid item>
 <Typography component="h1" variant="h5">
-Sign in
+Login
 </Typography>
 </Grid>
 <Grid item>
-<form onSubmit={this.handleSubmit}>
+<form>
 <Grid container direction="column" spacing={2}>
 <Grid item>
-<TextField type="email" placeholder="Email" fullWidth name="username" variant="outlined" value={this.state.username}
-onChange={(event) =>
-this.setState({
-[event.target.name]: event.target.value,
-})
-} required autoFocus
+<TextField type="email" placeholder="Email" fullWidth name="username" variant="outlined" 
 />
 </Grid>
 <Grid item>
-<TextField type="password" placeholder="Password" fullWidth name="password" variant="outlined" value={this.state.password}
-onChange={(event) =>
-this.setState({
-[event.target.name]: event.target.value,
-})
-}
-required
+<TextField type="password" placeholder="Password" fullWidth name="password" variant="outlined" 
 />
 </Grid>
 <Grid item>
@@ -102,8 +90,9 @@ Forgot Password?
 </Grid>
 </Grid>
 </Grid>
-</div>
-);
+
+        </div>
+    )
 }
-}
+
 export default Login;
