@@ -93,6 +93,6 @@ Forgot Password?
 
         </div>
     )
+};
 }
-
 export default Login;
