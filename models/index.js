@@ -1,4 +1,5 @@
 module.exports = {
-    // Book: require("./book")
-  };
-  
+  User: require("./User"),
+  Event: require("./Event"),
+  UnregisteredUser: require("./UnregisteredUser"),
+};

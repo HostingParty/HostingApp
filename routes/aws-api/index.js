@@ -8,7 +8,7 @@ var upload = multer({ storage: storage });
 //POST route to upload a document file. 
 //Req has: {file.originalname, userId}
 app.post("/api-aws/upload", upload.single("myPicture"), async function(req, res) {
-    if (req.file.originalname) {
+    if (req.file.userId) {
       //Sleep for DB record to be created. TODO handle better in production.
       await new Promise(r => setTimeout(r, 2000));
   
@@ -30,7 +30,7 @@ app.post("/api-aws/upload", upload.single("myPicture"), async function(req, res)
         ACL: "public-read"
       };
   
-      //Call to S3 storage, uploading picture
+      // //Call to S3 storage, uploading picture
       s3bucket.upload(params, function(err, data) {
         if (err) {
           res.status(500).json({ error: true, Message: err });
@@ -38,39 +38,48 @@ app.post("/api-aws/upload", upload.single("myPicture"), async function(req, res)
           res.send({ data });
           var newFileUploaded = {
             description: req.body.description,
-            fileLink: s3FileURL + file.originalname,
+            fileLink: s3FileURL + file.userId,
             s3_key: params.Key
           };
-  
-        //Put update to user model with picture name and URL Link     
-        db.User.update(
-            {
-            pictureName: newFileUploaded.s3_key,
-            pictureUrl: newFileUploaded.fileLink
-            },
-            {
-            where: {
-            id: req.userId
-            }
-            }
-        ).then(function() {
-        })
         }
-      })      
-    }
+      });
+  
+          // Put update to user model with picture name and URL Link     
+          db.User.findByIdAndUpdate(
+              {
+                id: req.userId
+              },
+              {
+                pictureUrl: newFileUploaded.fileLink
+              },
+              {
+                returnOriginal: false
+              },
+              (error, data) => {
+                if (err) return res.status(400).json({ success: false, msg: err });
+                if (data === null) return res.status(400).json({ success: false, msg: "No user found" });
+
+                res.status(200).json({
+                  success: true,
+                  data: data,
+                });
+              }
+          );
+    }   
   });
 
   app.post("/api-aws/text", function(req, res) {
-//   function fetchSubscribers(event, msg) {
-    //DB call for list of attendees for a particular event
-    db.User.findAll({
-        //where textNotification: true & on event: req.event
-    }).then(function(data) {
-      console.log("Users to be notified: ");
-      data.forEach(element => {
-        notifyAttendees(`+1${element.phoneNumber}`, req.msg);
-      });
-    })
+      function fetchSubscribers(event, msg) {
+      // DB call for list of attendees for a particular event
+      db.User.findAll({
+          //where textNotification: true & on event: req.event
+      }).then(function(data) {
+        console.log("Users to be notified: ");
+        data.forEach(element => {
+          notifyAttendees(`+1${element.phoneNumber}`, req.msg);
+        });
+      })
+    }
   });
 
   function notifyAttendees(num, msg) {
