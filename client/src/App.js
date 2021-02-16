@@ -1,21 +1,36 @@
-import React, { Component } from "react";
-import logo from "./logo.svg";
-import "./App.css";
+import React from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { Events } from "./pages/events"
+import { Profile } from "./pages/profile"
+import { Recipe } from "./pages/recipe"
+import logo from './logo.svg';
+import './App.css';
+import CreateUser from "./components/CreateUser/index";
+import Login from "./components/Login/index";
+import Nav from "./components/Nav/index";
+import { StoreProvider } from "./utils/globalState";
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
-    );
-  }
+function App() {
+  return (
+    <Router>
+    <div>
+      <StoreProvider>
+        <Nav />
+        <Switch>
+          <Route exact path="/events" component={Events} />
+          <Route exact path="/profile" component={Profile} />
+          <Route exact path="/recipe" component={Recipe} />
+        </Switch>
+      </StoreProvider>
+    </div>
+  </Router>
+    // <div className="App">
+     
+    //   <Nav />
+
+    //  {/* <Login></Login> */}
+    // </div>
+  );
 }
 
 export default App;
