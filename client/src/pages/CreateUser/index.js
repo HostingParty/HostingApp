@@ -1,6 +1,6 @@
 import React from "react";
 import "./style.css";
-import NavBar from "../Nav/index";
+import NavBar from "../../components/Nav/index";
 import Login from "../Login/index";
 import {
 Button,

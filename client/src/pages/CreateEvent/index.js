@@ -1,6 +1,6 @@
 import React from "react";
 import "./style.css";
-import NavBar from "../Nav/index";
+import NavBar from "../../components/Nav/index";
 import {
 Button,
 TextField,
@@ -46,12 +46,16 @@ function CreateEvent() {
         <div>
 
             <NavBar />
-            <h3>Upcoming Events</h3>
-            <dl>
-              
+            <div>
+            <Grid container spacing={0} justify="center" direction="row">
+            
+            
+            <dl>  
+            <h3>Upcoming Events</h3>            
               <dt>Dan's BBQ
                 <dd><small>Saturday, Feb 27th @ 2pm</small></dd>
               </dt>
+              
               
               <Button variant="outlined" color="primary">View Event</Button>
               
@@ -59,10 +63,12 @@ function CreateEvent() {
               <dt>Brandon's sushi slam
                 <dd><small>Tuesday, March 2nd @ 1pm</small></dd>
               </dt>
-              <Grid item xs={12}>
+              
               <Button variant="outlined" color="primary">View Event</Button>
-              </Grid>
+              
             </dl>
+            </Grid>
+            </div>
 
         <Grid container spacing={0} justify="center" direction="row">
             <form className={classes.root} noValidate autoComplete="off">
@@ -85,7 +91,7 @@ function CreateEvent() {
       />
     </form>
     </Grid>
-       
+    <Grid container spacing={0} justify="center" direction="row">
         <div className="btn">
             <PopupState variant="popover" popupId="demo-popup-menu">
       {(popupState) => (
@@ -103,7 +109,7 @@ function CreateEvent() {
       
     </PopupState>
     </div>
-    
+    </Grid>
    
     
     
