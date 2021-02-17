@@ -18,11 +18,18 @@ const UserSchema = new mongoose.Schema(
     phone: {
       type: String,
       required: true,
+      validate: {
+        validator: (phone) => User.doesNotExit({ phone }),
+        message: "Phone number already exists",
+      },
     },
     email: {
       type: String,
       match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, "Please add a valid email"],
-      unique: true,
+      validate: {
+        validator: (email) => User.doesNotExit({ email }),
+        message: "Email already exists",
+      },
       required: true,
     },
     password: {
