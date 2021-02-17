@@ -97,6 +97,10 @@ UserSchema.pre("save", function (next) {
   });
 });
 
+UserSchema.statics.doesNotExist = async function (field) {
+  return (await this.where(field).countDocuments()) === 0;
+};
+
 UserSchema.methods.comparePassword = function (candidatePassword, cb) {
   bcrypt.compare(candidatePassword, this.password, function (err, isMatch) {
     if (err) return cb(err);
