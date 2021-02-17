@@ -38,6 +38,7 @@ class Login extends React.Component {
 
     let response = await API.login(user);
 
+    // Will need to add the login response which returns userId to the global state?
     console.log(response);
   };
 
