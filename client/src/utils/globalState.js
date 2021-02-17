@@ -1,87 +1,58 @@
 import React, { createContext, useReducer, useContext } from "react";
+import {
+  ADD_INVITE,
+  REMOVE_INVITE
+} from "./actions";
 
 
 const StoreContext = createContext();
 const { Provider } = StoreContext;
 
 const reducer = (state, action) => {
-    return {
-      ...state
-    };
-//   switch (action.type) {
-//   case SET_CURRENT_POST:
-//     return {
-//       ...state,
-//       currentPost: action.post,
-//       loading: false
-//     };
+  switch (action.type) {
+    case ADD_INVITE:
+      return {
+        ...state,
+        pendingInvites: [action.post, ...state.pendingInvites],
+        loading: false
+      };
 
-//   case UPDATE_POSTS:
-//     return {
-//       ...state,
-//       posts: [...action.posts],
-//       loading: false
-//     };
+    case REMOVE_INVITE:
+      return {
+        ...state,
+        pendingInvites: [...state.pendingInvites],
+        loading: false
+      };
 
-//   case ADD_POST:
-//     return {
-//       ...state,
-//       posts: [action.post, ...state.posts],
-//       loading: false
-//     };
-
-//   case REMOVE_POST:
-//     return {
-//       ...state,
-//       posts: state.posts.filter((post) => {
-//         return post._id !== action._id; 
-//       })
-//     };
-
-//   case ADD_FAVORITE:
-//     return {
-//       ...state,
-//       favorites: [action.post, ...state.favorites],
-//       loading: false
-//     };
-
-//   case UPDATE_FAVORITES:
-//     return {
-//       ...state,
-//       favorites: [...state.favorites],
-//       loading: false
-//     };
-
-//   case REMOVE_FAVORITE:
-//     return {
-//       ...state,
-//       favorites: state.favorites.filter((post) => {
-//         return post._id !== action._id; 
-//       })
-//     };
-
-//   case LOADING:
-//     return {
-//       ...state,
-//       loading: true
-//     };
-
-//   default:
-//     return state;
-//   }
+    default:
+      return state;
+    }
 };
 
 const StoreProvider = ({ value = [], ...props }) => {
   const [state, dispatch] = useReducer(reducer, {
-    // posts: [],
-    // currentPost: {
-    //   _id: 0,
-    //   title: "",
-    //   body: "",
-    //   author: ""
-    // },
-    // favorites: [],
-    // loading: false
+    event: {
+      details: {
+        _id: 0,
+        name: "State Event Thing",
+        date: "2/16/2021",
+        time: "noon",
+        address: "101 NE 45th 981226",
+        notes: "B there or b square."
+      },
+      guestList: {
+        pendingInvites: ["Dan", "Ben"],
+        attendingInvites: ["Brandon"],
+        maybeInvites: ["Maranda"],
+        declinedInvites: ["BenTA"],
+      },
+      menu: {
+        apps: ["Chips", "Dip", "Salsa"],
+        sides: ["Green Salad", "Bread sticks"],
+        mains: ["Turducken"]
+      }
+    },
+      loading: false
   });
 
   return <Provider value={[state, dispatch]} {...props} />;
