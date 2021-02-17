@@ -27,8 +27,10 @@ passport.use(
               message: "Incorrect password.",
             });
           }
+          let { _id, email, phone } = dbUser;
+          const user = { _id, email, phone };
           // If none of the above, return the user
-          return done(null, dbUser);
+          return done(null, user);
         }
       );
     }
