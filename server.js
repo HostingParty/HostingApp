@@ -3,6 +3,9 @@ const path = require("path");
 const PORT = process.env.PORT || 3001;
 const app = express();
 const mongoose = require("mongoose");
+const passport = require("./config/passport");
+const session = require("express-session");
+const morgan = require("morgan");
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -24,6 +27,31 @@ connectDB();
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 }
+
+//Logger Middleware for Development
+app.use(morgan("tiny"));
+
+app.use(
+  session({
+    secret: "super secret hostingparty",
+    resave: true,
+    saveUninitialized: true,
+  })
+);
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+// Just for development logging
+app.use((req, res, next) => {
+  console.log("req.session", req.session);
+  console.log("req.user", req.user);
+  return next();
+});
+
+// Auth Routes
+const authRoute = require("./routes/auth/authRoute");
+app.use("/", authRoute);
 
 // API Routes
 const userRoutes = require("./routes/app-api/userRoutes");
