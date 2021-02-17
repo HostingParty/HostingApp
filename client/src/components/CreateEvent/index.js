@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
     root: {
       margin: theme.spacing(3),
       width: "25ch",
-      marginTop: "150px",
+      marginTop: "75px",
       
 
     }
@@ -44,7 +44,26 @@ function CreateEvent() {
 
     return (
         <div>
+
             <NavBar />
+            <h3>Upcoming Events</h3>
+            <dl>
+              
+              <dt>Dan's BBQ
+                <dd><small>Saturday, Feb 27th @ 2pm</small></dd>
+              </dt>
+              
+              <Button variant="outlined" color="primary">View Event</Button>
+              
+              <br/>
+              <dt>Brandon's sushi slam
+                <dd><small>Tuesday, March 2nd @ 1pm</small></dd>
+              </dt>
+              <Grid item xs={12}>
+              <Button variant="outlined" color="primary">View Event</Button>
+              </Grid>
+            </dl>
+
         <Grid container spacing={0} justify="center" direction="row">
             <form className={classes.root} noValidate autoComplete="off">
       <TextField id="" label="Host Name" variant="outlined" />
@@ -66,7 +85,7 @@ function CreateEvent() {
       />
     </form>
     </Grid>
-    
+       
         <div className="btn">
             <PopupState variant="popover" popupId="demo-popup-menu">
       {(popupState) => (

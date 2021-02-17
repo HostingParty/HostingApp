@@ -88,7 +88,7 @@ Submit
     console.info("I'm a button.");
   }}
 >
-  Forgot Password
+  Login
 </Link>
 </Grid>
 </Paper>
