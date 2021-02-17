@@ -1,5 +1,6 @@
 import React from "react";
 import "./style.css";
+import NavBar from "../../components/Nav/index"
 import {
 Button,
 TextField,
@@ -36,7 +37,9 @@ alert('Incorrect Credentials!');
 render() {
 return (
 <div>
-<AppBar position="static" alignitems="center" color="primary">
+
+  <NavBar />
+{/* <AppBar position="static" alignitems="center" color="primary">
 <Toolbar>
 <Grid container justify="center" wrap="wrap">
 <Grid item>
@@ -49,7 +52,7 @@ return (
           </Badge>
         </IconButton>
 </Toolbar>
-</AppBar>
+</AppBar> */}
 <Grid container spacing={0} justify="center" direction="row">
 <Grid item>
 <Grid container direction="column" justify="center" spacing={2} className="login-form"
@@ -65,15 +68,15 @@ Login
 <form>
 <Grid container direction="column" spacing={2}>
 <Grid item>
-<TextField type="email" placeholder="Email" fullWidth name="username" variant="outlined" 
+<TextField id="email" type="email" placeholder="Email" fullWidth name="username" variant="outlined" 
 />
 </Grid>
 <Grid item>
-<TextField type="password" placeholder="Password" fullWidth name="password" variant="outlined" 
+<TextField id="password" type="password" placeholder="Password" fullWidth name="password" variant="outlined" 
 />
 </Grid>
 <Grid item>
-<Button variant="contained" color="primary" type="submit" className="button-block"
+<Button id="submitBtn" variant="contained" color="primary" type="submit" className="button-block"
 >
 Submit
 </Button>

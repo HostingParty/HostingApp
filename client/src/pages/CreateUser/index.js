@@ -1,6 +1,6 @@
 import React from "react";
 import "./style.css";
-import NavBar from "../Nav/index";
+import NavBar from "../../components/Nav/index";
 import Login from "../Login/index";
 import {
 Button,
@@ -49,23 +49,23 @@ Create User
 <form>
 <Grid container direction="column" spacing={2}>
 <Grid item>
-<TextField type="email" placeholder="Upload Profile Picture" variant="outlined" 
+<TextField id="pic" type="url" placeholder="Upload Profile Picture" variant="outlined" 
 />
 </Grid>
 <Grid item>
-<TextField type="text" placeholder="Full Name" variant="outlined" 
+<TextField id="name" type="text" placeholder="Full Name" variant="outlined" 
 />
 </Grid>
 <Grid item>
-<TextField type="text" placeholder="Phone Number" variant="outlined" 
+<TextField id="phNumber" type="text" placeholder="Phone Number" variant="outlined" 
 />
 </Grid>
 <Grid item>
-<TextField type="text" placeholder="Email" variant="outlined" 
+<TextField id="email" type="text" placeholder="Email" variant="outlined" 
 />
 </Grid>
 <Grid item>
-<TextField type="text" placeholder="Password" variant="outlined" 
+<TextField id="password" type="text" placeholder="Password" variant="outlined" 
 />
 </Grid>
 <Grid item>
@@ -88,7 +88,7 @@ Submit
     console.info("I'm a button.");
   }}
 >
-  Forgot Password
+  Login
 </Link>
 </Grid>
 </Paper>
