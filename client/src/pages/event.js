@@ -11,10 +11,12 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 
 import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
+import Card from '@material-ui/core/Card';
 
 import { useStoreContext } from "../utils/globalState";
 import { REMOVE_INVITE, ADD_INVITE, LOADING } from "../utils/actions";
+
+import UserList from "../components/UserList";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -105,15 +107,8 @@ export function Event() {
        <h4>Time: {state.event.details.time}</h4>
        <h4>Address: {state.event.details.address}</h4>
        <p>Notes: {state.event.details.notes}</p>
-       {[1,2,3,4,56].map((number) =>
-          <li key={number.toString()}>
-            {number}
-          </li>)}
      </TabPanel>
      <TabPanel value={value} index={1}>
-       {/* <h4>Attending</h4>
-       <ul>Dan Cornutt</ul>
-       <ul>Ben Robinson</ul> */}
       <Grid container justify="center">
   
         {[
@@ -121,14 +116,11 @@ export function Event() {
           {title: "Maybe", value: "maybeInvites" },
           {title: "Declined", value: "declinedInvites" },
           {title: "Pending", value: "pendingInvites" }
-          ].map((value) => (
-          <div key={value.title} item>
-            <h4>{value.title}</h4>
-            {state.event.guestList[value.value].map((name) => 
-              <p>{name}</p> 
-          )}
-            
-          </div>
+          ].map((group) => (
+          <UserList 
+            groupName = {group.title}
+            people = {state.event.guestList[group.value]}
+          />
         ))}
       </Grid>
      </TabPanel>
