@@ -42,8 +42,8 @@ export default function InteractiveList() {
   const classes = useStyles();
   const [dense, setDense] = React.useState(false);
   const [secondary, setSecondary] = React.useState(false);
-  const [state, dispatch] = useStoreContext();
-  console.log(state);
+  // const [state, dispatch] = useStoreContext();
+  // console.log(state);
 
   return (
     <div className={classes.root}>
