@@ -1,8 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Events } from "./pages/events";
-
-import { Recipe } from "./pages/recipe";
+import Recipe  from "./pages/recipe";
 import Login from "./pages/Login/index";
 import Profile from "./pages/Profile/index";
 import CreateUser from "./pages/CreateUser/index";

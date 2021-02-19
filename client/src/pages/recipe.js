@@ -1,20 +1,5 @@
 import React from "react";
-// import Container from '@material-ui/core/Container';
-
-// export const Recipe = () => {
-//     return (
-//       <Container fluid>
-//         <h1>
-//           Welcome to the Recipe page! This page will display recipes that match a users search criteria.
-          
-//           A user will get here from the EVENTS/MENU page.
-          
-//         </h1>
-        
-//       </Container>
-//     );
-//   };
-
+import { StoreProvider, useStoreContext } from "../utils/globalState";
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -57,28 +42,16 @@ export default function InteractiveList() {
   const classes = useStyles();
   const [dense, setDense] = React.useState(false);
   const [secondary, setSecondary] = React.useState(false);
+  const [state, dispatch] = useStoreContext();
+  console.log(state);
 
   return (
     <div className={classes.root}>
-      <FormGroup row>
-        <FormControlLabel
-          control={
-            <Checkbox checked={dense} onChange={(event) => setDense(event.target.checked)} />
-          }
-          label="Enable dense"
-        />
-        <FormControlLabel
-          control={
-            <Checkbox
-              checked={secondary}
-              onChange={(event) => setSecondary(event.target.checked)}
-            />
-          }
-          label="Enable secondary text"
-        />
-      </FormGroup>
       <Grid container spacing={2}>
         <Grid item xs={12} md={6}>
+        <Typography variant="h6" className={classes.title}>
+          Search Results For {  }
+          </Typography>
           <Typography variant="h6" className={classes.title}>
             Text only
           </Typography>
@@ -90,77 +63,6 @@ export default function InteractiveList() {
                     primary="Single-line item"
                     secondary={secondary ? 'Secondary text' : null}
                   />
-                </ListItem>,
-              )}
-            </List>
-          </div>
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <Typography variant="h6" className={classes.title}>
-            Icon with text
-          </Typography>
-          <div className={classes.demo}>
-            <List dense={dense}>
-              {generate(
-                <ListItem>
-                  <ListItemIcon>
-                    <FolderIcon />
-                  </ListItemIcon>
-                  <ListItemText
-                    primary="Single-line item"
-                    secondary={secondary ? 'Secondary text' : null}
-                  />
-                </ListItem>,
-              )}
-            </List>
-          </div>
-        </Grid>
-      </Grid>
-      <Grid container spacing={2}>
-        <Grid item xs={12} md={6}>
-          <Typography variant="h6" className={classes.title}>
-            Avatar with text
-          </Typography>
-          <div className={classes.demo}>
-            <List dense={dense}>
-              {generate(
-                <ListItem>
-                  <ListItemAvatar>
-                    <Avatar>
-                      <FolderIcon />
-                    </Avatar>
-                  </ListItemAvatar>
-                  <ListItemText
-                    primary="Single-line item"
-                    secondary={secondary ? 'Secondary text' : null}
-                  />
-                </ListItem>,
-              )}
-            </List>
-          </div>
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <Typography variant="h6" className={classes.title}>
-            Avatar with text and icon
-          </Typography>
-          <div className={classes.demo}>
-            <List dense={dense}>
-              {generate(
-                <ListItem>
-                  <ListItemAvatar>
-                    <Avatar>
-                      <FolderIcon />
-                    </Avatar>
-                  </ListItemAvatar>
-                  <ListItemText
-                    primary="Single-line item"
-                    secondary={secondary ? 'Secondary text' : null}
-                  />
-                  <ListItemSecondaryAction>
-                    <IconButton edge="end" aria-label="delete">
-                      <DeleteIcon />
-                    </IconButton>
-                  </ListItemSecondaryAction>
                 </ListItem>,
               )}
             </List>
