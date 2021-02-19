@@ -29,7 +29,7 @@ if (process.env.NODE_ENV === "production") {
 }
 
 //Logger Middleware for Development
-app.use(morgan("tiny"));
+// app.use(morgan("tiny"));
 
 app.use(
   session({
@@ -43,11 +43,11 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Just for development logging
-app.use((req, res, next) => {
-  console.log("req.session", req.session);
-  console.log("req.user", req.user);
-  return next();
-});
+// app.use((req, res, next) => {
+//   console.log("req.session", req.session);
+//   console.log("req.user", req.user);
+//   return next();
+// });
 
 // Auth Routes
 const authRoute = require("./routes/auth/authRoute");
