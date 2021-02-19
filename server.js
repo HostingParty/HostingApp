@@ -10,8 +10,11 @@ const session = require("express-session");
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+const isProduction = process.env.NODE_ENV === 'production';
+const dbConnection = isProduction ? process.env.MONGO_URI_PROD : "mongodb://localhost:27017/HostParty";
+
 const connectDB = async () => {
-  const connection = await mongoose.connect("mongodb://localhost:27017/HostParty", {
+  const connection = await mongoose.connect(dbConnection, {
     useNewUrlParser: true,
     useCreateIndex: true,
     useFindAndModify: false,
