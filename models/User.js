@@ -18,11 +18,20 @@ const UserSchema = new mongoose.Schema(
     phone: {
       type: String,
       required: true,
+      unique: true,
+      validate: {
+        validator: (phone) => User.doesNotExist({ phone }),
+        message: "Phone number already exists",
+      },
     },
     email: {
       type: String,
       match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, "Please add a valid email"],
       unique: true,
+      validate: {
+        validator: (email) => User.doesNotExist({ email }),
+        message: "Email already exists",
+      },
       required: true,
     },
     password: {
@@ -90,11 +99,12 @@ UserSchema.pre("save", function (next) {
   });
 });
 
-UserSchema.methods.comparePassword = function (candidatePassword, cb) {
-  bcrypt.compare(candidatePassword, this.password, function (err, isMatch) {
-    if (err) return cb(err);
-    cb(null, isMatch);
-  });
+UserSchema.statics.doesNotExist = async function (field) {
+  return (await this.where(field).countDocuments()) === 0;
+};
+
+UserSchema.methods.comparePassword = function (candidatePassword) {
+  return bcrypt.compareSync(candidatePassword, this.password);
 };
 
 const User = mongoose.model("User", UserSchema);

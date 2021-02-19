@@ -161,7 +161,7 @@ export default function PersistentDrawerRight() {
         </div>
         <Divider />
           <List>
-            <ListItem component={ Link } to="/events"> 
+            <ListItem component={ Link } to="/createEvent"> 
               Events
             </ListItem>
             <ListItem component={ Link } to="/profile">
@@ -170,7 +170,10 @@ export default function PersistentDrawerRight() {
             <ListItem component={ Link } to="/recipe">
               Recipes
             </ListItem>
-            <ListItem>
+            <ListItem component={ Link } to="/login">
+              Login
+            </ListItem>           
+            <ListItem component={ Link } to="/">
               Log Out
             </ListItem>
           </List>
