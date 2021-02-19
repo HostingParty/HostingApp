@@ -1,9 +1,10 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Events } from "./pages/events";
-import { Profile } from "./pages/profile";
+
 import { Recipe } from "./pages/recipe";
 import Login from "./pages/Login/index";
+import Profile from "./pages/Profile/index";
 import CreateUser from "./pages/CreateUser/index";
 import CreateEvent from "./pages/CreateEvent/index";
 import logo from "./logo.svg";
@@ -32,6 +33,7 @@ function App() {
         </Store>
       </div>
     </Router>
+
     // <div className="App">
 
     //   <Nav />
