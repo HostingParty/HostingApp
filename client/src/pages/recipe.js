@@ -17,6 +17,26 @@ import Typography from '@material-ui/core/Typography';
 import FolderIcon from '@material-ui/icons/Folder';
 import DeleteIcon from '@material-ui/icons/Delete';
 
+
+const Events = {
+  menu: {
+    apps: ["Chips", "Dip", "Salsa"],
+    sides: ["Green Salad", "Bread sticks"],
+    mains: ["Turducken"]
+  }
+}
+
+const Recipe = () => {
+  return (
+    <>
+      <h1>apps</h1>
+      {
+        events.menu.apps.map(i => <span> {i} </span>)
+      }
+    </>
+  )
+}
+
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -29,6 +49,9 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(4, 0, 2),
   },
 }));
+
+
+
 
 function generate(element) {
   return [0, 1, 2].map((value) =>
