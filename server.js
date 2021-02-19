@@ -5,7 +5,7 @@ const app = express();
 const mongoose = require("mongoose");
 const passport = require("./config/passport");
 const session = require("express-session");
-const morgan = require("morgan");
+// const morgan = require("morgan");
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
