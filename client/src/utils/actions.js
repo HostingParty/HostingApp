@@ -12,3 +12,4 @@
 export const ADD_INVITE = "ADD_INVITE";
 export const REMOVE_INVITE = "REMOVE_INVITE";
 export const LOADING = "LOADING";
+export const SET_USER = "SET_USER";
