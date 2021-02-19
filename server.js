@@ -11,7 +11,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 const isProduction = process.env.NODE_ENV === 'production';
-const dbConnection = isProduction ? process.env.MONGO_URI : "mongodb://localhost:27017/HostParty";
+const dbConnection = isProduction ? process.env.MONGODB_URI : "mongodb://localhost:27017/HostParty";
 
 const connectDB = async () => {
   const connection = await mongoose.connect(dbConnection, {
