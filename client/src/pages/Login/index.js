@@ -5,14 +5,7 @@ import API from "../../utils/API";
 import { Context } from "../../utils/Store";
 import { useHistory } from "react-router-dom";
 
-<<<<<<< HEAD
-class Login extends React.Component {
-  constructor(props) {
-    super(props);
 
-    this.state = { email: "", password: "", authflag: 1 };
-  }
-=======
 const Login = () => {
   const [userLoginInfo, setUserLoginInfo] = useState({});
   const [error, setError] = useState();
@@ -24,7 +17,6 @@ const Login = () => {
     let path = "/profile";
     history.push(path);
   };
->>>>>>> develop
 
   const handleChange = (event) => {
     let { name } = event.target;
@@ -104,17 +96,9 @@ const Login = () => {
             </Paper>
           </Grid>
         </Grid>
-<<<<<<< HEAD
-      </div>
-    );
-  }
-}
-export default Login;
-=======
       </Grid>
     </div>
   );
 };
 
 export default Login;
->>>>>>> develop
