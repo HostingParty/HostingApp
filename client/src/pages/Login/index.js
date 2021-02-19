@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import "./style.css";
 import { Button, TextField, Grid, Paper, Typography } from "@material-ui/core";
 import API from "../../utils/API";
@@ -6,18 +6,10 @@ import API from "../../utils/API";
 import { useStoreContext } from "../../utils/globalState";
 import { useHistory } from "react-router-dom";
 
-
 const Login = () => {
   const [userLoginInfo, setUserLoginInfo] = useState({});
   const [error, setError] = useState();
-  const [state, dispatch] = useContext(useStoreContext);
-
-
-  const history = useHistory();
-  const routeChange = () => {
-    let path = "/profile";
-    history.push(path);
-  };
+  const [state, dispatch] = useStoreContext();
 
   const handleChange = (event) => {
     let { name } = event.target;
@@ -32,14 +24,17 @@ const Login = () => {
       password,
     };
 
-    let response = await API.login(user);
+    try {
+      let response = await API.login(user);
+      const { _id } = response.data;
 
-    const { _id } = response.data;
-    // Will need to add the login response which returns userId to the global state?
-    if (_id) {
-      dispatch({ type: "SET_USER", payload: { id: _id } });
-    } else {
-      setError({ message: "This email address is not registered" });
+      if (_id) {
+        dispatch({ type: "SET_USER", payload: { id: _id } });
+      } else {
+        setError({ message: "This email address is not registered" });
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
 
