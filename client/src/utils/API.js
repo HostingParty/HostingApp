@@ -10,19 +10,19 @@ exports.registerUser = function (user) {
 };
 
 exports.getUserInfo = function (id) {
-  return axios.get("/api/v1/user/" + id);
+  return axios.get("/api/v1/users/" + id);
 };
 
 exports.updateUserInfo = function (id, body) {
-  return axios.put("/api/v1/user/" + id, body);
+  return axios.put("/api/v1/users/" + id, body);
 };
 
 exports.updateUserPw = function (id, body) {
-  return axios.put("/api/v1/user/pw/" + id, body);
+  return axios.put("/api/v1/users/pw/" + id, body);
 };
 
 exports.deleteUser = function (id) {
-  return axios.delete("/api/v1/user/" + id);
+  return axios.delete("/api/v1/users/" + id);
 };
 
 // Events
