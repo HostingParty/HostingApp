@@ -1,88 +1,30 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./style.css";
-import NavBar from "../../components/Nav/index";
-import {
-  Button,
-  TextField,
-  Grid,
-  Paper,
-  AppBar,
-  Typography,
-  Toolbar,
-  Link,
-  IconButton,
-  Badge,
-} from "@material-ui/core";
-import MailIcon from "@material-ui/icons/Mail";
+import { Button, TextField, Grid, Paper, Typography } from "@material-ui/core";
 import API from "../../utils/API";
+import { Context } from "../../utils/Store";
+import { useHistory } from "react-router-dom";
 
-class Login extends React.Component {
-<<<<<<< HEAD
-constructor(props) {
-super(props);
+const Login = () => {
+  const [userLoginInfo, setUserLoginInfo] = useState({});
+  const [error, setError] = useState();
+  const [state, dispatch] = useContext(Context);
 
-}
-render() {
-return (
-<div>
 
-  <NavBar />
-
-<Grid container spacing={0} justify="center" direction="row">
-<Grid item>
-<Grid container direction="column" justify="center" spacing={2} className="login-form"
->
-<Paper variant="elevation" elevation={2} className="login-background"
->
-<Grid item>
-<Typography component="h1" variant="h5">
-Login
-</Typography>
-</Grid>
-<Grid item>
-<form>
-<Grid container direction="column" spacing={2}>
-<Grid item>
-<TextField id="email" type="email" placeholder="Email" fullWidth name="username" variant="outlined" 
-/>
-</Grid>
-<Grid item>
-<TextField id="password" type="password" placeholder="Password" fullWidth name="password" variant="outlined" 
-/>
-</Grid>
-<Grid item>
-<Button id="submitBtn" variant="contained" color="primary" type="submit" className="button-block"
->
-Submit
-</Button>
-</Grid>
-</Grid>
-</form>
-</Grid>
-<Grid item>
-<Link href="#" variant="body2">
-Forgot Password?
-</Link>
-</Grid>
-</Paper>
-</Grid>
-</Grid>
-</Grid>
-=======
-  constructor(props) {
-    super(props);
-
-    this.state = { email: "", password: "", authflag: 1 };
-  }
-
-  handleChange = (event) => {
-    let { name } = event.target;
-    this.setState({ [name]: event.target.value });
+  const history = useHistory();
+  const routeChange = () => {
+    let path = "/profile";
+    history.push(path);
   };
 
-  handleSubmit = async (event) => {
+  const handleChange = (event) => {
+    let { name } = event.target;
+    setUserLoginInfo({ ...userLoginInfo, [name]: event.target.value });
+  };
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    let { email, password } = this.state;
+    let { email, password } = userLoginInfo;
     let user = {
       email,
       password,
@@ -90,69 +32,72 @@ Forgot Password?
 
     let response = await API.login(user);
 
+    const { _id } = response.data;
     // Will need to add the login response which returns userId to the global state?
-    console.log(response);
+    if (_id) {
+      dispatch({ type: "SET_USER", payload: { id: _id } });
+    } else {
+      setError({ message: "This email address is not registered" });
+    }
   };
->>>>>>> develop
 
-  render() {
-    return (
-      <div>
-        <Grid container spacing={0} justify="center" direction="row">
-          <Grid item>
-            <Grid container direction="column" justify="center" spacing={2} className="login-form">
-              <Paper variant="elevation" elevation={2} className="login-background">
-                <Grid item>
-                  <Typography component="h1" variant="h5">
-                    Login to your acccount
-                  </Typography>
-                </Grid>
-                <Grid item>
-                  <form>
-                    <Grid container direction="column" spacing={2}>
-                      <Grid item>
-                        <TextField
-                          id="email"
-                          type="email"
-                          placeholder="Email"
-                          fullWidth
-                          name="email"
-                          variant="outlined"
-                          onChange={(e) => this.handleChange(e)}
-                        />
-                      </Grid>
-                      <Grid item>
-                        <TextField
-                          id="password"
-                          type="password"
-                          placeholder="Password"
-                          fullWidth
-                          name="password"
-                          variant="outlined"
-                          onChange={(e) => this.handleChange(e)}
-                        />
-                      </Grid>
-                      <Grid item>
-                        <Button
-                          id="submitBtn"
-                          variant="contained"
-                          color="primary"
-                          type="submit"
-                          className="button-block"
-                          onClick={(e) => this.handleSubmit(e)}
-                        >
-                          Submit
-                        </Button>
-                      </Grid>
+  return (
+    <div>
+      <Grid container spacing={0} justify="center" direction="row">
+        <Grid item>
+          <Grid container direction="column" justify="center" spacing={2} className="login-form">
+            <Paper variant="elevation" elevation={2} className="login-background">
+              <Grid item>
+                <Typography component="h1" variant="h5">
+                  Login to your acccount
+                </Typography>
+              </Grid>
+              <Grid item>
+                <form>
+                  <Grid container direction="column" spacing={2}>
+                    <Grid item>
+                      <TextField
+                        id="email"
+                        type="email"
+                        placeholder="Email"
+                        fullWidth
+                        name="email"
+                        variant="outlined"
+                        onChange={(e) => handleChange(e)}
+                      />
                     </Grid>
-                  </form>
-                </Grid>
-              </Paper>
-            </Grid>
+                    <Grid item>
+                      <TextField
+                        id="password"
+                        type="password"
+                        placeholder="Password"
+                        fullWidth
+                        name="password"
+                        variant="outlined"
+                        onChange={(e) => handleChange(e)}
+                      />
+                    </Grid>
+                    <Grid item>
+                      <Button
+                        id="submitBtn"
+                        variant="contained"
+                        color="primary"
+                        type="submit"
+                        className="button-block"
+                        onClick={(e) => handleSubmit(e)}
+                      >
+                        Submit
+                      </Button>
+                    </Grid>
+                  </Grid>
+                </form>
+              </Grid>
+            </Paper>
           </Grid>
         </Grid>
-      </div>
-    );
-  }
-}
+      </Grid>
+    </div>
+  );
+};
+
 export default Login;
