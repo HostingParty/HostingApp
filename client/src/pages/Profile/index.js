@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
 function Profile() {
     const classes = useStyles();
     const [state, setState] = React.useState({
-      fish: true,
+      fish: false,
       peanuts: false,
       dary: false,
       chocolate: false,
@@ -54,8 +54,7 @@ function Profile() {
     const { fish, peanuts, dary, chocolate, none, italian, steak, vegies, fingerFoods, pizza } = state;
     const error = [fish, peanuts, dary, chocolate, none, italian, steak, vegies, fingerFoods, pizza].filter((v) => v).length !== 2;
 
-    // const { italian, steak, vegies, fingerFoods, pizza } = state;
-    // const error = [italian, steak, vegies, fingerFoods, pizza].filter((v) => v).length !== 2;
+   
 
     return(
         <div className={classes.root}>
