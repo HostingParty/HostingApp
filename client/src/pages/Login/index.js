@@ -2,13 +2,15 @@ import React, { useContext, useEffect, useState } from "react";
 import "./style.css";
 import { Button, TextField, Grid, Paper, Typography } from "@material-ui/core";
 import API from "../../utils/API";
-import { Context } from "../../utils/Store";
+// import { Context } from "../../utils/Store";
+import { useStoreContext } from "../../utils/globalState";
 import { useHistory } from "react-router-dom";
+
 
 const Login = () => {
   const [userLoginInfo, setUserLoginInfo] = useState({});
   const [error, setError] = useState();
-  const [state, dispatch] = useContext(Context);
+  const [state, dispatch] = useContext(useStoreContext);
 
 
   const history = useHistory();
