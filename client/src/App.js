@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Events } from "./pages/events"
 import { Event } from "./pages/event"; //development only
 import Profile from "./pages/Profile/index";
-import Recipe  from "./pages/recipe";
+import { Recipe, RecipeList }  from "./pages/recipe";
 import logo from './logo.svg';
 import './App.css';
 // import {CreateUser} from "./pages/CreateUser";

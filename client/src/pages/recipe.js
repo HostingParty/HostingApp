@@ -18,24 +18,43 @@ import FolderIcon from '@material-ui/icons/Folder';
 import DeleteIcon from '@material-ui/icons/Delete';
 
 
-const Events = {
-  menu: {
-    apps: ["Chips", "Dip", "Salsa"],
-    sides: ["Green Salad", "Bread sticks"],
-    mains: ["Turducken"]
-  }
-}
+const RecipeList = () => {
+  const [state, dispatch] = useStoreContext();
 
-const Recipe = () => {
-  return (
-    <>
-      <h1>apps</h1>
-      {
-        events.menu.apps.map(i => <span> {i} </span>)
-      }
-    </>
-  )
-}
+  const getRecipes = () => {
+    dispatch({ type: LOADING });
+    dispatch({ type: UPDATE_RECIPES });
+  };
+
+  const removeFromRecipes = id => {
+    dispatch({
+      type: REMOVE_RECIPE,
+      _id: id
+    });
+  };
+
+  useEffect(() => {
+    getRecipes();
+  }, []);
+
+// const Events = {
+//   menu: {
+//     apps: ["Chips", "Dip", "Salsa"],
+//     sides: ["Green Salad", "Bread sticks"],
+//     mains: ["Turducken"]
+//   }
+// }
+
+// const Recipe = () => {
+//   return (
+//     <>
+//       <h1>apps</h1>
+//       {
+//         events.menu.apps.map(i => <span> {i} </span>)
+//       }
+//     </>
+//   )
+// }
 
 const useStyles = makeStyles((theme) => ({
   root: {
