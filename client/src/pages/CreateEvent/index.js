@@ -1,6 +1,7 @@
 import React from "react";
 import "./style.css";
 import NavBar from "../../components/Nav/index";
+import EventList from "../../components/EventList/index";
 import {
 Button,
 TextField,
@@ -49,8 +50,9 @@ function CreateEvent() {
             <div>
             <Grid container spacing={0} justify="center" direction="row">
             
+            <EventList />
             
-            <dl>  
+            {/* <dl>  
             <h3>Upcoming Events</h3>            
               <dt>Dan's BBQ
                 <dd><small>Saturday, Feb 27th @ 2pm</small></dd>
@@ -66,7 +68,7 @@ function CreateEvent() {
               
               <Button variant="outlined" color="primary">View Event</Button>
               
-            </dl>
+            </dl> */}
             </Grid>
             </div>
 
