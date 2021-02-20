@@ -1,5 +1,5 @@
 import React, { createContext, useReducer, useContext } from "react";
-import { ADD_INVITE, REMOVE_INVITE, SET_USER, SET_SELECTED_EVENT } from "./actions";
+import { ADD_INVITE, REMOVE_INVITE, SET_USER, SET_SELECTED_EVENT, SEARCH_RECIPES } from "./actions";
 
 const StoreContext = createContext();
 const { Provider } = StoreContext;
@@ -31,15 +31,26 @@ const reducer = (state, action) => {
         ...state,
         selectedEvent: action.payload,
       };
-
+    case SEARCH_RECIPES:
+      return {
+        ...state,
+        recipeSearchArr: searchRecipies(action.payload.dishType),
+      };
     default:
       return state;
   }
 };
 
+function searchRecipies(dishType) {
+  return //function call to api. return array of recipes
+}
+
 const StoreProvider = ({ value = [], ...props }) => {
   const [state, dispatch] = useReducer(reducer, {
     selectedEvent: "6025e9bba968960008f31a20",
+    user: {
+      
+    },
     event: {
       details: {
         _id: 0,
@@ -50,18 +61,19 @@ const StoreProvider = ({ value = [], ...props }) => {
         notes: "B there or b square.",
       },
       guestList: {
-        pendingInvites: ["Dan", "Ben"],
-        attendingInvites: ["Brandon"],
-        maybeInvites: ["Maranda"],
-        declinedInvites: ["BenTA"],
+        pendingInvites: ["Dan", "Ben"], //will be array of User objects
+        attendingInvites: ["Brandon"], //will be array of User objects
+        maybeInvites: ["Maranda"], //will be array of User objects
+        declinedInvites: ["BenTA"], //will be array of User objects
       },
       menu: {
-        apps: ["Chips", "Dip", "Salsa"],
-        sides: ["Green Salad", "Bread sticks"],
-        mains: ["Turducken"],
+        apps: ["Chips", "Dip", "Salsa"], //will be array of recipe objects
+        sides: ["Green Salad", "Bread sticks"], //will be array of recipe objects
+        mains: ["Turducken"], //will be array of recipe objects
       },
     },
     loading: false,
+    recipeSearchArr: [], //array of recipe objects (from API)
   });
 
   return <Provider value={[state, dispatch]} {...props} />;
