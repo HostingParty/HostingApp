@@ -24,8 +24,17 @@ const Login = () => {
   };
 
   const handleSuccessLogin = async (id) => {
-    dispatch({ type: "SET_USER", payload: { id: id } });
-    setError({ show: false, message: "" });
+    API.getUserInfo(id).then((data) => {
+      let user = data.data.data[0];
+
+      user = {
+        ...user,
+        password: "",
+      };
+
+      dispatch({ type: "SET_USER", payload: user });
+      setError({ show: false, message: "" });
+    });
   };
 
   const handleSubmit = async (event) => {
@@ -42,9 +51,9 @@ const Login = () => {
       const { _id } = response.data;
 
       if (_id) {
-        dispatch({ type: "SET_USER", payload: { id: _id } });
-
-        setError({ show: false, message: "" });
+        handleSuccessLogin(_id).then((data) => {
+          history.push("/profile");
+        });
       } else {
         setError({ show: true, message: response.data.message });
       }
