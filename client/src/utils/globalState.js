@@ -49,7 +49,35 @@ const StoreProvider = ({ value = [], ...props }) => {
   const [state, dispatch] = useReducer(reducer, {
     selectedEvent: "6025e9bba968960008f31a20",
     user: {
-      
+      name: {
+        first: "brandon",
+        last: "hexsel"
+    },
+    allergies: [],
+    preferences: [],
+    favoriteRecipes: [],
+    hosting: [
+        {
+            _id: "6025e9bba968960008f31a21",
+            title: "Chili Quest"
+        }
+    ],
+    pending: [
+        {
+            _id: "6025e9bba968960008f31a20",
+            title: "BBQ Cookoff"
+        }
+    ],
+    accepted: [
+        {
+            _id: "6025e9bba968960008f31a22",
+            title: "Graduation Party"
+        }
+    ],
+    declined: [],
+    _id: "6025eb70e7fba90108abd748",
+    phone: "7134127111",
+    email: "brandon@b.com",
     },
     event: {
       details: {
