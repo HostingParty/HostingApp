@@ -20,3 +20,13 @@ h3 {
     align-items: center;
     justify-content: center;
 }
+.bottom {
+   
+        position: absolute; 
+        bottom: 300px; 
+        margin-left: 400px;
+  
+}
+.floatR {
+    float: right;
+}

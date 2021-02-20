@@ -3,6 +3,8 @@ import "./style.css";
 import NavBar from "../../components/Nav/index";
 import { makeStyles } from "@material-ui/core/styles";
 import Avatar from "../../components/Avatar/index";
+import EventList from "../../components/EventList/index";
+import EventCard from "../../components/EventCard/index";
 import {
 Button,
 TextField,
@@ -21,15 +23,27 @@ FormControlLabel,
 FormHelperText,
 Checkbox,
 } from "@material-ui/core";
+import SaveIcon from '@material-ui/icons/Save';
 
 const useStyles = makeStyles((theme) => ({
     root: {
       display: 'flex',
     },
+   
     formControl: {
       margin: theme.spacing(3),
     },
+    button: {
+      margin: theme.spacing(1),
+    },
+    bottom: {
+      position: "absolute", 
+        bottom: "150px", 
+        marginLeft: "400px"
+    }
   }));
+
+  
   
   
 function Profile() {
@@ -59,10 +73,13 @@ function Profile() {
     return(
         <div className={classes.root}>
         <NavBar />
-        <h2>Welcome <small>"User Name"</small></h2>
+
+        <h2>Welcome</h2>
+        
+        <h2><small>"User Name"</small></h2>
         <Avatar />
      
-                
+          <div>    
         <Grid container spacing={0} justify="center" direction="row">
         
         <FormControl component="fieldset" className={classes.formControl}>
@@ -120,6 +137,28 @@ function Profile() {
         <FormHelperText></FormHelperText>
       </FormControl> 
       </Grid>
+      </div>  
+      {/* <div className="bottom">
+      <Grid item xs={3} direction="row">
+          <Button
+        variant="contained"
+        color="primary"
+        size="small"
+        className={classes.button}
+        startIcon={<SaveIcon />}
+      >
+        Save
+      </Button>
+      </Grid>
+      </div> */}
+
+    <div className={classes.bottom}>
+      <EventList />
+      </div>
+
+      <div className="floatR">
+        <EventCard />
+      </div>
         </div>
     )
 }
