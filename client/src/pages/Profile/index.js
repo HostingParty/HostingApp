@@ -35,10 +35,7 @@ const useStyles = makeStyles((theme) => ({
 
 function Profile() {
   const classes = useStyles();
-  const [profile, setProfile] = React.useState({});
   const [userState, dispatch] = useStoreContext();
-
-  const userId = userState.user.id;
 
   const [state, setState] = React.useState({
     fish: true,
@@ -52,14 +49,6 @@ function Profile() {
     fingerFoods: false,
     pizza: false,
   });
-
-  useEffect(() => {
-    API.getUserInfo(userId).then((profileInfo) => {
-      let data = profileInfo.data.data[0];
-      console.log(data);
-      setProfile(data);
-    });
-  }, [userState]);
 
   const handleChange = (event) => {
     setState({ ...state, [event.target.name]: event.target.checked });
@@ -78,7 +67,7 @@ function Profile() {
       <h2>
         Welcome{" "}
         <small>
-          {profile.name.first} {profile.name.last}
+          {userState.user.name.first} {userState.user.name.last}
         </small>
       </h2>
       <Avatar />
