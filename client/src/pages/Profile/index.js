@@ -47,6 +47,7 @@ const useStyles = makeStyles((theme) => ({
   
   
 function Profile() {
+<<<<<<< HEAD
     const classes = useStyles();
     const [state, setState] = React.useState({
       fish: false,
@@ -67,6 +68,27 @@ function Profile() {
   
     const { fish, peanuts, dary, chocolate, none, italian, steak, vegies, fingerFoods, pizza } = state;
     const error = [fish, peanuts, dary, chocolate, none, italian, steak, vegies, fingerFoods, pizza].filter((v) => v).length !== 2;
+=======
+  const classes = useStyles();
+  const [userState, dispatch] = useStoreContext();
+
+  const [state, setState] = React.useState({
+    fish: true,
+    peanuts: false,
+    dary: false,
+    chocolate: false,
+    none: false,
+    italian: false,
+    steak: false,
+    vegies: false,
+    fingerFoods: false,
+    pizza: false,
+  });
+
+  const handleChange = (event) => {
+    setState({ ...state, [event.target.name]: event.target.checked });
+  };
+>>>>>>> develop
 
    
 
@@ -74,6 +96,7 @@ function Profile() {
         <div className={classes.root}>
         <NavBar />
 
+<<<<<<< HEAD
         <h2>Welcome</h2>
         
         <h2><small>"User Name"</small></h2>
@@ -82,6 +105,20 @@ function Profile() {
           <div>    
         <Grid container spacing={0} justify="center" direction="row">
         
+=======
+  return (
+    <div className={classes.root}>
+      <NavBar />
+      <h2>
+        Welcome{" "}
+        <small>
+          {userState.user.name.first} {userState.user.name.last}
+        </small>
+      </h2>
+      <Avatar />
+
+      <Grid container spacing={0} justify="center" direction="row">
+>>>>>>> develop
         <FormControl component="fieldset" className={classes.formControl}>
         <FormLabel component="legend">Allergies</FormLabel>
         <FormGroup>
