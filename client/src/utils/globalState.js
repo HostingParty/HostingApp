@@ -34,14 +34,14 @@ const reducer = (state, action) => {
     case SEARCH_RECIPES:
       return {
         ...state,
-        recipeSearchArr: searchRecipies(action.payload.dishType),
+        recipeSearchArr: searchRecipes(action.payload.dishType),
       };
     default:
       return state;
   }
 };
 
-function searchRecipies(dishType) {
+function searchRecipes(dishType) {
   return //function call to api. return array of recipes
 }
 

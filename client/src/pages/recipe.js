@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import API from "../utils/API";
+import { useLocation } from "react-router-dom";
 import { StoreProvider, useStoreContext } from "../utils/globalState";
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
@@ -6,46 +8,49 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
+import { LOADING, SEARCH_RECIPES, ADD_RECIPE } from "../utils/actions";
 
 
-// const RecipeList = () => {
-//   const [state, dispatch] = useStoreContext();
+export function Recipe () {
+  const [value, setValue] = React.useState(0);
+  const [state, dispatch] = useStoreContext();
 
-//   const getRecipes = () => {
-//     dispatch({ type: LOADING });
-//     dispatch({ type: UPDATE_RECIPES });
-//   };
+  const Events = {
+    menu: {
+      apps: ["Chips", "Dip", "Salsa"],
+      sides: ["Green Salad", "Bread sticks"],
+      mains: ["Turducken"]
+    }
+  }
 
-//   const removeFromRecipes = id => {
-//     dispatch({
-//       type: REMOVE_RECIPE,
-//       _id: id
-//     });
-//   };
+  const RecipeList = () => {
+    const [state, dispatch] = useStoreContext();
+    const searchRecipes = () => {
+      dispatch({ type: LOADING });
+      dispatch({ type: ADD_RECIPE });
+        return (
+          <>
+            <h1>apps</h1>
+            {
+              //map over recipeSearchArr -> this will map over the recipes coming from the search results from edemam
+              state.events.menu.apps.map(i => <span> {i} </span>)
+            }
+          </>
+        )
+    };
 
-//   useEffect(() => {
-//     getRecipes();
-//   }, []);
+    useEffect(() => {
+      searchRecipes(); 
+    }, [state]);
+  
+    const handleChange = (event, newValue) => {
+      setValue(newValue);
+    };
+}};
 
-// const Events = {
-//   menu: {
-//     apps: ["Chips", "Dip", "Salsa"],
-//     sides: ["Green Salad", "Bread sticks"],
-//     mains: ["Turducken"]
-//   }
-// }
-
-// const Recipe = () => {
-//   return (
-//     <>
-//       <h1>apps</h1>
-//       {
-//         events.menu.apps.map(i => <span> {i} </span>)
-//       }
-//     </>
-//   )
-// }
-
+///////////////////////////  /////////////////////////////
+///////////////////////////  /////////////////////////////
+///////////////////////////  /////////////////////////////
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -59,8 +64,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-
-
 function generate(element) {
   return [0, 1, 2].map((value) =>
     React.cloneElement(element, {
@@ -69,7 +72,7 @@ function generate(element) {
   );
 }
 
-export default function InteractiveList() {
+export function InteractiveList() {
   const classes = useStyles();
   const [dense, setDense] = React.useState(false);
   const [secondary, setSecondary] = React.useState(false);
