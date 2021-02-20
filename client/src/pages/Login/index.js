@@ -12,6 +12,7 @@ const Login = () => {
   const [error, setError] = useState({ show: false, message: "" });
   const [isBtnDisabled, setIsBtnDisabled] = useState(true);
   const [state, dispatch] = useStoreContext();
+  const history = useHistory();
 
   const handleChange = (event) => {
     let { name } = event.target;
@@ -20,6 +21,20 @@ const Login = () => {
     if (userLoginInfo.email && userLoginInfo.password) {
       setIsBtnDisabled(false);
     }
+  };
+
+  const handleSuccessLogin = async (id) => {
+    API.getUserInfo(id).then((data) => {
+      let user = data.data.data[0];
+
+      user = {
+        ...user,
+        password: "",
+      };
+
+      dispatch({ type: "SET_USER", payload: user });
+      setError({ show: false, message: "" });
+    });
   };
 
   const handleSubmit = async (event) => {
@@ -36,8 +51,9 @@ const Login = () => {
       const { _id } = response.data;
 
       if (_id) {
-        dispatch({ type: "SET_USER", payload: { id: _id } });
-        setError({ show: false, message: "" });
+        handleSuccessLogin(_id).then((data) => {
+          history.push("/profile");
+        });
       } else {
         setError({ show: true, message: response.data.message });
       }
