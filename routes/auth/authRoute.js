@@ -2,8 +2,21 @@ const express = require("express");
 const router = express.Router();
 const passport = require("../../config/passport");
 
-router.post("/auth/login", passport.authenticate("local"), (req, res) => {
-  res.json(req.user);
+router.post("/auth/login", (req, res, next) => {
+  passport.authenticate("local", (err, user, info) => {
+    if (err) {
+      return next(err);
+    }
+    if (!user) {
+      return res.json({ message: info.message });
+    }
+    req.logIn(user, function (err) {
+      if (err) {
+        return next(err);
+      }
+      return res.json(req.user);
+    });
+  })(req, res, next);
 });
 
 router.get("/auth/logout", (req, res) => {
