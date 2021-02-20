@@ -1,5 +1,5 @@
 import React, { createContext, useReducer, useContext } from "react";
-import { ADD_INVITE, REMOVE_INVITE, SET_USER } from "./actions";
+import { ADD_INVITE, REMOVE_INVITE, SET_USER, SET_SELECTED_EVENT } from "./actions";
 
 const StoreContext = createContext();
 const { Provider } = StoreContext;
@@ -26,6 +26,12 @@ const reducer = (state, action) => {
         user: action.payload,
       };
 
+    case SET_SELECTED_EVENT:
+      return {
+        ...state,
+        selectedEvent: action.payload,
+      };
+
     default:
       return state;
   }
@@ -33,6 +39,7 @@ const reducer = (state, action) => {
 
 const StoreProvider = ({ value = [], ...props }) => {
   const [state, dispatch] = useReducer(reducer, {
+    selectedEvent: "6025e9bba968960008f31a20",
     event: {
       details: {
         _id: 0,
