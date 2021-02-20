@@ -1,9 +1,5 @@
 import React, { createContext, useReducer, useContext } from "react";
-import {
-  ADD_INVITE,
-  REMOVE_INVITE
-} from "./actions";
-
+import { ADD_INVITE, REMOVE_INVITE, SET_USER } from "./actions";
 
 const StoreContext = createContext();
 const { Provider } = StoreContext;
@@ -14,19 +10,25 @@ const reducer = (state, action) => {
       return {
         ...state,
         pendingInvites: [action.post, ...state.pendingInvites],
-        loading: false
+        loading: false,
       };
 
     case REMOVE_INVITE:
       return {
         ...state,
         pendingInvites: [...state.pendingInvites],
-        loading: false
+        loading: false,
+      };
+
+    case SET_USER:
+      return {
+        ...state,
+        user: action.payload,
       };
 
     default:
       return state;
-    }
+  }
 };
 
 const StoreProvider = ({ value = [], ...props }) => {
@@ -38,7 +40,7 @@ const StoreProvider = ({ value = [], ...props }) => {
         date: "2/16/2021",
         time: "noon",
         address: "101 NE 45th 981226",
-        notes: "B there or b square."
+        notes: "B there or b square.",
       },
       guestList: {
         pendingInvites: ["Dan", "Ben"],
@@ -49,10 +51,10 @@ const StoreProvider = ({ value = [], ...props }) => {
       menu: {
         apps: ["Chips", "Dip", "Salsa"],
         sides: ["Green Salad", "Bread sticks"],
-        mains: ["Turducken"]
-      }
+        mains: ["Turducken"],
+      },
     },
-      loading: false
+    loading: false,
   });
 
   return <Provider value={[state, dispatch]} {...props} />;

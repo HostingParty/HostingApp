@@ -12,6 +12,4 @@
 export const ADD_INVITE = "ADD_INVITE";
 export const REMOVE_INVITE = "REMOVE_INVITE";
 export const LOADING = "LOADING";
-export const VIEW_RECIPE = "ADD_RECIPE";
-export const REMOVE_RECIPE = "REMOVE_RECIPE";
-export const UPDATE_RECIPE = "UPDATE_RECIPE";
+export const SET_USER = "SET_USER";
