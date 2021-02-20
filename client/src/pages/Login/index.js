@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import "./style.css";
 import { Button, TextField, Grid, Paper, Typography } from "@material-ui/core";
+import Alert from "@material-ui/lab/Alert";
 import API from "../../utils/API";
 // import { Context } from "../../utils/Store";
 import { useStoreContext } from "../../utils/globalState";
@@ -8,12 +9,17 @@ import { useHistory } from "react-router-dom";
 
 const Login = () => {
   const [userLoginInfo, setUserLoginInfo] = useState({});
-  const [error, setError] = useState();
+  const [error, setError] = useState({ show: false, message: "" });
+  const [isBtnDisabled, setIsBtnDisabled] = useState(true);
   const [state, dispatch] = useStoreContext();
 
   const handleChange = (event) => {
     let { name } = event.target;
     setUserLoginInfo({ ...userLoginInfo, [name]: event.target.value });
+
+    if (userLoginInfo.email && userLoginInfo.password) {
+      setIsBtnDisabled(false);
+    }
   };
 
   const handleSubmit = async (event) => {
@@ -26,12 +32,14 @@ const Login = () => {
 
     try {
       let response = await API.login(user);
+
       const { _id } = response.data;
 
       if (_id) {
         dispatch({ type: "SET_USER", payload: { id: _id } });
+        setError({ show: false, message: "" });
       } else {
-        setError({ message: "This email address is not registered" });
+        setError({ show: true, message: response.data.message });
       }
     } catch (error) {
       console.log(error);
@@ -49,6 +57,11 @@ const Login = () => {
                   Login to your acccount
                 </Typography>
               </Grid>
+              {error.show && (
+                <Alert variant="outlined" severity="warning">
+                  {error.message}
+                </Alert>
+              )}
               <Grid item>
                 <form>
                   <Grid container direction="column" spacing={2}>
@@ -81,9 +94,10 @@ const Login = () => {
                         color="primary"
                         type="submit"
                         className="button-block"
+                        disabled={isBtnDisabled}
                         onClick={(e) => handleSubmit(e)}
                       >
-                        Submit
+                        Login
                       </Button>
                     </Grid>
                   </Grid>

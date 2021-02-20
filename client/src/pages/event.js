@@ -4,7 +4,6 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import { useLocation } from "react-router-dom";
 import Container from "@material-ui/core/Container";
 import PropTypes from "prop-types";
-import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
@@ -16,7 +15,7 @@ import Grid from "@material-ui/core/Grid";
 import Card from "@material-ui/core/Card";
 
 import { useStoreContext } from "../utils/globalState";
-import { REMOVE_INVITE, ADD_INVITE, LOADING, SET_SELECTED_EVENT } from "../utils/actions";
+import { LOADING, SEARCH_RECIPES } from "../utils/actions";
 
 import UserList from "../components/UserList";
 
@@ -53,39 +52,11 @@ function a11yProps(index) {
   };
 }
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-    backgroundColor: theme.palette.background.paper,
-  },
-  paper: {
-    height: 140,
-    width: 100,
-  },
-}));
-
 export function Event() {
-  // const classes = useStyles();
   const [value, setValue] = React.useState(0);
   // const [eventInfo, setEventInfo] = React.useState();
 
   const [state, dispatch] = useStoreContext();
-
-  const getFavorites = () => {
-    dispatch({ type: LOADING });
-    // dispatch({ type: UPDATE_FAVORITES });
-  };
-
-  // const removeFromFavorites = id => {
-  //   dispatch({
-  //     type: REMOVE_FAVORITE,
-  //     _id: id
-  //   });
-  // };
-
-  useEffect(() => {
-    getFavorites();
-  }, []);
 
   // Global State for selectedEvent set once "View Event Button" is pressed.
   useEffect(() => {
@@ -108,25 +79,36 @@ export function Event() {
     setValue(newValue);
   };
 
+  function redirectRouter(route) {
+    if (route == "recipe") {
+      // return <Redirect to="recipe" />
+    }
+    // else return <Redirect to="/" />
+  }
+
   return (
-      <Container fluid>
-        <h1>Event Page!</h1>
+      <Container fluid="true">
+        <Typography variant="h4">
+          {state.event.details.name}
+        </Typography>
+
         <AppBar position="static">
           <Tabs value={value} centered onChange={handleChange} aria-label="event tabs for sections">
-            <Tab label="Event Details" {...a11yProps(0)} />
-            <Tab label="Guest List" {...a11yProps(1)} />
+            <Tab label="Details" {...a11yProps(0)} />
+            <Tab label="Guests" {...a11yProps(1)} />
             <Tab label="Menu" {...a11yProps(2)} />
           </Tabs>
         </AppBar>
         <TabPanel value={value} index={0}>
-          {/* <h4>Name: {eventInfo.title}</h4>
-          <h4>Date: {eventInfo.eventDate}</h4> */}
-          <h4>Name: {state.event.details.name}</h4>
-          <h4>Date: {state.event.details.date}</h4>
-          <h4>Time: {state.event.details.time}</h4>
-          <h4>Address: {state.event.details.address}</h4>
-          {/* <p>Description: {eventInfo.description}</p> */}
-           <p>Description: {state.event.details.notes}</p>
+            {/* <h4>Date: {state.event.details.date}</h4>
+            <h4>Time: {state.event.details.time}</h4>
+            <h4>Address: {state.event.details.address}</h4> */}
+            {/* <p>Description: {eventInfo.description}</p> */}
+           {/* <p>Description: {state.event.details.notes}</p> */}
+          <Typography variant="h6">
+            Description: {state.event.details.notes}
+          </Typography>
+
         </TabPanel>
         <TabPanel value={value} index={1}>
           <Grid container justify="center">
@@ -142,33 +124,46 @@ export function Event() {
         </TabPanel>
         <TabPanel value={value} index={2}>
           <Grid container spacing={3}>
-              <Grid item xs={12}>
-                <h2>Apps</h2>
-                <Button id="addApp" variant="contained" color="primary" onClick={() => { alert('clicked') }}>Add App</Button>
-              </Grid>
-              <Grid item xs={12}>
-                {state.event.menu.apps.map((item) => (
-                  <li key={item.toString()}>{item}</li>
-                ))}
-              </Grid>
-              <Grid item xs={12}>
-                <h2>Sides</h2>
-                <Button id="addSide" variant="contained" color="primary" onClick={() => { alert('clicked') }}>Add Side</Button>
-              </Grid>
-              <Grid item xs={12}>
-                {state.event.menu.sides.map((item) => (
-                  <li key={item.toString()}>{item}</li>
-                ))}
-              </Grid>
-              <Grid item xs={12}>
-                <h2>Main Dishes</h2>
-                <Button id="addMain" variant="contained" color="primary" onClick={() => { alert('clicked') }}>Add Main Dish</Button>
-              </Grid>
-              <Grid item xs={12}>
-                {state.event.menu.mains.map((item) => (
-                  <li key={item.toString()}>{item}</li>
-                ))}
-              </Grid>
+            <Grid container item xs={8} spacing={1}>
+              <h2>Apps</h2>
+            </Grid>
+            <Grid container item xs={4} spacing={1}>
+              <Button variant="contained" color="primary" 
+                onClick={() => dispatch({ type: SEARCH_RECIPES, payload: {dishType: "Starter"}} )}
+                >Add App
+              </Button>
+            </Grid>
+            <Grid item xs={12}>
+              {state.event.menu.apps.map((item) => (
+                <li key={item.toString()}>{item}</li>
+              ))}
+            </Grid>
+            <Grid container item xs={8} spacing={1}>
+              <h2>Sides</h2>
+            </Grid>
+            <Grid container item xs={4} spacing={1}>
+              <Button variant="contained" color="primary" 
+                onClick={() => dispatch({ type: SEARCH_RECIPES, payload: {dishType: "Preps"}} )}>Add Side
+              </Button>
+            </Grid>
+            <Grid item xs={12}>
+              {state.event.menu.sides.map((item) => (
+                <li key={item.toString()}>{item}</li>
+              ))}
+            </Grid>
+            <Grid container item xs={8} spacing={1}>
+              <h2>Main Dishes</h2>
+            </Grid>
+            <Grid container item xs={4} spacing={1}>
+              <Button variant="contained" color="primary" 
+                onClick={() => dispatch({ type: SEARCH_RECIPES, payload: {dishType: "Main course"}} )}>Add Main
+              </Button>
+            </Grid>
+            <Grid item xs={12}>
+              {state.event.menu.mains.map((item) => (
+                <li key={item.toString()}>{item}</li>
+              ))}
+            </Grid>
           </Grid> 
         </TabPanel>
       </Container>
