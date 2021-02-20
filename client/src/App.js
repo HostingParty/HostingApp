@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Event } from "./pages/event"; //development only
 import Profile from "./pages/Profile/index";
-import Recipe from "./pages/recipe";
+import Recipe from "./pages/RecipeResults";
 import './App.css';
 // import {CreateUser} from "./pages/CreateUser";
 import CreateEvent from "./pages/CreateEvent/index"
