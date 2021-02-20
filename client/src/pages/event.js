@@ -10,6 +10,7 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
+import Button from "@material-ui/core/Button";
 
 import Grid from "@material-ui/core/Grid";
 import Card from "@material-ui/core/Card";
@@ -64,9 +65,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export function Event() {
-  const classes = useStyles();
+  // const classes = useStyles();
   const [value, setValue] = React.useState(0);
-  const [eventInfo, setEventInfo] = React.useState();
+  // const [eventInfo, setEventInfo] = React.useState();
 
   const [state, dispatch] = useStoreContext();
 
@@ -94,7 +95,7 @@ export function Event() {
 
         // Set current event page with this event data
         console.log(eventData);
-        setEventInfo(eventData);
+        // setEventInfo(eventData);
       })
       .catch((err) => {
         console.log(err);
@@ -108,7 +109,6 @@ export function Event() {
   };
 
   return (
-    <div className={classes.root}>
       <Container fluid>
         <h1>Event Page!</h1>
         <AppBar position="static">
@@ -119,11 +119,14 @@ export function Event() {
           </Tabs>
         </AppBar>
         <TabPanel value={value} index={0}>
-          <h4>Name: {eventInfo.title}</h4>
-          <h4>Date: {eventInfo.eventDate}</h4>
-          <h4>Time: </h4>
-          <h4>Address: </h4>
-          <p>Description: {eventInfo.description}</p>
+          {/* <h4>Name: {eventInfo.title}</h4>
+          <h4>Date: {eventInfo.eventDate}</h4> */}
+          <h4>Name: {state.event.details.name}</h4>
+          <h4>Date: {state.event.details.date}</h4>
+          <h4>Time: {state.event.details.time}</h4>
+          <h4>Address: {state.event.details.address}</h4>
+          {/* <p>Description: {eventInfo.description}</p> */}
+           <p>Description: {state.event.details.notes}</p>
         </TabPanel>
         <TabPanel value={value} index={1}>
           <Grid container justify="center">
@@ -133,26 +136,41 @@ export function Event() {
               { title: "Declined", value: "declinedInvites" },
               { title: "Pending", value: "pendingInvites" },
             ].map((group) => (
-              <UserList groupName={group.title} people={state.event.guestList[group.value]} />
+              <UserList key={group.title} groupName={group.title} people={state.event.guestList[group.value]} />
             ))}
           </Grid>
         </TabPanel>
         <TabPanel value={value} index={2}>
-          <h4>Apps</h4>
-          {state.event.menu.apps.map((item) => (
-            <li key={item.toString()}>{item}</li>
-          ))}
-
-          <h4>Sides</h4>
-          {state.event.menu.sides.map((item) => (
-            <li key={item.toString()}>{item}</li>
-          ))}
-          <h4>Main Dishes</h4>
-          {state.event.menu.mains.map((item) => (
-            <li key={item.toString()}>{item}</li>
-          ))}
+          <Grid container spacing={3}>
+              <Grid item xs={12}>
+                <h2>Apps</h2>
+                <Button id="addApp" variant="contained" color="primary" onClick={() => { alert('clicked') }}>Add App</Button>
+              </Grid>
+              <Grid item xs={12}>
+                {state.event.menu.apps.map((item) => (
+                  <li key={item.toString()}>{item}</li>
+                ))}
+              </Grid>
+              <Grid item xs={12}>
+                <h2>Sides</h2>
+                <Button id="addSide" variant="contained" color="primary" onClick={() => { alert('clicked') }}>Add Side</Button>
+              </Grid>
+              <Grid item xs={12}>
+                {state.event.menu.sides.map((item) => (
+                  <li key={item.toString()}>{item}</li>
+                ))}
+              </Grid>
+              <Grid item xs={12}>
+                <h2>Main Dishes</h2>
+                <Button id="addMain" variant="contained" color="primary" onClick={() => { alert('clicked') }}>Add Main Dish</Button>
+              </Grid>
+              <Grid item xs={12}>
+                {state.event.menu.mains.map((item) => (
+                  <li key={item.toString()}>{item}</li>
+                ))}
+              </Grid>
+          </Grid> 
         </TabPanel>
       </Container>
-    </div>
   );
 }
