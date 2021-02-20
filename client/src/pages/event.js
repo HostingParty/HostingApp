@@ -18,6 +18,7 @@ import { useStoreContext } from "../utils/globalState";
 import { LOADING, SEARCH_RECIPES } from "../utils/actions";
 
 import UserList from "../components/UserList";
+import RecipeReviewCard from "../components/RecipeCard";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -65,7 +66,7 @@ export function Event() {
         const eventData = response.data.data[0];
 
         // Set current event page with this event data
-        console.log(eventData);
+        console.log(eventData, "State DATA:", state.event);
         // setEventInfo(eventData);
       })
       .catch((err) => {
@@ -161,7 +162,8 @@ export function Event() {
             </Grid>
             <Grid item xs={12}>
               {state.event.menu.mains.map((item) => (
-                <li key={item.toString()}>{item}</li>
+                // <li key={item.label}>{item.label}</li>
+                <RecipeReviewCard {...item} />
               ))}
             </Grid>
           </Grid> 
