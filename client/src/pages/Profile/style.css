@@ -19,12 +19,13 @@ h3 {
     display: grid;
     align-items: center;
     justify-content: center;
+    margin-top: 15px;
 }
 .bottom {
    
         position: absolute; 
-        bottom: 300px; 
-        margin-left: 400px;
+        bottom: 100px; 
+        margin-left: 85px;
   
 }
 .floatR {

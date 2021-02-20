@@ -1,14 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-<<<<<<< HEAD
-import { Events } from "./pages/events";
-
-import Recipe from "./pages/recipe";
-import Login from "./pages/Login/index";
-=======
 import { Events } from "./pages/events"
 import { Event } from "./pages/event"; //development only
->>>>>>> develop
 import Profile from "./pages/Profile/index";
 import Recipe  from "./pages/recipe";
 import logo from './logo.svg';

@@ -9,6 +9,8 @@ import Checkbox from '@material-ui/core/Checkbox';
 import IconButton from '@material-ui/core/IconButton';
 import CommentIcon from '@material-ui/icons/Comment';
 import ContactsIcon from '@material-ui/icons/Contacts';
+import Divider from '@material-ui/core/Divider';
+import LocalDiningIcon from '@material-ui/icons/LocalDining';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -40,25 +42,22 @@ export default function EventList() {
     <List className={classes.root}>
       {[0, 1, 2].map((value) => {
         const labelId = `checkbox-list-label-${value}`;
+        
 
         return (
-          <ListItem key={value} role={undefined} dense button onClick={handleToggle(value)}>
-            <ListItemIcon>
-              {/* <Checkbox
-                edge="start"
-                checked={checked.indexOf(value) !== -1}
-                tabIndex={-1}
-                disableRipple
-                inputProps={{ 'aria-labelledby': labelId }}
-              /> */}
-            </ListItemIcon>
+            <div>
+            <Divider varient="inset" conponent="li" />
+          <ListItem key={value} role={undefined} dense button onClick={handleToggle(value)}>           
             <ListItemText id={labelId} primary={`Upcoming Event ${value + 1}`} />
+            <ListItemText primary={"Date: 2/20/2021"} secondary="Coding fun" />
+            
             <ListItemSecondaryAction>
               <IconButton edge="end" aria-label="comments">
-                <ContactsIcon color="warning"></ContactsIcon>
+                <LocalDiningIcon color="warning"></LocalDiningIcon>
               </IconButton>
             </ListItemSecondaryAction>
           </ListItem>
+          </div>
         );
       })}
     </List>

@@ -3,7 +3,7 @@ import "./style.css";
 import NavBar from "../../components/Nav/index";
 import { makeStyles } from "@material-ui/core/styles";
 import Avatar from "../../components/Avatar/index";
-import EventList from "../../components/EventList/index";
+import PrefrencesList from "../../components/PrefrencesList/index";
 import EventCard from "../../components/EventCard/index";
 import {
 Button,
@@ -137,8 +137,7 @@ function Profile() {
         <FormHelperText></FormHelperText>
       </FormControl> 
       </Grid>
-      </div>  
-      {/* <div className="bottom">
+      <div className="center">
       <Grid item xs={3} direction="row">
           <Button
         variant="contained"
@@ -150,15 +149,14 @@ function Profile() {
         Save
       </Button>
       </Grid>
-      </div> */}
-
-    <div className={classes.bottom}>
-      <EventList />
       </div>
-
-      <div className="floatR">
-        <EventCard />
+      <div className="center">
+        <PrefrencesList />
       </div>
+      </div>       
+    
+      
+    
         </div>
     )
 }
