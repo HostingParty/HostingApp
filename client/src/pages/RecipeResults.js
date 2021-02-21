@@ -82,7 +82,7 @@ export default function InteractiveList() {
       <Grid container spacing={2}>
         <Grid item xs={12} md={6}>
         <Typography variant="h6" className={classes.title}>
-          Search Results For { state.event.menu.mains[0] }
+          Search Results For { state.event.menu.apps[0] }
           </Typography>
           <Typography variant="h6" className={classes.title}>
             Text only
