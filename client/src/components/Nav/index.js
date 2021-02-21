@@ -1,21 +1,3 @@
-// import React from "react";
-// import { useStoreContext } from "../../utils/GlobalState";
-
-// function Nav() {
-//   const [store] = useStoreContext();
-
-//   return (
-//     <nav className="navbar navbar-expand-lg navbar-light bg-light">
-//       <a className="navbar-brand" href="/">
-//         Your personal CMS
-//       </a>
-//       {store.loading ? <a className="navbar-brand ml-auto">Loading...</a> : <></>}
-//     </nav>
-//   );
-// }
-
-// export default Nav;
-
 import React from 'react';
 import { Link } from "react-router-dom";
 import clsx from 'clsx';
@@ -162,7 +144,10 @@ export default function PersistentDrawerRight() {
         <Divider />
           <List>
             <ListItem component={ Link } to="/createEvent"> 
-              Events
+              Events (create events)
+            </ListItem>
+            <ListItem component={ Link } to="/event"> 
+              Events (view existing **)
             </ListItem>
             <ListItem component={ Link } to="/profile">
               Profile
@@ -170,6 +155,10 @@ export default function PersistentDrawerRight() {
             <ListItem component={ Link } to="/recipe">
               Recipes
             </ListItem>
+            <ListItem component={ Link } to="/ViewSelectedRecipe">
+              View Selected Recipes **
+            </ListItem>
+            {/* REMOVE THE VIEWSELECTEDRECIPE LINK ONCE WE'RE READY TO POLISH */}
             <ListItem component={ Link } to="/login">
               Login
             </ListItem>           
