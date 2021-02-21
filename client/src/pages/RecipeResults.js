@@ -2,12 +2,7 @@ import React, { useEffect, useState } from "react";
 import API from "../utils/API";
 import { useLocation } from "react-router-dom";
 import { StoreProvider, useStoreContext } from "../utils/globalState";
-import { makeStyles } from '@material-ui/core/styles';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
+import { makeStyles, List, ListItem, ListItemText, Grid, Typography, Container } from '@material-ui/core';
 import { LOADING, SEARCH_RECIPES, ADD_RECIPE } from "../utils/actions";
 import RecipeReviewCard from '../components/RecipeCard';
 
@@ -82,6 +77,7 @@ export default function InteractiveList() {
   console.log(state);
 
   return (
+    <Container>
     <div className={classes.root}>
       <Grid container spacing={2}>
         <Grid item xs={12} md={6}>
@@ -106,5 +102,6 @@ export default function InteractiveList() {
         </Grid>
       </Grid>
     </div>
+    </Container>
   );
 }

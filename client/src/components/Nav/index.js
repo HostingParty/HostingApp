@@ -144,7 +144,10 @@ export default function PersistentDrawerRight() {
         <Divider />
           <List>
             <ListItem component={ Link } to="/createEvent"> 
-              Events
+              Events (create events)
+            </ListItem>
+            <ListItem component={ Link } to="/event"> 
+              Events (view existing **)
             </ListItem>
             <ListItem component={ Link } to="/profile">
               Profile
@@ -152,6 +155,10 @@ export default function PersistentDrawerRight() {
             <ListItem component={ Link } to="/recipe">
               Recipes
             </ListItem>
+            <ListItem component={ Link } to="/ViewSelectedRecipe">
+              View Selected Recipes **
+            </ListItem>
+            {/* REMOVE THE VIEWSELECTEDRECIPE LINK ONCE WE'RE READY TO POLISH */}
             <ListItem component={ Link } to="/login">
               Login
             </ListItem>           
