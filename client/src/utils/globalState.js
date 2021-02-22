@@ -124,7 +124,7 @@ const StoreProvider = ({ value = [], ...props }) => {
             ]
           }
         ], //will be array of recipe objects
-        sides: ["Green Salad", "Bread sticks"], //will be array of recipe objects
+        sides: [], //will be array of recipe objects
         mains: [
           {
             "uri": "http://www.edamam.com/ontologies/edamam.owl#recipe_b2e0224c6d3bc3b49e381c45c2385f03",

@@ -167,16 +167,23 @@ export function Event() {
             <AccordionDetails>
               <Grid container direction="column" width="full">
                 <Grid item xs={12}>
-                  <Typography>Below are your Appetizers saved for the event</Typography>
+                  { state.event.menu.apps.length ?
+                    <Typography>Below are your appetizers saved for the event</Typography>
+                    : <Typography>No saved recipes found.</Typography>}
+                  <Button variant="contained" color="secondary" 
+                    onClick={(e) => dispatch({ type: SEARCH_RECIPES, payload: {dishType: "Starter"}} )}
+                    component={Link} to={"/recipe"}
+                    >Add App
+                  </Button>
                 </Grid>
                 <Grid item container>
                   <Grid item xs={false} sm={2} />
                   <Grid item container xs={12} sm={8} spacing={3}>
-                    {state.event.menu.apps.map((item) => (
+                    {state.event.menu.apps ? state.event.menu.apps.map((item) => (
                       <Grid item xs={12} sm={6} md={4}>
                         <RecipeReviewCard {...item} />
                       </Grid>
-                    ))}
+                    )) : <Typography>No saved recipes found.</Typography>}
                   </Grid>
                   <Grid item xs={false} sm={2} />
                 </Grid>
@@ -192,11 +199,28 @@ export function Event() {
               <Typography className={classes.heading}>Side Dishes</Typography>
             </AccordionSummary>
             <AccordionDetails>
-              <Typography>Below are your Side Dishes saved for the event</Typography>
+            <Grid container direction="column" width="full">
               <Grid item xs={12}>
-                {state.event.menu.sides.map((item) => (
-                  <li key={item.toString()}>{item}</li>
-                ))}
+                { state.event.menu.sides.length ?
+                  <Typography>Below are your side dishes saved for the event</Typography>
+                  : <Typography>No saved recipes found.</Typography>}
+                  <Button variant="contained" color="secondary" 
+                    onClick={(e) => dispatch({ type: SEARCH_RECIPES, payload: {dishType: "Preps"}} )}
+                    component={Link} to={"/recipe"}
+                    >Add Side
+                  </Button>
+                </Grid>
+                <Grid item container>
+                  <Grid item xs={false} sm={2}/>
+                  <Grid item container xs={12} sm={8} spacing={3}>
+                    { state.event.menu.sides.map((item) => (
+                      <Grid item xs={12} sm={6} md={4}>
+                        <RecipeReviewCard {...item} />
+                      </Grid>
+                    ))} 
+                  </Grid>
+                  <Grid item xs={false} sm={2} />
+                </Grid>
               </Grid>
             </AccordionDetails>
           </Accordion>
@@ -209,16 +233,32 @@ export function Event() {
               <Typography className={classes.heading}>Main Dishes</Typography>
             </AccordionSummary>
             <AccordionDetails>
-              <Grid item xs={12}></Grid>
-              <Typography>Below are your Main Dishes saved for the event</Typography>
+            <Grid container direction="column" width="full">
               <Grid item xs={12}>
-                {state.event.menu.mains.map((item) => (
-                  <RecipeReviewCard {...item} />
-                ))}
+                { state.event.menu.mains.length ?
+                  <Typography>Below are your main dishes saved for the event</Typography>
+                  : <Typography>No saved recipes found.</Typography>}
+                  <Button variant="contained" color="secondary" 
+                    onClick={(e) => dispatch({ type: SEARCH_RECIPES, payload: {dishType: "Main Course"}} )}
+                    component={Link} to={"/recipe"}
+                    >Add Main
+                  </Button>
+                </Grid>
+                <Grid item container>
+                  <Grid item xs={false} sm={2} />
+                  <Grid item container xs={12} sm={8} spacing={3}>
+                    {state.event.menu.mains.map((item) => (
+                      <Grid item xs={12} sm={6} md={4}>
+                        <RecipeReviewCard {...item} />
+                      </Grid>
+                    ))}
+                  </Grid>
+                  <Grid item xs={false} sm={2} />
+                </Grid>
               </Grid>
             </AccordionDetails>
           </Accordion>
-            <Grid container item xs={8} spacing={1}>
+            {/* <Grid container item xs={8} spacing={1}>
               <h2>Apps</h2>
             </Grid>
             <Grid container item xs={4} spacing={1}>
@@ -228,11 +268,11 @@ export function Event() {
                 >Add App
               </Button>
             </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={12}> */}
               {/* {state.event.menu.apps.map((item) => (
                 <li key={item.toString()}>{item}</li>
               ))} */}
-            </Grid>
+            {/* </Grid>
             <Grid container item xs={8} spacing={1}>
               <h2>Sides</h2>
             </Grid>
@@ -264,7 +304,7 @@ export function Event() {
                 // <li key={item.label}>{item.label}</li>
                 <RecipeReviewCard {...item} />
               ))}
-            </Grid> 
+            </Grid>  */}
         </TabPanel>
       </Container>
   );
