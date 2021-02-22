@@ -48,7 +48,7 @@ export default function EventList() {
 
         return (
             <div>
-            <Divider varient="inset" conponent="li" />
+            <Divider varient="inset" component="li" />
           <ListItem key={value} role={undefined} dense button onClick={handleToggle(value)}>           
             <ListItemText id={labelId} primary={`Upcoming Event ${value + 1}`} />
             <ListItemText primary={"Date: 2/20/2021"} secondary="Coding fun" />
