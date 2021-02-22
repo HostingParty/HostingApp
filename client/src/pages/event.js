@@ -29,6 +29,9 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { Link } from 'react-router-dom';
 import Recipe from './recipe';
 
+import SearchIcon from '@material-ui/icons/Search';
+import IconButton from '@material-ui/core/IconButton';
+
 const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
@@ -173,7 +176,7 @@ export function Event() {
                   <Button variant="contained" color="secondary" 
                     onClick={(e) => dispatch({ type: SEARCH_RECIPES, payload: {dishType: "Starter"}} )}
                     component={Link} to={"/recipe"}
-                    >Add App
+                    >Search for Apps
                   </Button>
                 </Grid>
                 <Grid item container>
@@ -207,7 +210,7 @@ export function Event() {
                   <Button variant="contained" color="secondary" 
                     onClick={(e) => dispatch({ type: SEARCH_RECIPES, payload: {dishType: "Preps"}} )}
                     component={Link} to={"/recipe"}
-                    >Add Side
+                    >Search for Sides
                   </Button>
                 </Grid>
                 <Grid item container>
@@ -241,7 +244,7 @@ export function Event() {
                   <Button variant="contained" color="secondary" 
                     onClick={(e) => dispatch({ type: SEARCH_RECIPES, payload: {dishType: "Main Course"}} )}
                     component={Link} to={"/recipe"}
-                    >Add Main
+                    >Search for Main Dish
                   </Button>
                 </Grid>
                 <Grid item container>
@@ -258,53 +261,6 @@ export function Event() {
               </Grid>
             </AccordionDetails>
           </Accordion>
-            {/* <Grid container item xs={8} spacing={1}>
-              <h2>Apps</h2>
-            </Grid>
-            <Grid container item xs={4} spacing={1}>
-              <Button variant="contained" color="primary" 
-                onClick={(e) => dispatch({ type: SEARCH_RECIPES, payload: {dishType: "Starter"}} )}
-                component={Link} to={"/recipe"}
-                >Add App
-              </Button>
-            </Grid>
-            <Grid item xs={12}> */}
-              {/* {state.event.menu.apps.map((item) => (
-                <li key={item.toString()}>{item}</li>
-              ))} */}
-            {/* </Grid>
-            <Grid container item xs={8} spacing={1}>
-              <h2>Sides</h2>
-            </Grid>
-            <Grid container item xs={4} spacing={1}>
-              <Button variant="contained" color="primary" 
-                onClick={() => dispatch({ type: SEARCH_RECIPES, payload: {dishType: "Preps"}} )}
-                component={Link} to={"/recipe"}
-                >Add Side
-                
-              </Button>
-            </Grid>
-            <Grid item xs={12}>
-              {state.event.menu.sides.map((item) => (
-                <li key={item.toString()}>{item}</li>
-              ))}
-            </Grid>
-            <Grid container item xs={8} spacing={1}>
-              <h2>Main Dishes</h2>
-            </Grid>
-            <Grid container item xs={4} spacing={1}>
-              <Button variant="contained" color="primary" 
-                onClick={() => dispatch({ type: SEARCH_RECIPES, payload: {dishType: "Main course"}} )}
-                component={Link} to={"/recipe"}
-                >Add Main
-              </Button>
-            </Grid>
-            <Grid item xs={12}>
-              {state.event.menu.mains.map((item) => (
-                // <li key={item.label}>{item.label}</li>
-                <RecipeReviewCard {...item} />
-              ))}
-            </Grid>  */}
         </TabPanel>
       </Container>
   );
