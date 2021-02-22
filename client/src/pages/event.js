@@ -27,7 +27,7 @@ import AccordionDetails from '@material-ui/core/AccordionDetails';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 import { Link } from 'react-router-dom';
-import Recipe from './recipe';
+import Recipe from "./RecipeResults";
 
 import SearchIcon from '@material-ui/icons/Search';
 import IconButton from '@material-ui/core/IconButton';

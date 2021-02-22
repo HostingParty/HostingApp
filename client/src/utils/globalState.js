@@ -34,21 +34,16 @@ const reducer = (state, action) => {
     case SEARCH_RECIPES:
       return {
         ...state,
-        recipeSearchArr: searchRecipes(action.payload.dishType),
+        recipeSearchArr: searchRecipies(action.payload.dishType),
       };
     default:
       return state;
   }
 };
 
-<<<<<<< HEAD
 function searchRecipies(dishType) {
   console.log("Search Recipies fired with param:", dishType);
-=======
-function searchRecipes(dishType) {
->>>>>>> develop
-  return //function call to api. return array of recipes
-}
+};
 
 const StoreProvider = ({ value = [], ...props }) => {
   const [state, dispatch] = useReducer(reducer, {

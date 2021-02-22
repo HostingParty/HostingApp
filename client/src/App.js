@@ -1,9 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-<<<<<<< HEAD
-=======
 // import { Events } from "./pages/events"
->>>>>>> develop
 import { Event } from "./pages/event"; //development only
 import Profile from "./pages/Profile/index";
 import Recipe from "./pages/RecipeResults";
