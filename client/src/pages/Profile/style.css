@@ -19,4 +19,15 @@ h3 {
     display: grid;
     align-items: center;
     justify-content: center;
+    margin-top: 15px;
+}
+.bottom {
+   
+        position: absolute; 
+        bottom: 100px; 
+        margin-left: 50px;
+  
+}
+.floatR {
+    float: right;
 }
