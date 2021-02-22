@@ -2,6 +2,8 @@ import React from "react";
 import "./style.css";
 import NavBar from "../../components/Nav/index";
 import EventList from "../../components/EventList/index";
+import { useState } from "react";
+import API from "../../utils/API";
 import {
 Button,
 TextField,
@@ -19,6 +21,8 @@ Menu,
 import MailIcon from '@material-ui/icons/Mail';
 import { makeStyles } from '@material-ui/core/styles';
 import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
+import { useStoreContext } from "../../utils/globalState";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -42,41 +46,98 @@ const useStyles = makeStyles((theme) => ({
 function CreateEvent() {
 
     const classes = useStyles();
+    const [eventInfo, setEventInfo] = useState({})
+    const [state, dispatch] = useStoreContext();  
+    const history = useHistory();
+    const [error, setError] = useState({ show: false, message: "" });
+    
+   const handleChange = (event) => {
+     let { details } = event.target;
+     setEventInfo({ ...eventInfo, [details]: event.target.value})
+     console.log(details);
+   }
+   
+   const handleEventCreate = async (id) => {
+    API.getEventInfo(id).then((data) => {
+      let event = data.data.data[0];
+
+      event = {
+        ...event,        
+      };
+
+      dispatch({ type: "SET_SELECTED_EVENT", payload: event });
+      setError({ show: false, message: "" });
+    });
+  };
+
+    // const handleSubmit = async (event) => {
+    //   event.preventDefault();
+    //   let { name, address, notes } = eventInfo;
+
+    //   let eventObj = {
+    //     name,
+    //     address,
+    //     notes,
+    //   };
+    //   try {
+    //     let response = await API.addEvent(eventObj);
+
+    //     const { _id } = response.data;
+
+    //     if(_id) {
+    //       handleEventCreate(_id).then((data) => {
+    //         history.push("/event")
+    //       })
+    //     } else {
+    //       sunFunc({ message: response.data.message});
+    //     }
+    //     { catch (error) {
+    //       console.log(error);
+    //     }
+      
+    const handleSubmit = async (event) => {
+      event.preventDefault();
+      let { name, address, notes } = eventInfo;
+      let eventObj = {
+            name,
+            address,
+            notes,
+          };
+  
+      try {
+        let response = await API.addEvent(eventObj);
+  
+        const { _id } = response.data;
+  
+        if (_id) {
+          handleEventCreate(_id).then((data) => {
+            history.push("/event");
+          });
+        } else {
+          setError({ show: true, message: response.data.message });
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    
 
     return (
         <div>
 
             <NavBar />
             <div>
-            <Grid container spacing={0} justify="center" direction="row">
-            
-            <EventList />
-            
-            {/* <dl>  
-            <h3>Upcoming Events</h3>            
-              <dt>Dan's BBQ
-                <dd><small>Saturday, Feb 27th @ 2pm</small></dd>
-              </dt>
-              
-              
-              <Button variant="outlined" color="primary">View Event</Button>
-              
-              <br/>
-              <dt>Brandon's sushi slam
-                <dd><small>Tuesday, March 2nd @ 1pm</small></dd>
-              </dt>
-              
-              <Button variant="outlined" color="primary">View Event</Button>
-              
-            </dl> */}
+            <Grid container spacing={0} justify="center" direction="row">            
+            <EventList />          
+          
             </Grid>
             </div>
 
         <Grid container spacing={0} justify="center" direction="row">
             <form className={classes.root} noValidate autoComplete="off">
-      <TextField id="" label="Host Name" variant="outlined" />
-      <TextField id="" label="Event Name" variant="outlined" />
-      <TextField id="" label="Location" variant="outlined" />
+      <TextField onChange={(e) => handleChange(e)} id="" label="Event Name" variant="outlined" />
+      <TextField onChange={(e) => handleChange(e)} id="" label="Address" variant="outlined" />
+      <TextField onChange={(e) => handleChange(e)} id="" label="Notes" variant="outlined" />
     </form>
     </Grid>
       <Grid container spacing={0} justify="center" direction="row">
@@ -98,13 +159,13 @@ function CreateEvent() {
             <PopupState variant="popover" popupId="demo-popup-menu">
       {(popupState) => (
         <React.Fragment>
-          <Button variant="contained" color="primary" {...bindTrigger(popupState)}>
+          <Button variant="contained" color="primary" {...bindTrigger(popupState)} onClick={(e) => handleSubmit(e)}>
             Create Event
           </Button>
-          <Menu {...bindMenu(popupState)}>
+          {/* <Menu {...bindMenu(popupState)}>
             <MenuItem onClick={popupState.close}>Vitural</MenuItem>
             <MenuItem onClick={popupState.close}>In Person</MenuItem>
-          </Menu>
+          </Menu> */}
         </React.Fragment>
         
       )}
