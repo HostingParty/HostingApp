@@ -136,7 +136,7 @@ export function Event() {
           </Button>
         </TabPanel>
 
-        
+
         <TabPanel value={value} index={1}>
           <Grid container justify="center">
             {[
@@ -156,8 +156,7 @@ export function Event() {
 
         
         <TabPanel value={value} index={2}>
-          <Grid container spacing={3}>
-          <Accordion>
+          <Accordion width="100">
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}
               aria-controls="panel1a-content"
@@ -166,11 +165,21 @@ export function Event() {
               <Typography className={classes.heading}>Appetizers</Typography>
             </AccordionSummary>
             <AccordionDetails>
-              <Typography>Below are your Appetizers saved for the event</Typography>
-              <Grid item xs={12}>
-                {state.event.menu.apps.map((item) => (
-                  <li key={item.toString()}>{item}</li>
-                ))}
+              <Grid container direction="column" width="full">
+                <Grid item xs={12}>
+                  <Typography>Below are your Appetizers saved for the event</Typography>
+                </Grid>
+                <Grid item container>
+                  <Grid item xs={false} sm={2} />
+                  <Grid item container xs={12} sm={8} spacing={3}>
+                    {state.event.menu.apps.map((item) => (
+                      <Grid item xs={12} sm={6} md={4}>
+                        <RecipeReviewCard {...item} />
+                      </Grid>
+                    ))}
+                  </Grid>
+                  <Grid item xs={false} sm={2} />
+                </Grid>
               </Grid>
             </AccordionDetails>
           </Accordion>
@@ -200,6 +209,7 @@ export function Event() {
               <Typography className={classes.heading}>Main Dishes</Typography>
             </AccordionSummary>
             <AccordionDetails>
+              <Grid item xs={12}></Grid>
               <Typography>Below are your Main Dishes saved for the event</Typography>
               <Grid item xs={12}>
                 {state.event.menu.mains.map((item) => (
@@ -219,9 +229,9 @@ export function Event() {
               </Button>
             </Grid>
             <Grid item xs={12}>
-              {state.event.menu.apps.map((item) => (
+              {/* {state.event.menu.apps.map((item) => (
                 <li key={item.toString()}>{item}</li>
-              ))}
+              ))} */}
             </Grid>
             <Grid container item xs={8} spacing={1}>
               <h2>Sides</h2>
@@ -254,8 +264,7 @@ export function Event() {
                 // <li key={item.label}>{item.label}</li>
                 <RecipeReviewCard {...item} />
               ))}
-            </Grid>
-          </Grid> 
+            </Grid> 
         </TabPanel>
       </Container>
   );
