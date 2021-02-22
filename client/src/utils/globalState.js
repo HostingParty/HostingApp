@@ -1,5 +1,6 @@
 import React, { createContext, useReducer, useContext } from "react";
 import { ADD_INVITE, REMOVE_INVITE, SET_USER, SET_SELECTED_EVENT, SEARCH_RECIPES } from "./actions";
+import API from "./API"
 
 const StoreContext = createContext();
 const { Provider } = StoreContext;
@@ -41,8 +42,11 @@ const reducer = (state, action) => {
   }
 };
 
-function searchRecipies(dishType) {
+async function searchRecipies(dishType) {
   console.log("Search Recipies fired with param:", dishType);
+  let recipes = await API.getRecipes(dishType);
+  console.log("Back in globalState recipes: ", recipes);
+  return recipes
 };
 
 const StoreProvider = ({ value = [], ...props }) => {

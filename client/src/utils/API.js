@@ -41,3 +41,10 @@ exports.updateEventInfo = function (eventId, body) {
 exports.deleteEvent = function (eventId) {
   return axios.delete("/api/v1/events/" + eventId);
 };
+
+// Food API
+exports.getRecipes = function (dishType) {
+  console.log("In user API, dishType is: ", dishType);
+  // return axios.get(`/api/v1/food/recipes/:${dishType}`);
+  return axios.get(`/api/v1/food/recipes`);
+};

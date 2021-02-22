@@ -56,9 +56,16 @@ app.use("/", authRoute);
 // API Routes
 const userRoutes = require("./routes/app-api/userRoutes");
 const eventRoutes = require("./routes/app-api/eventRoutes");
+const foodRoutes = require("./routes/food-api/foodRoutes");
+// const awsRoutes = require("./routes/aws-api/index");
 
 app.use("/api/v1/users", userRoutes);
 app.use("/api/v1/events", eventRoutes);
+
+require(foodRoutes)(app);
+
+// app.use("/api/v1/food", foodRoutes);
+// app.use("/api/v1/aws", awsRoutes);
 
 // Send every request to the React app
 // Define any API routes before this runs

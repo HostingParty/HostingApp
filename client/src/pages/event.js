@@ -175,7 +175,7 @@ export function Event() {
                     : <Typography>No saved recipes found.</Typography>}
                   <Button variant="contained" color="secondary" 
                     onClick={(e) => dispatch({ type: SEARCH_RECIPES, payload: {dishType: "Starter"}} )}
-                    component={Link} to={"/recipe"}
+                    // component={Link} to={"/recipe"}
                     >Search for Apps
                   </Button>
                 </Grid>
