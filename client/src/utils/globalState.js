@@ -42,6 +42,7 @@ const reducer = (state, action) => {
 };
 
 function searchRecipies(dishType) {
+  console.log("Search Recipies fired with param:", dishType);
   return //function call to api. return array of recipes
 }
 
