@@ -51,7 +51,8 @@ async function searchRecipies(dishType) {
 
 const StoreProvider = ({ value = [], ...props }) => {
   const [state, dispatch] = useReducer(reducer, {
-    selectedEvent: "6025e9bba968960008f31a20",
+    // selectedEvent: "6025e9bba968960008f31a20",
+    selectedEvent: "",
     user: {
       name: {
         first: "brandon",

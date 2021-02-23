@@ -1,6 +1,6 @@
 import axios from ""
 
-let recipeSearchArr: [];
+let recipeSearchArr = [];
 
 function buildRecipeURL() {
     let recipeAPIURL = "https://api.edamam.com/search?"
