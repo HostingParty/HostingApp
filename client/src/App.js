@@ -20,6 +20,7 @@ function App() {
         <Switch>
           {/* <Route exact path="/" component={CreateUser} /> */}
           <Route exact path="/login" component={Login} />
+          <Route exact path="/events" component={CreateEvent} />
           <Route exact path="/createEvent" component={CreateEvent} />
           {/* <Route exact path="/events" component={Events} /> */}
           <Route exact path="/event" component={Event} /> 

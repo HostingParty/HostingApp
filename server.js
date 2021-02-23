@@ -7,6 +7,8 @@ const passport = require("./config/passport");
 const session = require("express-session");
 const morgan = require("morgan");
 
+require('dotenv').config()
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
@@ -56,9 +58,13 @@ app.use("/", authRoute);
 // API Routes
 const userRoutes = require("./routes/app-api/userRoutes");
 const eventRoutes = require("./routes/app-api/eventRoutes");
+const foodRoutes = require("./routes/food-api/foodRoutes");
+// const awsRoutes = require("./routes/aws-api/index");
 
 app.use("/api/v1/users", userRoutes);
 app.use("/api/v1/events", eventRoutes);
+app.use("/api/v1/food", foodRoutes);
+// app.use("/api/v1/aws", awsRoutes);
 
 // Send every request to the React app
 // Define any API routes before this runs

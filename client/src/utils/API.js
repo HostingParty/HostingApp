@@ -41,3 +41,8 @@ exports.updateEventInfo = function (eventId, body) {
 exports.deleteEvent = function (eventId) {
   return axios.delete("/api/v1/events/" + eventId);
 };
+
+// Food API
+exports.getRecipes = function (dishType) {
+  return axios.get(`/api/v1/food/recipes/${dishType}`);
+};
