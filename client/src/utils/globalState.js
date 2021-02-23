@@ -43,10 +43,10 @@ const reducer = (state, action) => {
 };
 
 async function searchRecipies(dishType) {
-  console.log("Search Recipies fired with param:", dishType);
-  let recipes = await API.getRecipes(dishType);
-  console.log("Back in globalState recipes: ", recipes);
-  return recipes
+  let results = await API.getRecipes(dishType);
+  let arr = results.data.results.map(item =>item.recipe);
+  console.log("From FOOD API, search results: ", arr);
+  return arr;
 };
 
 const StoreProvider = ({ value = [], ...props }) => {

@@ -209,7 +209,7 @@ export function Event() {
                   : <Typography>No saved recipes found.</Typography>}
                   <Button variant="contained" color="secondary" 
                     onClick={(e) => dispatch({ type: SEARCH_RECIPES, payload: {dishType: "Preps"}} )}
-                    component={Link} to={"/recipe"}
+                    // component={Link} to={"/recipe"}
                     >Search for Sides
                   </Button>
                 </Grid>
@@ -243,7 +243,7 @@ export function Event() {
                   : <Typography>No saved recipes found.</Typography>}
                   <Button variant="contained" color="secondary" 
                     onClick={(e) => dispatch({ type: SEARCH_RECIPES, payload: {dishType: "Main Course"}} )}
-                    component={Link} to={"/recipe"}
+                    // component={Link} to={"/recipe"}
                     >Search for Main Dish
                   </Button>
                 </Grid>

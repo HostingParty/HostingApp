@@ -44,7 +44,5 @@ exports.deleteEvent = function (eventId) {
 
 // Food API
 exports.getRecipes = function (dishType) {
-  console.log("In user API, dishType is: ", dishType);
-  // return axios.get(`/api/v1/food/recipes/:${dishType}`);
-  return axios.get(`/api/v1/food/recipes`);
+  return axios.get(`/api/v1/food/recipes/${dishType}`);
 };

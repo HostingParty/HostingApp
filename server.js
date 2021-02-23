@@ -7,6 +7,8 @@ const passport = require("./config/passport");
 const session = require("express-session");
 const morgan = require("morgan");
 
+require('dotenv').config()
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
@@ -61,10 +63,7 @@ const foodRoutes = require("./routes/food-api/foodRoutes");
 
 app.use("/api/v1/users", userRoutes);
 app.use("/api/v1/events", eventRoutes);
-
-require(foodRoutes)(app);
-
-// app.use("/api/v1/food", foodRoutes);
+app.use("/api/v1/food", foodRoutes);
 // app.use("/api/v1/aws", awsRoutes);
 
 // Send every request to the React app
