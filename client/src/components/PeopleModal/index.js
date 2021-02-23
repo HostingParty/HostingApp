@@ -10,9 +10,11 @@ import ListItemText from '@material-ui/core/ListItemText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Dialog from '@material-ui/core/Dialog';
 import PersonIcon from '@material-ui/icons/Person';
-import AddIcon from '@material-ui/icons/Add';
+import SaveIcon from '@material-ui/icons/Save';
 import Typography from '@material-ui/core/Typography';
 import { blue } from '@material-ui/core/colors';
+
+import Checkbox from '@material-ui/core/Checkbox';
 
 const friends = ['Brandon', 'Maranda', 'Ben', 'Dan'];
 const useStyles = makeStyles({
@@ -26,12 +28,20 @@ function SimpleDialog(props) {
   const classes = useStyles();
   const { onClose, selectedValue, open } = props;
 
+  const [checked, setChecked] = React.useState(false);
+
+  const handleChange = (event) => {
+    setChecked(event.target.checked);
+  };
+
+
   const handleClose = () => {
     onClose(selectedValue);
   };
 
   const handleListItemClick = (value) => {
-    onClose(value);
+    // onClose(value);
+    //add friend to invite list
   };
 
   return (
@@ -40,6 +50,11 @@ function SimpleDialog(props) {
       <List>
         {friends.map((friend) => (
           <ListItem button onClick={() => handleListItemClick(friends)} key={friend}>
+            <Checkbox
+                checked={checked}
+                onChange={handleChange()}
+                inputProps={{ 'aria-label': 'primary checkbox' }}
+            />
             <ListItemAvatar>
               <Avatar className={classes.avatar}>
                 <PersonIcon />
@@ -52,10 +67,10 @@ function SimpleDialog(props) {
         <ListItem autoFocus button onClick={() => handleListItemClick('addAccount')}>
           <ListItemAvatar>
             <Avatar>
-              <AddIcon />
+              <SaveIcon />
             </Avatar>
           </ListItemAvatar>
-          <ListItemText primary="Add Guest" />
+          <ListItemText primary="Save" />
         </ListItem>
       </List>
     </Dialog>
@@ -78,7 +93,7 @@ export default function PeopleListModal() {
 
   const handleClose = (value) => {
     setOpen(false);
-    setSelectedValue(value);
+    setSelectedValue(value); //save guest list
   };
 
   return (
