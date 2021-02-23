@@ -46,6 +46,7 @@ const ViewSelectedRecipe = (props) => {
             >  
                 Add to Event 
             </Button>
+            {/* // this needs to send the recipe to the  */}
         </Grid>
         <Grid>
             <Link>Go Back to Results</Link>
