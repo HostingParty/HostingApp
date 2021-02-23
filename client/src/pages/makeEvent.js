@@ -3,6 +3,7 @@ import { Button, TextField, Grid, Paper, Typography } from "@material-ui/core";
 import API from "../utils/API";
 import { useStoreContext } from "../utils/globalState";
 import { useHistory } from "react-router-dom";
+import PeopleListModal from "../components/PeopleModal"
 
 const MakeEvent = () => {
   const [eventInfo, setUserLoginInfo] = useState({
@@ -111,10 +112,13 @@ const MakeEvent = () => {
                       />
                     </Grid>
                     <Grid item>
+                      <PeopleListModal></PeopleListModal>
+                    </Grid>
+                    <Grid item>
                       <Button
                         id="submitBtn"
                         variant="contained"
-                        color="primary"
+                        color="success"
                         type="submit"
                         className="button-block"
                         disabled={isBtnDisabled}
