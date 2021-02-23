@@ -21,7 +21,6 @@ function App() {
           {/* <Route exact path="/" component={CreateUser} /> */}
           <Route exact path="/login" component={Login} />
           <Route exact path="/createEvent" component={CreateEvent} />
-          {/* <Route exact path="/events" component={Events} /> */}
           <Route exact path="/event" component={Event} /> 
           <Route exact path="/profile" component={Profile} />
           <Route exact path="/recipe" component={Recipe} />
