@@ -37,6 +37,28 @@ exports.getSingleUser = async (req, res, next) => {
     });
 };
 
+// @desc    Get a single user based on Name
+// @route   GET /api/v1/users/search
+// @access  Public
+exports.getUserByName = async (req, res, next) => {
+  let { name } = req.query;
+  if (!name) return res.status(400).json({ success: false, msg: err });
+
+  let [first, last] = name.split(" ");
+  console.log(first, last);
+
+  // Currently only returns event id and title. Edit populate for more event info.
+  db.User.find({ name: { first: first, last: last } }).exec((err, user) => {
+    if (err) return res.status(400).json({ success: false, msg: err });
+    if (user.length === 0) return res.status(400).json({ success: false, msg: "No User Found" });
+
+    res.status(200).json({
+      success: true,
+      data: user,
+    });
+  });
+};
+
 // @desc    Add a user
 // @route   POST /api/v1/users/
 // @access  Public
@@ -59,6 +81,24 @@ exports.updateUser = async (req, res, next) => {
   let id = req.params.id;
 
   db.User.findByIdAndUpdate(id, req.body, { returnOriginal: false }, (err, data) => {
+    if (err) return res.status(400).json({ success: false, msg: err });
+    if (data === null) return res.status(400).json({ success: false, msg: "No user found" });
+
+    res.status(200).json({
+      success: true,
+      data: data,
+    });
+  });
+};
+
+// @desc    Update a User Array Fields
+// @route   PUT /api/v1/users/array/:id
+// @access  Public
+exports.updateUserArrayField = async (req, res, next) => {
+  let id = req.params.id;
+  console.log(req.body);
+
+  db.User.findByIdAndUpdate(id, { $push: req.body }, { returnOriginal: false }, (err, data) => {
     if (err) return res.status(400).json({ success: false, msg: err });
     if (data === null) return res.status(400).json({ success: false, msg: "No user found" });
 
