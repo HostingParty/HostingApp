@@ -25,6 +25,7 @@ exports.getSingleUser = async (req, res, next) => {
   // Currently only returns event id and title. Edit populate for more event info.
   db.User.find({ _id: id })
     .populate("hosting pending accepted decline", "title description eventDate")
+    .populate("friends", "name pictureUrl")
     .exec((err, user) => {
       if (err) return res.status(400).json({ success: false, msg: err });
       if (user.length === 0) return res.status(400).json({ success: false, msg: "No User Found" });
@@ -52,7 +53,7 @@ exports.addUser = async (req, res, next) => {
 };
 
 // @desc    Update a User
-// @route   POST /api/v1/users/:id
+// @route   PUT /api/v1/users/:id
 // @access  Public
 exports.updateUser = async (req, res, next) => {
   let id = req.params.id;
