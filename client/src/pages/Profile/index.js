@@ -6,7 +6,7 @@ import NavBar from "../../components/Nav/index";
 import { makeStyles } from "@material-ui/core/styles";
 import Avatar from "../../components/Avatar/index";
 import { Grid, Paper, Card, CardContent, Typography, FormLabel, FormControl, Checkbox } from "@material-ui/core";
-import FriendCard from "../../components/FriendCard/friend-card.component";
+import FriendList from "../../components/FriendList/friend-list.component";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -56,12 +56,7 @@ function Profile() {
         </Grid>
 
         <Grid item sm={12} md={6}>
-          <Paper>
-            <Typography variant="h4">Friends List</Typography>
-            {state?.user?.friends?.map((friend) => {
-              return <FriendCard key={friend._id} friend={friend} />;
-            })}
-          </Paper>
+          {state.user && <FriendList friends={state?.user?.friends} />}
         </Grid>
       </Grid>
     </div>
