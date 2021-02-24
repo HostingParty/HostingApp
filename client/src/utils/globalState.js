@@ -59,19 +59,22 @@ const StoreProvider = ({ value = [], ...props }) => {
     hosting: [
         {
             _id: "6025e9bba968960008f31a21",
-            title: "Chili Quest"
+            title: "Chili Quest",
+            date: "4/2/2021"
         }
     ],
     pending: [
         {
             _id: "6025e9bba968960008f31a20",
-            title: "BBQ Cookoff"
+            title: "BBQ Cookoff",
+            date: "4/10/2021"
         }
     ],
     accepted: [
         {
             _id: "6025e9bba968960008f31a22",
-            title: "Graduation Party"
+            title: "Graduation Party",
+            date: "4/15/2021"
         }
     ],
     declined: [],
