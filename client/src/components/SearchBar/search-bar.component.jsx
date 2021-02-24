@@ -1,10 +1,14 @@
-import { TextField, FormControl } from "@material-ui/core";
+import { TextField, FormControl, InputBase, Paper, IconButton } from "@material-ui/core";
+import SearchIcon from "@material-ui/icons/Search";
 
 const SearchBar = ({ handleInput }) => {
   return (
-    <FormControl fullWidth>
-      <TextField id="search" label="Search for friends" />
-    </FormControl>
+    <Paper>
+      <InputBase placeholder="Search for a friend" />
+      <IconButton type="submit">
+        <SearchIcon />
+      </IconButton>
+    </Paper>
   );
 };
 
