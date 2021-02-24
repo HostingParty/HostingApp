@@ -23,6 +23,7 @@ const EventSchema = new mongoose.Schema(
       type: Date,
       default: Date.now,
     },
+    address: String,
     hosting: [
       {
         type: Schema.Types.ObjectId,
