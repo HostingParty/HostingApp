@@ -98,7 +98,7 @@ export function Event() {
 
         // Render error page???? Redirect to our 404 page???
       });
-  }, [state]);
+  }, [state.selectedEvent]);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -134,7 +134,7 @@ export function Event() {
             Description: {state.event.details.notes}
           </Typography>
           <Button variant="contained" color="primary" 
-                component={Link} to={"/createEvent"}
+                component={Link} to={"/make-event"}
                 >Edit Details
           </Button>
         </TabPanel>
@@ -152,7 +152,7 @@ export function Event() {
             ))}
           </Grid>
           <Button variant="contained" color="primary" 
-                component={Link} to={"/createEvent"}
+                component={Link} to={"/make-event"}
                 >Edit Guests
           </Button>
         </TabPanel>
