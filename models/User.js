@@ -43,8 +43,8 @@ const UserSchema = new mongoose.Schema(
       ref: "User",
     },
     pictureUrl: String,
-    allergies: [String],
-    preferences: [String],
+    allergies: [{}],
+    preferences: [{}],
     favoriteRecipes: [String],
     hosting: [
       {
