@@ -15,6 +15,6 @@ router.route("/").get(getUsers).post(addUser);
 
 router.route("/pw/:id").put(isLoggedIn, updateUserPw);
 
-router.route("/:id").get(getSingleUser).put(isLoggedIn, updateUser).delete(isLoggedIn, deleteUser);
+router.route("/:id").get(getSingleUser).put(updateUser).delete(deleteUser);
 
 module.exports = router;

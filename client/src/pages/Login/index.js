@@ -33,7 +33,6 @@ const Login = () => {
       };
 
       dispatch({ type: "SET_USER", payload: user });
-      setError({ show: false, message: "" });
     });
   };
 
