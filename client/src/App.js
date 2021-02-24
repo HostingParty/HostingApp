@@ -6,7 +6,7 @@ import Profile from "./pages/Profile/index";
 import Recipe from "./pages/RecipeResults";
 import './App.css';
 import CreateUser from "./pages/CreateUser/index";
-import CreateEvent from "./pages/CreateEvent/index"
+import CreateEvent from "./pages/Events/index"
 import ViewSelectedRecipe from "./pages/ViewSelectedRecipe";
 import Login from "./pages/Login/index";
 import Nav from "./components/Nav/index";
