@@ -1,14 +1,19 @@
 import React, { useContext, useState } from "react";
-import "./style.css";
 import { Button, TextField, Grid, Paper, Typography } from "@material-ui/core";
-import Alert from "@material-ui/lab/Alert";
-import API from "../../utils/API";
-// import { Context } from "../../utils/Store";
-import { useStoreContext } from "../../utils/globalState";
+import API from "../utils/API";
+import { useStoreContext } from "../utils/globalState";
 import { useHistory } from "react-router-dom";
+import PeopleListModal from "../components/PeopleModal"
 
-const Login = () => {
-  const [userLoginInfo, setUserLoginInfo] = useState({});
+const MakeEvent = () => {
+  const [eventInfo, setUserLoginInfo] = useState({
+    title: "",
+    description: "",
+    eventDate: "",
+    pending: [],
+    accepted: [],
+    declined: []
+  });
   const [error, setError] = useState({ show: false, message: "" });
   const [isBtnDisabled, setIsBtnDisabled] = useState(true);
   const [state, dispatch] = useStoreContext();
@@ -16,15 +21,15 @@ const Login = () => {
 
   const handleChange = (event) => {
     let { name } = event.target;
-    setUserLoginInfo({ ...userLoginInfo, [name]: event.target.value });
+    setUserLoginInfo({ ...eventInfo, [name]: event.target.value });
 
-    if (userLoginInfo.email && userLoginInfo.password) {
+    if (eventInfo.title && eventInfo.description && eventInfo.eventDate) {
       setIsBtnDisabled(false);
     }
   };
 
-  const handleSuccessLogin = async (id) => {
-    API.getUserInfo(id).then((data) => {
+  const handleSuccessCreateEvent = async (_id) => {
+    API.getUserInfo(_id).then((data) => {
       let user = data.data.data[0];
 
       user = {
@@ -32,27 +37,24 @@ const Login = () => {
         password: "",
       };
 
-      dispatch({ type: "SET_USER", payload: user });
+      //refreshes events on user
+      dispatch({ type: "SET_USER", payload: user }); 
       setError({ show: false, message: "" });
     });
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    let { email, password } = userLoginInfo;
-    let user = {
-      email,
-      password,
-    };
-
     try {
-      let response = await API.login(user);
-
+      let response = await API.addEvent(
+        {...eventInfo, hosting: [state.user._id]}
+      );
+      console.log("from make event:", response.data)
       const { _id } = response.data;
 
       if (_id) {
-        handleSuccessLogin(_id).then((data) => {
-          history.push("/profile");
+        handleSuccessCreateEvent(_id).then((data) => {
+          history.push("/events");
         });
       } else {
         setError({ show: true, message: response.data.message });
@@ -70,38 +72,47 @@ const Login = () => {
             <Paper variant="elevation" elevation={2} className="login-background">
               <Grid item>
                 <Typography component="h1" variant="h5">
-                  Login to your acccount
+                  Create Your Event!
                 </Typography>
               </Grid>
-              {error.show && (
-                <Alert variant="outlined" severity="warning">
-                  {error.message}
-                </Alert>
-              )}
               <Grid item>
                 <form>
                   <Grid container direction="column" spacing={2}>
                     <Grid item>
                       <TextField
-                        id="email"
-                        type="email"
-                        placeholder="Email"
+                        id="title"
+                        type="text"
+                        placeholder="Event Title"
                         fullWidth
-                        name="email"
+                        name="title"
                         variant="outlined"
                         onChange={(e) => handleChange(e)}
                       />
                     </Grid>
                     <Grid item>
                       <TextField
-                        id="password"
-                        type="password"
-                        placeholder="Password"
+                        id="description"
+                        type="text"
+                        placeholder="Event Description"
                         fullWidth
-                        name="password"
+                        name="description"
                         variant="outlined"
                         onChange={(e) => handleChange(e)}
                       />
+                    </Grid>
+                    <Grid item>
+                      <TextField
+                        id="eventDate"
+                        type="date"
+                        placeholder="Event Date"
+                        fullWidth
+                        name="eventDate"
+                        variant="outlined"
+                        onChange={(e) => handleChange(e)}
+                      />
+                    </Grid>
+                    <Grid item>
+                      <PeopleListModal></PeopleListModal>
                     </Grid>
                     <Grid item>
                       <Button
@@ -113,7 +124,7 @@ const Login = () => {
                         disabled={isBtnDisabled}
                         onClick={(e) => handleSubmit(e)}
                       >
-                        Login
+                        Create Event
                       </Button>
                     </Grid>
                   </Grid>
@@ -127,4 +138,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default MakeEvent;

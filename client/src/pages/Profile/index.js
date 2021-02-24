@@ -5,6 +5,8 @@ import "./style.css";
 import NavBar from "../../components/Nav/index";
 import { makeStyles } from "@material-ui/core/styles";
 import Avatar from "../../components/Avatar/index";
+import SaveIcon from '@material-ui/icons/Save';
+import PrefrencesList from "../../components/PrefrencesList/index";
 import {
   Button,
   TextField,
@@ -35,12 +37,9 @@ const useStyles = makeStyles((theme) => ({
 
 function Profile() {
   const classes = useStyles();
-  const [profile, setProfile] = React.useState({});
-  const [userState, dispatch] = useStoreContext();
+  const [state, dispatch] = useStoreContext();
 
-  const userId = userState.user.id;
-
-  const [state, setState] = React.useState({
+  const [formState, setState] = React.useState({
     fish: true,
     peanuts: false,
     dary: false,
@@ -53,16 +52,8 @@ function Profile() {
     pizza: false,
   });
 
-  useEffect(() => {
-    API.getUserInfo(userId).then((profileInfo) => {
-      let data = profileInfo.data.data[0];
-      console.log(data);
-      setProfile(data);
-    });
-  }, [userState]);
-
   const handleChange = (event) => {
-    setState({ ...state, [event.target.name]: event.target.checked });
+    setState({ ...formState, [event.target.name]: event.target.checked });
   };
 
   const { fish, peanuts, dary, chocolate, none, italian, steak, vegies, fingerFoods, pizza } = state;
@@ -78,7 +69,7 @@ function Profile() {
       <h2>
         Welcome{" "}
         <small>
-          {profile.name.first} {profile.name.last}
+          {state.user.name.first} {state.user.name.last}
         </small>
       </h2>
       <Avatar />
@@ -127,9 +118,31 @@ function Profile() {
             />
           </FormGroup>
           <FormHelperText></FormHelperText>
-        </FormControl>
+          <div className="center">
+      <Grid item xs={3} direction="row">
+          <Button
+        variant="contained"
+        color="primary"
+        size="small"
+        className={classes.button}
+        startIcon={<SaveIcon />}
+      >
+        Save
+      </Button>
       </Grid>
-    </div>
+      </div>
+      
+      <div className="center">
+        <PrefrencesList />
+      </div>
+        </FormControl>
+        
+     
+      </Grid>
+
+   
+      </div>       
+    
   );
 }
 

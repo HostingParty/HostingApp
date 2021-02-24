@@ -4,20 +4,44 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import { useLocation } from "react-router-dom";
 import Container from "@material-ui/core/Container";
 import PropTypes from "prop-types";
-import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
+import Button from "@material-ui/core/Button";
 
 import Grid from "@material-ui/core/Grid";
 import Card from "@material-ui/core/Card";
 
 import { useStoreContext } from "../utils/globalState";
-import { REMOVE_INVITE, ADD_INVITE, LOADING, SET_SELECTED_EVENT } from "../utils/actions";
+import { LOADING, SEARCH_RECIPES } from "../utils/actions";
 
 import UserList from "../components/UserList";
+import RecipeReviewCard from "../components/RecipeCard";
+
+import { makeStyles } from '@material-ui/core/styles';
+import Accordion from '@material-ui/core/Accordion';
+import AccordionSummary from '@material-ui/core/AccordionSummary';
+import AccordionDetails from '@material-ui/core/AccordionDetails';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+
+import { Link } from 'react-router-dom';
+import Recipe from "./RecipeResults";
+
+import SearchIcon from '@material-ui/icons/Search';
+import IconButton from '@material-ui/core/IconButton';
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    width: '100%',
+  },
+  heading: {
+    fontSize: theme.typography.pxToRem(15),
+    fontWeight: theme.typography.fontWeightRegular,
+  },
+}));
+
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -52,39 +76,12 @@ function a11yProps(index) {
   };
 }
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-    backgroundColor: theme.palette.background.paper,
-  },
-  paper: {
-    height: 140,
-    width: 100,
-  },
-}));
-
 export function Event() {
-  const classes = useStyles();
   const [value, setValue] = React.useState(0);
-  const [eventInfo, setEventInfo] = React.useState();
+  const classes = useStyles();
 
   const [state, dispatch] = useStoreContext();
-
-  const getFavorites = () => {
-    dispatch({ type: LOADING });
-    // dispatch({ type: UPDATE_FAVORITES });
-  };
-
-  // const removeFromFavorites = id => {
-  //   dispatch({
-  //     type: REMOVE_FAVORITE,
-  //     _id: id
-  //   });
-  // };
-
-  useEffect(() => {
-    getFavorites();
-  }, []);
+  const preventDefault = (event) => event.preventDefault();
 
   // Global State for selectedEvent set once "View Event Button" is pressed.
   useEffect(() => {
@@ -93,8 +90,8 @@ export function Event() {
         const eventData = response.data.data[0];
 
         // Set current event page with this event data
-        console.log(eventData);
-        setEventInfo(eventData);
+        console.log(eventData, "State DATA:", state.event);
+        // setEventInfo(eventData);
       })
       .catch((err) => {
         console.log(err);
@@ -107,24 +104,42 @@ export function Event() {
     setValue(newValue);
   };
 
+  function redirectRouter(route) {
+    if (route == "recipe") {
+      // return <Redirect to="recipe" />
+    }
+    // else return <Redirect to="/" />
+  }
+
   return (
-    <div className={classes.root}>
-      <Container fluid>
-        <h1>Event Page!</h1>
+      <Container fluid="true">
+        <Typography variant="h4">
+          {state.event.details.name}
+        </Typography>
+
         <AppBar position="static">
           <Tabs value={value} centered onChange={handleChange} aria-label="event tabs for sections">
-            <Tab label="Event Details" {...a11yProps(0)} />
-            <Tab label="Guest List" {...a11yProps(1)} />
+            <Tab label="Details" {...a11yProps(0)} />
+            <Tab label="Guests" {...a11yProps(1)} />
             <Tab label="Menu" {...a11yProps(2)} />
           </Tabs>
         </AppBar>
         <TabPanel value={value} index={0}>
-          <h4>Name: {eventInfo.title}</h4>
-          <h4>Date: {eventInfo.eventDate}</h4>
-          <h4>Time: </h4>
-          <h4>Address: </h4>
-          <p>Description: {eventInfo.description}</p>
+            {/* <h4>Date: {state.event.details.date}</h4>
+            <h4>Time: {state.event.details.time}</h4>
+            <h4>Address: {state.event.details.address}</h4> */}
+            {/* <p>Description: {eventInfo.description}</p> */}
+           {/* <p>Description: {state.event.details.notes}</p> */}
+          <Typography variant="h6">
+            Description: {state.event.details.notes}
+          </Typography>
+          <Button variant="contained" color="primary" 
+                component={Link} to={"/createEvent"}
+                >Edit Details
+          </Button>
         </TabPanel>
+
+
         <TabPanel value={value} index={1}>
           <Grid container justify="center">
             {[
@@ -133,26 +148,120 @@ export function Event() {
               { title: "Declined", value: "declinedInvites" },
               { title: "Pending", value: "pendingInvites" },
             ].map((group) => (
-              <UserList groupName={group.title} people={state.event.guestList[group.value]} />
+              <UserList key={group.title} groupName={group.title} people={state.event.guestList[group.value]} />
             ))}
           </Grid>
+          <Button variant="contained" color="primary" 
+                component={Link} to={"/createEvent"}
+                >Edit Guests
+          </Button>
         </TabPanel>
-        <TabPanel value={value} index={2}>
-          <h4>Apps</h4>
-          {state.event.menu.apps.map((item) => (
-            <li key={item.toString()}>{item}</li>
-          ))}
 
-          <h4>Sides</h4>
-          {state.event.menu.sides.map((item) => (
-            <li key={item.toString()}>{item}</li>
-          ))}
-          <h4>Main Dishes</h4>
-          {state.event.menu.mains.map((item) => (
-            <li key={item.toString()}>{item}</li>
-          ))}
+        
+        <TabPanel value={value} index={2}>
+          <Accordion width="100">
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel1a-content"
+              id="panel1a-header"
+            >
+              <Typography className={classes.heading}>Appetizers</Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Grid container direction="column" width="full">
+                <Grid item xs={12}>
+                  { state.event.menu.apps.length ?
+                    <Typography>Below are your appetizers saved for the event</Typography>
+                    : <Typography>No saved recipes found.</Typography>}
+                  <Button variant="contained" color="secondary" 
+                    onClick={(e) => dispatch({ type: SEARCH_RECIPES, payload: {dishType: "Starter"}} )}
+                    // component={Link} to={"/recipe"}
+                    >Search for Apps
+                  </Button>
+                </Grid>
+                <Grid item container>
+                  <Grid item xs={false} sm={2} />
+                  <Grid item container xs={12} sm={8} spacing={3}>
+                    {state.event.menu.apps ? state.event.menu.apps.map((item) => (
+                      <Grid item xs={12} sm={6} md={4}>
+                        <RecipeReviewCard {...item} />
+                      </Grid>
+                    )) : <Typography>No saved recipes found.</Typography>}
+                  </Grid>
+                  <Grid item xs={false} sm={2} />
+                </Grid>
+              </Grid>
+            </AccordionDetails>
+          </Accordion>
+          <Accordion>
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel2a-content"
+              id="panel2a-header"
+            >
+              <Typography className={classes.heading}>Side Dishes</Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+            <Grid container direction="column" width="full">
+              <Grid item xs={12}>
+                { state.event.menu.sides.length ?
+                  <Typography>Below are your side dishes saved for the event</Typography>
+                  : <Typography>No saved recipes found.</Typography>}
+                  <Button variant="contained" color="secondary" 
+                    onClick={(e) => dispatch({ type: SEARCH_RECIPES, payload: {dishType: "Preps"}} )}
+                    // component={Link} to={"/recipe"}
+                    >Search for Sides
+                  </Button>
+                </Grid>
+                <Grid item container>
+                  <Grid item xs={false} sm={2}/>
+                  <Grid item container xs={12} sm={8} spacing={3}>
+                    { state.event.menu.sides.map((item) => (
+                      <Grid item xs={12} sm={6} md={4}>
+                        <RecipeReviewCard {...item} />
+                      </Grid>
+                    ))} 
+                  </Grid>
+                  <Grid item xs={false} sm={2} />
+                </Grid>
+              </Grid>
+            </AccordionDetails>
+          </Accordion>
+          <Accordion>
+            <AccordionSummary
+              expandIcon={<ExpandMoreIcon />}
+              aria-controls="panel2a-content"
+              id="panel2a-header"
+            >
+              <Typography className={classes.heading}>Main Dishes</Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+            <Grid container direction="column" width="full">
+              <Grid item xs={12}>
+                { state.event.menu.mains.length ?
+                  <Typography>Below are your main dishes saved for the event</Typography>
+                  : <Typography>No saved recipes found.</Typography>}
+                  <Button variant="contained" color="secondary" 
+                    onClick={(e) => dispatch({ type: SEARCH_RECIPES, payload: {dishType: "Main Course"}} )}
+                    // component={Link} to={"/recipe"}
+                    >Search for Main Dish
+                  </Button>
+                </Grid>
+                <Grid item container>
+                  <Grid item xs={false} sm={2} />
+                  <Grid item container xs={12} sm={8} spacing={3}>
+                    {state.event.menu.mains.map((item) => (
+                      <Grid item xs={12} sm={6} md={4}>
+                        <RecipeReviewCard {...item} />
+                      </Grid>
+                    ))}
+                  </Grid>
+                  <Grid item xs={false} sm={2} />
+                </Grid>
+              </Grid>
+            </AccordionDetails>
+          </Accordion>
         </TabPanel>
       </Container>
-    </div>
   );
 }
