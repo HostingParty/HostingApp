@@ -1,3 +1,5 @@
+import axios from ""
+
 let recipeSearchArr: [];
 
 function buildRecipeURL() {
@@ -16,7 +18,7 @@ $("#recipeSearch").on("click", function () {
     localStorage.setItem("recipe", recipeSearchArr);
     var recipeData = [];
     let recipeAPI = buildRecipeURL();
-    $.ajax({
+    $.axios({
         url: recipeAPI,
         method: "GET",
     }).then(function (response) {
