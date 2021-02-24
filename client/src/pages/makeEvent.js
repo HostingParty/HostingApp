@@ -118,7 +118,7 @@ const MakeEvent = () => {
                       <Button
                         id="submitBtn"
                         variant="contained"
-                        color="success"
+                        color="primary"
                         type="submit"
                         className="button-block"
                         disabled={isBtnDisabled}

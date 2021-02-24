@@ -16,7 +16,16 @@ import { blue } from '@material-ui/core/colors';
 
 import Checkbox from '@material-ui/core/Checkbox';
 
-const friends = ['Brandon', 'Maranda', 'Ben', 'Dan'];
+//get from user friend list
+const friends = [
+    {name: 'Brandon'}, 
+    {name: 'Ben'},
+    {name: 'Maranda'},
+    {name: 'Brandon'},
+];
+const invites = friends.map(person => (
+    {...person, status: false}
+));
 const useStyles = makeStyles({
   avatar: {
     backgroundColor: blue[100],
@@ -28,31 +37,27 @@ function SimpleDialog(props) {
   const classes = useStyles();
   const { onClose, selectedValue, open } = props;
 
-  const [checked, setChecked] = React.useState(false);
-
-  const handleChange = (event) => {
-    setChecked(event.target.checked);
-  };
-
+  const [state, setState] = React.useState([...invites])
 
   const handleClose = () => {
     onClose(selectedValue);
   };
 
-  const handleListItemClick = (value) => {
-    // onClose(value);
-    //add friend to invite list
+  const handleListItemClick = (value, index) => {
+    let updateState = [...state];
+    updateState[index].status = !updateState[index].status
+    setState(updateState)
+
   };
 
   return (
     <Dialog onClose={handleClose} aria-labelledby="simple-dialog-title" open={open}>
       <DialogTitle id="simple-dialog-title">Select Guests</DialogTitle>
       <List>
-        {friends.map((friend) => (
-          <ListItem button onClick={() => handleListItemClick(friends)} key={friend}>
+        {invites.map((person, index) => (
+          <ListItem button onClick={() => handleListItemClick(person, index)} key={person.name}>
             <Checkbox
-                checked={checked}
-                onChange={handleChange()}
+                checked={person.status}
                 inputProps={{ 'aria-label': 'primary checkbox' }}
             />
             <ListItemAvatar>
@@ -60,11 +65,11 @@ function SimpleDialog(props) {
                 <PersonIcon />
               </Avatar>
             </ListItemAvatar>
-            <ListItemText primary={friend} />
+            <ListItemText primary={person.name} />
           </ListItem>
         ))}
 
-        <ListItem autoFocus button onClick={() => handleListItemClick('addAccount')}>
+        <ListItem autoFocus button onClick={() => handleClose(invites)}>
           <ListItemAvatar>
             <Avatar>
               <SaveIcon />
@@ -93,7 +98,7 @@ export default function PeopleListModal() {
 
   const handleClose = (value) => {
     setOpen(false);
-    setSelectedValue(value); //save guest list
+    setSelectedValue(value); //save guest list here, axios call
   };
 
   return (
