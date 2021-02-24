@@ -35,14 +35,14 @@ const reducer = (state, action) => {
     case SEARCH_RECIPES:
       return {
         ...state,
-        recipeSearchArr: searchRecipies(action.payload.dishType),
+        recipeSearchArr: searchRecipes(action.payload.dishType),
       };
     default:
       return state;
   }
 };
 
-async function searchRecipies(dishType) {
+async function searchRecipes(dishType) {
   let results = await API.getRecipes(dishType);
   let arr = results.data.results.map(item =>item.recipe);
   console.log("From FOOD API, search results: ", arr);
@@ -51,7 +51,8 @@ async function searchRecipies(dishType) {
 
 const StoreProvider = ({ value = [], ...props }) => {
   const [state, dispatch] = useReducer(reducer, {
-    selectedEvent: "6025e9bba968960008f31a20",
+    // selectedEvent: "6025e9bba968960008f31a20",
+    selectedEvent: "",
     user: {
       name: {
         first: "brandon",

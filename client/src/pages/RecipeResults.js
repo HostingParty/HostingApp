@@ -29,7 +29,7 @@ export function Recipe () {
             <h1>apps</h1>
             {
 //               //map over recipeSearchArr -> this will map over the recipes coming from the search results from edemam
-              state.event.menu.apps[0](i => <span> {i} </span>)
+              state.event.menu.apps.map(i => <span> {i} </span>)
             }
           </>
         )
@@ -83,7 +83,7 @@ export default function InteractiveList() {
         <Grid item xs={12} md={6}>
         <Typography variant="h6" className={classes.title}>
           Search Results For 
-          { state.event.menu.apps }
+          {/* { state.event.menu.apps } */}
           {/* { state.event.menu.apps.map(item) } */}
           {/* { state.event.details } */}
            
