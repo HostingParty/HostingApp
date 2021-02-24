@@ -41,6 +41,7 @@ exports.getSingleUser = async (req, res, next) => {
 // @route   GET /api/v1/users/search
 // @access  Public
 exports.getUserByName = async (req, res, next) => {
+  // Validation for this route is incomplete if name is just first or multiples
   let { name } = req.query;
   if (!name) return res.status(400).json({ success: false, msg: err });
 
