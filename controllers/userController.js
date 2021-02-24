@@ -24,7 +24,7 @@ exports.getSingleUser = async (req, res, next) => {
 
   // Currently only returns event id and title. Edit populate for more event info.
   db.User.find({ _id: id })
-    .populate("hosting pending accepted decline", "title")
+    .populate("hosting pending accepted decline", "title description eventDate")
     .exec((err, user) => {
       if (err) return res.status(400).json({ success: false, msg: err });
       if (user.length === 0) return res.status(400).json({ success: false, msg: "No User Found" });
