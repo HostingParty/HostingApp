@@ -59,17 +59,10 @@ acceptedEvents.forEach(element => {
 
         return (
             <div>
-<<<<<<< HEAD
             <Divider varient="inset" conponent="li" />
           <ListItem key={value._id} role={undefined}>           
             <ListItemText id={labelId} primary={value.title} />
             <ListItemText primary={value.status} secondary={value.date} />
-=======
-            <Divider varient="inset" component="li" />
-          <ListItem key={value} role={undefined} dense button onClick={handleToggle(value)}>           
-            <ListItemText id={labelId} primary={`Upcoming Event ${value + 1}`} />
-            <ListItemText primary={"Date: 2/20/2021"} secondary="Coding fun" />
->>>>>>> develop
             
             <ListItemSecondaryAction>
               <IconButton edge="end" aria-label="comments" onClick={(e) => dispatch({ type: SET_SELECTED_EVENT, payload: {}})} component={Link} to={"/event"}>

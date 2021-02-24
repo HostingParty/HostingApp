@@ -20,12 +20,8 @@ function App() {
         <Switch>
           <Route exact path="/" component={CreateUser} />
           <Route exact path="/login" component={Login} />
-<<<<<<< HEAD
-          <Route exact path="/createEvent" component={CreateEvent} />         
-=======
           <Route exact path="/events" component={CreateEvent} />
           <Route exact path="/createEvent" component={CreateEvent} />
->>>>>>> develop
           <Route exact path="/event" component={Event} /> 
           <Route exact path="/profile" component={Profile} />
           <Route exact path="/recipe" component={Recipe} />
