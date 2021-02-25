@@ -1,5 +1,5 @@
 import React, { createContext, useReducer, useContext } from "react";
-import { ADD_INVITE, REMOVE_INVITE, SET_USER, SET_SELECTED_EVENT, SEARCH_RECIPES } from "./actions";
+import { ADD_INVITE, REMOVE_INVITE, SET_USER, SET_SELECTED_EVENT, SEARCH_RECIPES, ADD_RECIPE } from "./actions";
 import API from "./API"
 
 const StoreContext = createContext();
@@ -35,14 +35,28 @@ const reducer = (state, action) => {
     case SEARCH_RECIPES:
       return {
         ...state,
-        recipeSearchArr: searchRecipies(action.payload.dishType),
+        recipeSearchArr: searchRecipes(action.payload.dishType),
       };
+
+      // update event.menu + make db post // does it make sense to post to the db then update global state? 
+
+    // case ADD_RECIPE:
+    //   return {
+
+    //     insert things here
+    //   }   
+
+    // case DELETE_RECIPE:
+    //   return {
+    //       insert things here
+    //   };
+    
     default:
       return state;
   }
 };
 
-async function searchRecipies(dishType) {
+async function searchRecipes(dishType) {
   let results = await API.getRecipes(dishType);
   let arr = results.data.results.map(item =>item.recipe);
   console.log("From FOOD API, search results: ", arr);
@@ -55,8 +69,8 @@ const StoreProvider = ({ value = [], ...props }) => {
     selectedEvent: "",
     user: {
       name: {
-        first: "brandon",
-        last: "hexsel"
+        first: "Brandon",
+        last: "Hexsel"
     },
     allergies: [],
     preferences: [],
@@ -64,19 +78,28 @@ const StoreProvider = ({ value = [], ...props }) => {
     hosting: [
         {
             _id: "6025e9bba968960008f31a21",
-            title: "Chili Quest"
+            title: "Chili Quest",
+            eventDate: "4/20/2021",
+            description: "Birthday"
+            
         }
     ],
     pending: [
         {
             _id: "6025e9bba968960008f31a20",
-            title: "BBQ Cookoff"
+            title: "BBQ Cookoff",
+            eventDate: "4/25/2021",
+            description: "Anniversary"
+            
         }
     ],
     accepted: [
         {
             _id: "6025e9bba968960008f31a22",
-            title: "Graduation Party"
+            title: "Graduation Party",
+            eventDate: "4/30/2021",
+            description: "Graduation"
+            
         }
     ],
     declined: [],

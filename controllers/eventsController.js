@@ -92,3 +92,36 @@ exports.deleteEvent = async (req, res, next) => {
     });
   });
 };
+
+//  getRecipes
+// route /api/v1/food/recipes/
+
+
+
+
+
+// addRecipes
+// route /api/v1/food/recipes/
+
+
+
+// @desc    Update an event recipes
+// @route   POST /api/v1/event/:id
+// @access  Public
+// exports.updateEventRecipe = async (req, res, next) => {
+//   let id = req.params.id;
+//   let recipe = req.body;
+//   // Assumes request body sent contains original + updated data
+//   db.Event.findOneAndUpdate({ _id: id }, { $push: { menu: recipe } }, { returnOriginal: false }, (err, event) => {
+//     if (err) return res.status(400).json({ success: false, msg: err });
+//     if (event === null) return res.status(400).json({ success: false, msg: "Nothing was updated" });
+//     res.status(200).json({
+//       success: true,
+//       data: event,
+//     });
+//   });
+// };
+
+
+// deleteRecipes
+// route /api/v1/food/recipes/

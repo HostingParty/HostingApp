@@ -7,7 +7,7 @@ const passport = require("./config/passport");
 const session = require("express-session");
 const morgan = require("morgan");
 
-require('dotenv').config()
+require("dotenv").config();
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -43,13 +43,6 @@ app.use(
 
 app.use(passport.initialize());
 app.use(passport.session());
-
-// Just for development logging
-app.use((req, res, next) => {
-  console.log("req.session", req.session);
-  console.log("req.user", req.user);
-  return next();
-});
 
 // Auth Routes
 const authRoute = require("./routes/auth/authRoute");

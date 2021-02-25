@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import API from "../utils/API";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import { useLocation } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import Container from "@material-ui/core/Container";
 import PropTypes from "prop-types";
 import AppBar from "@material-ui/core/AppBar";
@@ -78,6 +78,7 @@ function a11yProps(index) {
 }
 
 export function Event() {
+  let history = useHistory();
   const [value, setValue] = React.useState(0);
   const classes = useStyles();
 
@@ -112,7 +113,22 @@ export function Event() {
     // else return <Redirect to="/" />
   }
 
-  return (
+  const handleRecipeAppStateChange = (e) => {
+    dispatch({ type: SEARCH_RECIPES, payload: {dishType: "Starter"}} )
+    history.push("/recipe");
+  };
+   
+  const handleRecipeSidesStateChange = (e) => {
+    dispatch({ type: SEARCH_RECIPES, payload: {dishType: "Preps"}} )
+    history.push("/recipe");
+  };
+
+  const handleRecipeMainsStateChange = (e) => {
+    dispatch({ type: SEARCH_RECIPES, payload: {dishType: "Main Course"}} )
+    history.push("/recipe");
+  };
+
+ return (
       <Container fluid="true">
         <Typography variant="h4">
           {state.event.details.name}
@@ -157,7 +173,6 @@ export function Event() {
                 >Edit Guests
           </Button>
         </TabPanel>
-
         
         <TabPanel value={value} index={2}>
           <Accordion width="100">
@@ -175,8 +190,7 @@ export function Event() {
                     <Typography>Below are your appetizers saved for the event</Typography>
                     : <Typography>No saved recipes found.</Typography>}
                   <Button variant="contained" color="secondary" 
-                    onClick={(e) => dispatch({ type: SEARCH_RECIPES, payload: {dishType: "Starter"}} )}
-                    // component={Link} to={"/recipe"}
+                    onClick={handleRecipeAppStateChange}
                     >Search for Apps
                   </Button>
                 </Grid>
@@ -209,8 +223,7 @@ export function Event() {
                   <Typography>Below are your side dishes saved for the event</Typography>
                   : <Typography>No saved recipes found.</Typography>}
                   <Button variant="contained" color="secondary" 
-                    onClick={(e) => dispatch({ type: SEARCH_RECIPES, payload: {dishType: "Preps"}} )}
-                    // component={Link} to={"/recipe"}
+                    onClick={handleRecipeSidesStateChange}
                     >Search for Sides
                   </Button>
                 </Grid>
@@ -243,8 +256,7 @@ export function Event() {
                   <Typography>Below are your main dishes saved for the event</Typography>
                   : <Typography>No saved recipes found.</Typography>}
                   <Button variant="contained" color="secondary" 
-                    onClick={(e) => dispatch({ type: SEARCH_RECIPES, payload: {dishType: "Main Course"}} )}
-                    // component={Link} to={"/recipe"}
+                    onClick={handleRecipeMainsStateChange}
                     >Search for Main Dish
                   </Button>
                 </Grid>
