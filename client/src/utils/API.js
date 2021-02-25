@@ -47,18 +47,18 @@ exports.getRecipes = function (dishType) {
   return axios.get(`/api/v1/food/recipes/${dishType}`);
 };
 
-exports.addRecipes = function (uri, label, dishType, image, ingredientLines, eventId) {
+exports.addRecipes = function (uri, label, dishType, image, ingredientLines, healthLabels, eventId) {
   let recipe = {
     uri,
     label,
     dishType,
     image,
     ingredientLines,
-    healthLabels
+    healthLabels,
   };
   return axios.put("/api/v1/events/recipes" + eventId, recipe);
 };
 
 exports.deleteRecipes = function (url) {
-  return axios.delete = (`/api/v1/events/recipes/${dishType}`+ eventId);
+  return (axios.delete = `/api/v1/events/recipes/${dishType}` + eventId);
 };
