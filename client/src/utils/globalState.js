@@ -40,9 +40,11 @@ const reducer = (state, action) => {
 
       // update event.menu + make db post // does it make sense to post to the db then update global state? 
 
-    // case ADD_RECIPE:
-    //   return {
-
+    case ADD_RECIPE:
+      return {
+      ...state,
+      selectedEvent: action.payload,
+    };
     //     insert things here
     //   }   
 

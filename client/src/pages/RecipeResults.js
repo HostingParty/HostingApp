@@ -29,7 +29,7 @@ export function Recipe () {
             <h1>apps</h1>
             {
 //               //map over recipeSearchArr -> this will map over the recipes coming from the search results from edemam
-              state.event.menu.apps.map(i => <span> {i} </span>)
+              state.event.menu(i => <span> {i} </span>)
             }
           </>
         )
