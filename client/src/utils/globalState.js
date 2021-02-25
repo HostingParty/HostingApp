@@ -66,8 +66,8 @@ const StoreProvider = ({ value = [], ...props }) => {
     selectedEvent: "",
     user: {
       name: {
-        first: "brandon",
-        last: "hexsel"
+        first: "Brandon",
+        last: "Hexsel"
     },
     allergies: [],
     preferences: [],
@@ -75,19 +75,25 @@ const StoreProvider = ({ value = [], ...props }) => {
     hosting: [
         {
             _id: "6025e9bba968960008f31a21",
-            title: "Chili Quest"
+            title: "Chili Quest",
+            date: "4/20/2021",
+            
         }
     ],
     pending: [
         {
             _id: "6025e9bba968960008f31a20",
-            title: "BBQ Cookoff"
+            title: "BBQ Cookoff",
+            date: "4/25/2021",
+            
         }
     ],
     accepted: [
         {
             _id: "6025e9bba968960008f31a22",
-            title: "Graduation Party"
+            title: "Graduation Party",
+            date: "4/30/2021",
+            
         }
     ],
     declined: [],

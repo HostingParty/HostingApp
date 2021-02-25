@@ -38,10 +38,12 @@ const UserSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    friends: {
-      type: Schema.Types.ObjectId,
-      ref: "User",
-    },
+    friends: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "User",
+      },
+    ],
     pictureUrl: String,
     allergies: [{}],
     preferences: [{}],
