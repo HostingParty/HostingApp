@@ -65,7 +65,8 @@ const StoreProvider = ({ value = [], ...props }) => {
         {
             _id: "6025e9bba968960008f31a21",
             title: "Chili Quest",
-            date: "4/20/2021",
+            eventDate: "4/20/2021",
+            description: "Birthday"
             
         }
     ],
@@ -73,7 +74,8 @@ const StoreProvider = ({ value = [], ...props }) => {
         {
             _id: "6025e9bba968960008f31a20",
             title: "BBQ Cookoff",
-            date: "4/25/2021",
+            eventDate: "4/25/2021",
+            description: "Anniversary"
             
         }
     ],
@@ -81,7 +83,8 @@ const StoreProvider = ({ value = [], ...props }) => {
         {
             _id: "6025e9bba968960008f31a22",
             title: "Graduation Party",
-            date: "4/30/2021",
+            eventDate: "4/30/2021",
+            description: "Graduation"
             
         }
     ],
