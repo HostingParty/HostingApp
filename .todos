@@ -1,0 +1,10 @@
+Event Page:
+1) Format Details
+2) Format Guest List
+
+
+Make Event:
+    1) Get array of invited friends from modal to event.pending array. Pass state and function to change state down to child component. See class examples.
+    2) Redirect user to /events once submitted button is clicked
+    3) Do SNS when creating event
+    4) Do backend for AWS API
