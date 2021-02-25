@@ -20,6 +20,7 @@ const ViewSelectedRecipe = (props) => {
     const RecipeCard = props.className;
     const [value, setValue] = React.useState(0);
     const [state, dispatch] = useStoreContext();
+
     console.log(props);
 
 
@@ -33,19 +34,17 @@ const ViewSelectedRecipe = (props) => {
             <Button
                 variant="contained" 
                 color="primary" 
+                // create handler for dispatch, then do the redirect through
                 onClick={() => dispatch({ 
                     type: ADD_RECIPE, 
                     payload: 
-                        {dishType: "Starter", eventID: ""}} 
+                        {dishType: "Starter"}} 
                 )}
-                // //  //  // //  //  //  // //  //  //  // //  //  //  // //  //  //  // //
-                //  -------- //  //  -------- //   //  -------- //  //  -------- // 
-                // they payload is the data passing through essentially. dishtype should come in from the info on the recipe object. EventID will tie the recipe to the actual event -> need to confirm the value for it though -- not sure "eventID" is what we'll use. Might not be needed if it's in global state.
-                //  -------- //  //  -------- //   //  -------- //  //  -------- // 
-                // //  //  // //  //  //  // //  //  //  // //  //  //  // //  //  //  // //
+
             >  
                 Add to Event 
             </Button>
+            {/* // this needs to send the recipe to the  */}
         </Grid>
         <Grid>
             <Link>Go Back to Results</Link>
