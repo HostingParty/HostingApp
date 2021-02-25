@@ -59,6 +59,6 @@ exports.addRecipes = function (uri, label, dishType, image, ingredientLines, hea
   return axios.put("/api/v1/events/recipes" + eventId, recipe);
 };
 
-exports.deleteRecipes = function (url) {
-  return (axios.delete = `/api/v1/events/recipes/${dishType}` + eventId);
-};
+// exports.deleteRecipes = function (url) {
+//   return (axios.delete = `/api/v1/events/recipes/${dishType}` + eventId);
+// };
