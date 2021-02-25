@@ -16,10 +16,6 @@ import { blue } from '@material-ui/core/colors';
 
 import Checkbox from '@material-ui/core/Checkbox';
 
-
-// const invites = friends.map(person => (
-//     {...person, status: false}
-// ));
 const useStyles = makeStyles({
   avatar: {
     backgroundColor: blue[100],
@@ -30,34 +26,21 @@ const useStyles = makeStyles({
 function SimpleDialog(props) {
   const classes = useStyles();
   const { onClose, friends, eventInfo, setEventInfo, open } = props;
-  console.log(props)
 
-
-// //get from user friend list
-const friendss = [
-  {name: 'Brandon'}, 
-  {name: 'Ben'},
-  {name: 'Maranda'},
-  {name: 'Brandon'},
-];
-
-
-
-  const invites = friendss.map(person => (
-    {...person, status: false}
-  ));
-
-  const [state, setState] = React.useState(invites)
+  const [state, setState] = React.useState(friends.map(person => (
+    {...person, invitedStatus: false}
+  )))
 
   const handleClose = () => {
-    console.log("About the save the truthy values: ", invites)
-    setEventInfo({ ...eventInfo, pending: invites.filter(item => item.status) })
+    console.log("About the save the truthy values: ", state)
+    // let invited = state.filter(item => item.status); //might be okay to keep invitedStatus on user obj
+    setEventInfo({ ...eventInfo, pending: state.filter(item => item.invitedStatus) })
     onClose();
   };
 
   const handleListItemClick = (value, index) => {
     let updateState = [...state];
-    updateState[index].status = !updateState[index].status
+    updateState[index].invitedStatus = !updateState[index].invitedStatus
     setState(updateState)
 
   };
@@ -66,7 +49,7 @@ const friendss = [
     <Dialog onClose={handleClose} aria-labelledby="simple-dialog-title" open={open}>
       <DialogTitle id="simple-dialog-title">Select Guests</DialogTitle>
       <List>
-        {invites.map((person, index) => (
+        {state.map((person, index) => (
           <ListItem button onClick={() => handleListItemClick(person, index)} key={person.name}>
             <Checkbox
                 checked={person.status}
@@ -81,7 +64,7 @@ const friendss = [
           </ListItem>
         ))}
 
-        <ListItem autoFocus button onClick={() => handleClose(invites)}>
+        <ListItem autoFocus button onClick={() => handleClose(state)}>
           <ListItemAvatar>
             <Avatar>
               <SaveIcon />
@@ -103,14 +86,12 @@ SimpleDialog.propTypes = {
 export default function PeopleListModal(props) {
   const { friends, eventInfo, setEventInfo} = props;
   const [open, setOpen] = React.useState(false);
-  // const [selectedValue, setSelectedValue] = React.useState(friends[1]);
 
   const handleClickOpen = () => {
     setOpen(true);
   };
 
   const handleClose = () => {
-    // setInvites(value); //pass invite list to parent
     setOpen(false);
 
   };

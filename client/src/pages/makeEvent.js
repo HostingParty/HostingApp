@@ -19,12 +19,12 @@ const MakeEvent = () => {
 
   //Testing only will come on user obj
   //get from user friend list
-  const [friends, setFriends] = useState([
-    {name: 'Brandon'}, 
-    {name: 'Ben'},
-    {name: 'Maranda'},
-    {name: 'Brandon'},
-  ]);
+  // const [friends, setFriends] = useState([
+  //   {name: 'Brandon'}, 
+  //   {name: 'Ben'},
+  //   {name: 'Maranda'},
+  //   {name: 'Brandon'},
+  // ]);
 
   const handleChange = (event) => {
     let { name } = event.target;
@@ -119,7 +119,10 @@ const MakeEvent = () => {
                       />
                     </Grid>
                     <Grid item>
-                      <PeopleListModal friends={friends} eventInfo={eventInfo} setEventInfo={setEventInfo}></PeopleListModal>
+                      {state.user.friends 
+                      ? <PeopleListModal friends={state.user.friends} eventInfo={eventInfo} setEventInfo={setEventInfo}></PeopleListModal> :
+                      <Typography>No friends found, add your friends in profile page</Typography>
+                      }
                     </Grid>
                     <Grid item>
                       <Button
