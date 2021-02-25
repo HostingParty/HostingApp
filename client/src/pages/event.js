@@ -32,6 +32,7 @@ import Recipe from "./RecipeResults";
 import SearchIcon from '@material-ui/icons/Search';
 import IconButton from '@material-ui/core/IconButton';
 
+
 const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',

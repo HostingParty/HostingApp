@@ -6,22 +6,29 @@ import { useHistory } from "react-router-dom";
 import PeopleListModal from "../components/PeopleModal"
 
 const MakeEvent = () => {
-  const [eventInfo, setUserLoginInfo] = useState({
+  const [eventInfo, setEventInfo] = useState({
     title: "",
     description: "",
     eventDate: "",
     pending: [],
-    accepted: [],
-    declined: []
   });
   const [error, setError] = useState({ show: false, message: "" });
   const [isBtnDisabled, setIsBtnDisabled] = useState(true);
   const [state, dispatch] = useStoreContext();
   const history = useHistory();
 
+  //Testing only will come on user obj
+  //get from user friend list
+  const [friends, setFriends] = useState([
+    {name: 'Brandon'}, 
+    {name: 'Ben'},
+    {name: 'Maranda'},
+    {name: 'Brandon'},
+  ]);
+
   const handleChange = (event) => {
     let { name } = event.target;
-    setUserLoginInfo({ ...eventInfo, [name]: event.target.value });
+    setEventInfo({ ...eventInfo, [name]: event.target.value });
 
     if (eventInfo.title && eventInfo.description && eventInfo.eventDate) {
       setIsBtnDisabled(false);
@@ -112,7 +119,7 @@ const MakeEvent = () => {
                       />
                     </Grid>
                     <Grid item>
-                      <PeopleListModal></PeopleListModal>
+                      <PeopleListModal friends={friends} eventInfo={eventInfo} setEventInfo={setEventInfo}></PeopleListModal>
                     </Grid>
                     <Grid item>
                       <Button

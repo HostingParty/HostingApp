@@ -16,16 +16,10 @@ import { blue } from '@material-ui/core/colors';
 
 import Checkbox from '@material-ui/core/Checkbox';
 
-//get from user friend list
-const friends = [
-    {name: 'Brandon'}, 
-    {name: 'Ben'},
-    {name: 'Maranda'},
-    {name: 'Brandon'},
-];
-const invites = friends.map(person => (
-    {...person, status: false}
-));
+
+// const invites = friends.map(person => (
+//     {...person, status: false}
+// ));
 const useStyles = makeStyles({
   avatar: {
     backgroundColor: blue[100],
@@ -35,12 +29,30 @@ const useStyles = makeStyles({
 
 function SimpleDialog(props) {
   const classes = useStyles();
-  const { onClose, selectedValue, open } = props;
+  const { onClose, friends, eventInfo, setEventInfo, open } = props;
+  console.log(props)
 
-  const [state, setState] = React.useState([...invites])
+
+// //get from user friend list
+const friendss = [
+  {name: 'Brandon'}, 
+  {name: 'Ben'},
+  {name: 'Maranda'},
+  {name: 'Brandon'},
+];
+
+
+
+  const invites = friendss.map(person => (
+    {...person, status: false}
+  ));
+
+  const [state, setState] = React.useState(invites)
 
   const handleClose = () => {
-    onClose(selectedValue);
+    console.log("About the save the truthy values: ", invites)
+    setEventInfo({ ...eventInfo, pending: invites.filter(item => item.status) })
+    onClose();
   };
 
   const handleListItemClick = (value, index) => {
@@ -88,17 +100,19 @@ SimpleDialog.propTypes = {
   selectedValue: PropTypes.string.isRequired,
 };
 
-export default function PeopleListModal() {
+export default function PeopleListModal(props) {
+  const { friends, eventInfo, setEventInfo} = props;
   const [open, setOpen] = React.useState(false);
-  const [selectedValue, setSelectedValue] = React.useState(friends[1]);
+  // const [selectedValue, setSelectedValue] = React.useState(friends[1]);
 
   const handleClickOpen = () => {
     setOpen(true);
   };
 
-  const handleClose = (value) => {
+  const handleClose = () => {
+    // setInvites(value); //pass invite list to parent
     setOpen(false);
-    setSelectedValue(value); //save guest list here, axios call
+
   };
 
   return (
@@ -106,7 +120,7 @@ export default function PeopleListModal() {
       <Button fullWidth variant="outlined" color="primary" onClick={handleClickOpen}>
         Edit Guest List
       </Button>
-      <SimpleDialog selectedValue={selectedValue} open={open} onClose={handleClose} />
+      <SimpleDialog friends={friends} eventInfo={eventInfo} setEventInfo={setEventInfo} open={open} onClose={handleClose}/>
     </div>
   );
 }
