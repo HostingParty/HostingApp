@@ -39,6 +39,9 @@ const useStyles = makeStyles((theme) => ({
       textAlign: 'center',
       color: theme.palette.text.secondary,
     },
+    margin: {
+      marginLeft: "20px",
+    }
     
   }));
 
@@ -63,17 +66,17 @@ function CreateEvent() {
             {/* <Paper className={classes.paper}></Paper> */}
             </Grid>            
             </Grid>
-            <Grid container spacing={3}>
+            <Grid container spacing={0}>
             <Grid item xs={4}></Grid>
-            <Grid item xs={4}>
-            <Button component={Link} to={"/make-event"}   
+            <Grid className={classes.margin} item xs={3}>
+            <Button className={classes.margin} component={Link} to={"/make-event"}   
                         id="submitBtn"
                         variant="contained"
                         color="primary"
                         // type="submit"
                         className="button-block"              
                       >
-                        Make Event
+                        Create Event
                       </Button>
                       </Grid>
             <Grid item xs={4}></Grid>

@@ -8,10 +8,12 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
 import Typography from "@material-ui/core/Typography";
 import IconButton from '@material-ui/core/IconButton';
+import Grid from "@material-ui/core/Grid";
 import Divider from '@material-ui/core/Divider';
 import ListIcon from '@material-ui/icons/List';
 import { Link } from "react-router-dom";
 import { SET_SELECTED_EVENT } from '../../utils/actions';
+import Popper from "./popperIcon.png";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -21,7 +23,16 @@ const useStyles = makeStyles((theme) => ({
   },
   iconColor: {
     color: "#0e5d9e", 
+  },
+  picSize: {
+    width: "50px",
+    height: "50px",
+    marginLeft: "15px",
+  },
+  hostingColor: {
+    color: "#ff0061",
   }
+  
 }));
 
 export default function EventList() {
@@ -31,6 +42,8 @@ export default function EventList() {
   const pendingEvents = [...state.user.pending];
   const acceptedEvents = [...state.user.accepted];
   let events = [];
+
+ 
 
 hostingEvents.forEach(element => {
   events.push({...element, status: "Hosting"})  //add status
@@ -44,6 +57,7 @@ pendingEvents.forEach(element => {
 acceptedEvents.forEach(element => {
   events.push({...element, status: "Accepted"})
 })
+
 
 useEffect(() => {
   API.getEventInfo(state.selectedEvent)
@@ -61,29 +75,30 @@ useEffect(() => {
       // Render error page???? Redirect to our 404 page???
     });
 }, [state]);
-
-
-
  
   return (
 
     <div>
-    <Typography align="center" variant="h3">Welcome to {state.user.name.first}'s events</Typography>
+
+    <Typography variant="h2" spacing={3}>Your Events
+    <img className={classes.picSize} src={Popper}></img>
+    </Typography>
 
     <List className={classes.root}>
       {events.map((value) => {
-        const labelId = `checkbox-list-label-${value}`;
-        
+        const labelId = `checkbox-list-label-${value}`;       
        
 
         return (
             <div>
             
-          <ListItem onClick={(e) => dispatch({ type: SET_SELECTED_EVENT, payload: value._id})} component={Link} to={"/event"} button="true" divider="true" key={value._id} role={undefined}> 
-                   
-            <ListItemText id={labelId} primary={value.title} />
-            <ListItemText primary={value.status} secondary={value.date} />           
-            
+          <ListItem alignItems="start" onClick={(e) => dispatch({ type: SET_SELECTED_EVENT, payload: value._id})} component={Link} to={"/event"} button="true" divider="true" key={value._id} role={undefined}> 
+             <Grid item xs={6}>     
+            <ListItemText id={labelId} primary={value.title} secondary={value.description} />
+            </Grid> 
+            <Grid item xs={6}>
+            <ListItemText primary={value.status} secondary={value.eventDate} />           
+            </Grid>
             <ListItemSecondaryAction>
               <IconButton edge="end" aria-label="comments">
                 <ListIcon className={classes.iconColor}></ListIcon>
