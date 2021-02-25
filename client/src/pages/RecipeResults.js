@@ -85,7 +85,7 @@ export default function InteractiveList() {
           Search Results For 
           {/* { state.event.menu.apps } */}
           {/* { state.event.menu.apps.map(item) } */}
-          {/* { state.event.details } */}
+          {/* { state.event.menu.map[0] } */}
            
           </Typography>
           <Typography variant="h6" className={classes.title}>

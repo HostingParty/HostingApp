@@ -38,8 +38,11 @@ const reducer = (state, action) => {
         recipeSearchArr: searchRecipes(action.payload.dishType),
       };
 
+      // update event.menu + make db post // does it make sense to post to the db then update global state? 
+
     // case ADD_RECIPE:
     //   return {
+
     //     insert things here
     //   }   
 
