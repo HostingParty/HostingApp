@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import API from "../utils/API";
-import { useLocation } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import { StoreProvider, useStoreContext, searchRecipes } from "../utils/globalState";
 import { makeStyles, List, ListItem, ListItemText, Grid, Typography, Container } from '@material-ui/core';
-import { LOADING, SET_RECIPES, ADD_RECIPE } from "../utils/actions";
+import { LOADING, SET_RECIPES, ADD_RECIPE, DISH_VIEW } from "../utils/actions";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -31,6 +31,7 @@ export default function InteractiveList() {
   const classes = useStyles();
   const [dense, setDense] = React.useState(false);
   const [secondary, setSecondary] = React.useState(false);
+  let history = useHistory();
   const [state, dispatch] = useStoreContext();
   useEffect(() => {
     (async () => {
@@ -42,6 +43,11 @@ export default function InteractiveList() {
     })();
   }, [state.dishType])
 
+  const handleViewRecipe = (e) => {
+    dispatch({ type: DISH_VIEW, payload: {dishType: " testing"}});
+    history.push("/viewSelectedRecipe");
+  };
+
   return (
     <Container>
     <div className={classes.root}>
@@ -49,15 +55,17 @@ export default function InteractiveList() {
         <Grid item xs={12} md={6}>
         <Typography variant="h6" className={classes.title}>
           {`Search Results For ${state.dishType}`}         
-          {console.log("this is the recipe page", state.recipeSearchArr)}
+          {/* {console.log("this is the recipe page", state.recipeSearchArr)} */}
           </Typography>
           <div className={classes.demo}>
             <List dense={dense}>            
              { state.recipeSearchArr.map(item =>               
                 <List>
-                <a href="/viewSelectedRecipe" >
+                <a href="/viewSelectedRecipe">             
                   <ListItem button>
-                     <ListItemText primary= {item.label} />
+                     <ListItemText primary= {item.label} 
+                    onClick={handleViewRecipe} 
+                     />
                    </ListItem>
                  </a>
                </List> )}           

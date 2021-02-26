@@ -18,3 +18,4 @@ export const SET_RECIPES = "SET_RECIPES";
 export const ADD_RECIPE = "ADD_RECIPE";
 export const DELETE_RECIPE = "DELETE_RECIPE";
 export const PASS_DISH = "DISH_TYPE";
+export const DISH_VIEW = "DISH_VIEW";
