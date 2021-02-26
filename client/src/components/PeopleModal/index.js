@@ -59,7 +59,7 @@ function SimpleDialog(props) {
                 <PersonIcon />
               </Avatar>
             </ListItemAvatar>
-            <ListItemText primary={person.name.first + person.name.last} />
+            <ListItemText primary={person.name.first + " " + person.name.last} />
           </ListItem>
         ))}
 
