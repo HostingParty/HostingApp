@@ -1,15 +1,34 @@
 import React, { useContext, useState } from "react";
+import { makeStyles } from '@material-ui/core/styles';
 import { Button, TextField, Grid, Paper, Typography } from "@material-ui/core";
 import API from "../utils/API";
 import { useStoreContext } from "../utils/globalState";
 import { useHistory } from "react-router-dom";
 import PeopleListModal from "../components/PeopleModal"
 
+const useStyles = makeStyles((theme) => ({
+  container: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+  textField: {
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
+    width: 200,
+  },
+}));
+
 const MakeEvent = () => {
+  const classes = useStyles();
   const [eventInfo, setEventInfo] = useState({
     title: "",
     description: "",
-    eventDate: "",
+    eventDate: getTime("today"),
+    startTime: getTime("start"),
+    endTime: getTime("end"),
+    // eventDate: "",
+    // startTime: "",
+    // endTime: "",
     pending: [],
   });
   const [error, setError] = useState({ show: false, message: "" });
@@ -17,18 +36,26 @@ const MakeEvent = () => {
   const [state, dispatch] = useStoreContext();
   const history = useHistory();
 
-  //Testing only will come on user obj
-  //get from user friend list
-  // const [friends, setFriends] = useState([
-  //   {name: 'Brandon'}, 
-  //   {name: 'Ben'},
-  //   {name: 'Maranda'},
-  //   {name: 'Brandon'},
-  // ]);
+  function getTime(value) {
+    let today = new Date();
+    switch (value) {
+      case "today":
+        let dd = String(today.getDate()).padStart(2, '0');
+        let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+        let yyyy = today.getFullYear();
+        return yyyy + '-' + mm + '-' + dd;
+      case "start":
+        return today.toLocaleTimeString('en-US', { hour12: false }).slice(0,5);
+      case "end":
+        today.setHours(today.getHours() + 2);
+        return today.toLocaleTimeString('en-US', { hour12: false }).slice(0,5);
+    };
+  }
 
   const handleChange = (event) => {
     let { name } = event.target;
     setEventInfo({ ...eventInfo, [name]: event.target.value });
+    console.log(eventInfo, state.user);
 
     if (eventInfo.title && eventInfo.description && eventInfo.eventDate) {
       setIsBtnDisabled(false);
@@ -52,6 +79,7 @@ const MakeEvent = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    console.log("Saving event", eventInfo)
     try {
       let response = await API.addEvent(
         {...eventInfo, hosting: [state.user._id]}
@@ -111,10 +139,44 @@ const MakeEvent = () => {
                       <TextField
                         id="eventDate"
                         type="date"
-                        placeholder="Event Date"
+                        defaultValue={eventInfo.eventDate}
                         fullWidth
                         name="eventDate"
                         variant="outlined"
+                        onChange={(e) => handleChange(e)}
+                      />
+                    </Grid>
+                    <Grid item>
+                      <TextField
+                        id="startTime"
+                        type="time"
+                        fullWidth
+                        name="startTime"
+                        variant="outlined"
+                        defaultValue={eventInfo.startTime}
+                        InputLabelProps={{
+                          shrink: true,
+                        }}
+                        inputProps={{
+                          step: 300, // 5 min
+                        }}
+                        onChange={(e) => handleChange(e)}
+                      />
+                    </Grid>
+                    <Grid item>
+                      <TextField
+                        id="endTime"
+                        type="time"
+                        fullWidth
+                        name="endTime"
+                        variant="outlined"
+                        defaultValue={eventInfo.endTime}
+                        InputLabelProps={{
+                          shrink: true,
+                        }}
+                        inputProps={{
+                          step: 300, // 5 min
+                        }}
                         onChange={(e) => handleChange(e)}
                       />
                     </Grid>

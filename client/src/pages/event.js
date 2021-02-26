@@ -25,6 +25,9 @@ import Accordion from '@material-ui/core/Accordion';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import PeopleIcon from '@material-ui/icons/People';
+import RestaurantMenuIcon from '@material-ui/icons/RestaurantMenu';
+import InfoIcon from '@material-ui/icons/Info';
 
 import { Link } from 'react-router-dom';
 import Recipe from "./RecipeResults";
@@ -136,19 +139,23 @@ export function Event() {
 
         <AppBar position="static">
           <Tabs value={value} centered onChange={handleChange} aria-label="event tabs for sections">
-            <Tab label="Details" {...a11yProps(0)} />
-            <Tab label="Guests" {...a11yProps(1)} />
-            <Tab label="Menu" {...a11yProps(2)} />
+            <Tab label="Details" icon={<InfoIcon/>} {...a11yProps(0)} />
+            <Tab label="Guests" icon={<PeopleIcon/>} {...a11yProps(1)} />
+            <Tab label="Menu" icon={<RestaurantMenuIcon/>} {...a11yProps(2)} />
           </Tabs>
         </AppBar>
         <TabPanel value={value} index={0}>
-            {/* <h4>Date: {state.event.details.date}</h4>
-            <h4>Time: {state.event.details.time}</h4>
-            <h4>Address: {state.event.details.address}</h4> */}
-            {/* <p>Description: {eventInfo.description}</p> */}
-           {/* <p>Description: {state.event.details.notes}</p> */}
-          <Typography variant="h6">
+          <Typography align="center" variant="h6">
+            Date: {state.event.details.date}
+          </Typography>
+          <Typography align="center" variant="h6">
+            Address: {state.event.details.address}
+          </Typography>
+          <Typography align="center" variant="h6">
             Description: {state.event.details.notes}
+          </Typography>
+          <Typography align="center" variant="h6">
+              Map?
           </Typography>
           <Button variant="contained" color="primary" 
                 component={Link} to={"/make-event"}
@@ -160,12 +167,11 @@ export function Event() {
         <TabPanel value={value} index={1}>
           <Grid container justify="center">
             {[
-              { title: "Attending", value: "attendingInvites" },
-              { title: "Maybe", value: "maybeInvites" },
-              { title: "Declined", value: "declinedInvites" },
-              { title: "Pending", value: "pendingInvites" },
+              { title: "Attending", value: "accepted" },
+              { title: "Pending", value: "pending" },
+              { title: "Declined", value: "declined" },
             ].map((group) => (
-              <UserList key={group.title} groupName={group.title} people={state.event.guestList[group.value]} />
+              <UserList key={group.value} groupName={group.title} people={state.event.guestList[group.value]} sm={12}/>
             ))}
           </Grid>
           <Button variant="contained" color="primary" 

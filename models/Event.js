@@ -24,10 +24,10 @@ const EventSchema = new mongoose.Schema(
       default: Date.now,
     },
     startTime: {
-      type: Date,
+      type: String,
     },
     endTime: {
-      type: Date,
+      type: String,
     },
     address: String,
     hosting: [
