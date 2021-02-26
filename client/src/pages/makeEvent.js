@@ -55,7 +55,7 @@ const MakeEvent = () => {
   const handleChange = (event) => {
     let { name } = event.target;
     setEventInfo({ ...eventInfo, [name]: event.target.value });
-    console.log(eventInfo);
+    console.log(eventInfo, state.user);
 
     if (eventInfo.title && eventInfo.description && eventInfo.eventDate) {
       setIsBtnDisabled(false);

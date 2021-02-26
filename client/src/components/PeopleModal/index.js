@@ -49,7 +49,7 @@ function SimpleDialog(props) {
       <DialogTitle id="simple-dialog-title">Select Guests</DialogTitle>
       <List>
         {state.map((person, index) => (
-          <ListItem button onClick={() => handleListItemClick(person, index)} key={person.name}>
+          <ListItem button onClick={() => handleListItemClick(person, index)} key={person._id}>
             <Checkbox
                 checked={person.status}
                 inputProps={{ 'aria-label': 'primary checkbox' }}
@@ -59,7 +59,7 @@ function SimpleDialog(props) {
                 <PersonIcon />
               </Avatar>
             </ListItemAvatar>
-            <ListItemText primary={person.name} />
+            <ListItemText primary={person.name.first + person.name.last} />
           </ListItem>
         ))}
 
