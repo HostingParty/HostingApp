@@ -1,10 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useState } from "react";
 import { useStoreContext } from "../../utils/globalState";
 import "./style.css";
 import { makeStyles } from "@material-ui/core/styles";
 import Avatar from "../../components/Avatar/index";
 import { Grid, Paper, FormLabel, FormControl } from "@material-ui/core";
-import FriendList from "../../components/FriendList/friend-list.component";
+import FriendListContainer from "../../components/FriendListContainer/friend-list-container.component";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -19,6 +19,7 @@ const useStyles = makeStyles((theme) => ({
 function Profile() {
   const classes = useStyles();
   const [state, dispatch] = useStoreContext();
+  const [editProfPic, setEditProfPic] = useState();
 
   return (
     <div className={classes.root}>
@@ -55,7 +56,7 @@ function Profile() {
         </Grid>
 
         <Grid item sm={12} md={6}>
-          {state.user && <FriendList userId={state.user._id} friends={state?.user?.friends} />}
+          {state.user && <FriendListContainer userId={state.user._id} friends={state?.user?.friends} />}
         </Grid>
       </Grid>
     </div>

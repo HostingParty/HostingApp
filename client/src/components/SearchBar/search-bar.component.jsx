@@ -1,7 +1,7 @@
-import { InputBase, Paper, IconButton } from "@material-ui/core";
+import { InputBase, Paper, IconButton, Button } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
 
-const SearchBar = ({ handleInput, handleSubmit }) => {
+const SearchBar = ({ handleInput, handleSubmit, handleCancel }) => {
   return (
     <Paper>
       <form
@@ -19,6 +19,13 @@ const SearchBar = ({ handleInput, handleSubmit }) => {
         <IconButton type="submit">
           <SearchIcon />
         </IconButton>
+        <Button
+          onClick={(e) => {
+            handleCancel(e);
+          }}
+        >
+          Cancel
+        </Button>
       </form>
     </Paper>
   );
