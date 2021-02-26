@@ -11,6 +11,11 @@ export function Recipe () {
   const [value, setValue] = React.useState(0);
   const [state, dispatch] = useStoreContext();
 
+  useEffect(() => {
+    console.log("useEffect");
+    API.getRecipes(); 
+  }, [state]);
+
   const Events = {
     menu: {
       apps: ["Chips", "Dip", "Salsa"],
@@ -20,10 +25,10 @@ export function Recipe () {
   }
 
   const RecipeList = () => {
-    const [state, dispatch] = useStoreContext();
-    const searchRecipes = () => {
+    
+    const getRecipes = () => {
       dispatch({ type: LOADING });
-      dispatch({ type: ADD_RECIPE });
+      dispatch({ type: SEARCH_RECIPES });
         return (
           <>
             <h1>apps</h1>
@@ -34,15 +39,13 @@ export function Recipe () {
           </>
         )
     };
-
-    useEffect(() => {
-      searchRecipes(); 
-    }, [state]);
   
     const handleChange = (event, newValue) => {
       setValue(newValue);
     };
 }};
+
+
 
 ///////////////////////////  /////////////////////////////
 ///////////////////////////  /////////////////////////////
@@ -82,10 +85,12 @@ export default function InteractiveList() {
       <Grid container spacing={2}>
         <Grid item xs={12} md={6}>
         <Typography variant="h6" className={classes.title}>
-          Search Results For 
-          {/* { state.event.menu.apps } */}
-          {/* { state.event.menu.apps.map(item) } */}
-          {/* { state.event.menu.map[0] } */}
+          {`Search Results For ${state.dishType}`}         
+          
+        
+
+          { state.event.recipeSearchArr }
+          {console.log("this is the recipe page", state.event.recipeSearchArr)}
            
           </Typography>
           <Typography variant="h6" className={classes.title}>

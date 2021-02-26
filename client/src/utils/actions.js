@@ -17,4 +17,4 @@ export const DELETE_EVENT = "DELETE_EVENT"; //Post MVP
 export const SEARCH_RECIPES = "SEARCH_RECIPES";
 export const ADD_RECIPE = "ADD_RECIPE";
 export const DELETE_RECIPE = "DELETE_RECIPE";
-
+export const PASS_DISH = "DISH_TYPE";

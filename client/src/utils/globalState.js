@@ -1,5 +1,5 @@
 import React, { createContext, useReducer, useContext } from "react";
-import { ADD_INVITE, REMOVE_INVITE, SET_USER, SET_SELECTED_EVENT, SEARCH_RECIPES, ADD_RECIPE } from "./actions";
+import { ADD_INVITE, REMOVE_INVITE, SET_USER, SET_SELECTED_EVENT, SEARCH_RECIPES, ADD_RECIPE, PASS_DISH } from "./actions";
 import API from "./API"
 
 const StoreContext = createContext();
@@ -38,15 +38,24 @@ const reducer = (state, action) => {
         recipeSearchArr: searchRecipes(action.payload.dishType),
       };
 
-      // update event.menu + make db post // does it make sense to post to the db then update global state? 
+    //   recipeSearchArr: new Promise ((resolve, reject) => {
+          
+    //   }) searchRecipes(action.payload.dishType),
+    // };
+
+    // saving in state before it gets the answer back
+
+    case PASS_DISH:
+      return {
+        ...state,
+        dishType: action.payload.dishType,
+      };
 
     case ADD_RECIPE:
       return {
       ...state,
       selectedEvent: action.payload,
     };
-    //     insert things here
-    //   }   
 
     // case DELETE_RECIPE:
     //   return {
@@ -60,7 +69,7 @@ const reducer = (state, action) => {
 
 async function searchRecipes(dishType) {
   let results = await API.getRecipes(dishType);
-  let arr = results.data.results.map(item =>item.recipe);
+  let arr = await results.data.results.map(item =>item.recipe);
   console.log("From FOOD API, search results: ", arr);
   return arr;
 };
@@ -223,7 +232,7 @@ const StoreProvider = ({ value = [], ...props }) => {
       },
     },
     loading: false,
-    recipeSearchArr: [], //array of recipe objects (from API)
+    recipeSearchArr: [], //array of recipe objects (from API)   
   });
 
   return <Provider value={[state, dispatch]} {...props} />;
