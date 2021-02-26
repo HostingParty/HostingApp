@@ -1,16 +1,15 @@
 import React, { useEffect } from "react";
 import { useStoreContext } from "../../utils/globalState";
 import "./style.css";
-import API from "../../utils/API";
-import NavBar from "../../components/Nav/index";
 import { makeStyles } from "@material-ui/core/styles";
 import Avatar from "../../components/Avatar/index";
-import { Grid, Paper, Card, CardContent, Typography, FormLabel, FormControl, Checkbox } from "@material-ui/core";
+import { Grid, Paper, FormLabel, FormControl } from "@material-ui/core";
 import FriendList from "../../components/FriendList/friend-list.component";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
+    margin: 30,
   },
   formControl: {
     margin: theme.spacing(3),
@@ -56,7 +55,7 @@ function Profile() {
         </Grid>
 
         <Grid item sm={12} md={6}>
-          {state.user && <FriendList friends={state?.user?.friends} />}
+          {state.user && <FriendList userId={state.user._id} friends={state?.user?.friends} />}
         </Grid>
       </Grid>
     </div>
