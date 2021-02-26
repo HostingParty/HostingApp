@@ -55,7 +55,7 @@ export default function InteractiveList() {
             <List dense={dense}>            
              { state.recipeSearchArr.map(item =>               
                 <List>
-                <a href="/viewSelectedRecipe">
+                <a href="/viewSelectedRecipe" >
                   <ListItem button>
                      <ListItemText primary= {item.label} />
                    </ListItem>
