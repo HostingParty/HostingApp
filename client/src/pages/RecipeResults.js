@@ -4,7 +4,6 @@ import { useLocation } from "react-router-dom";
 import { StoreProvider, useStoreContext, searchRecipes } from "../utils/globalState";
 import { makeStyles, List, ListItem, ListItemText, Grid, Typography, Container } from '@material-ui/core';
 import { LOADING, SET_RECIPES, ADD_RECIPE } from "../utils/actions";
-// import RecipeList from '../components/RecipeList';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -55,12 +54,10 @@ export default function InteractiveList() {
           <div className={classes.demo}>
             <List dense={dense}>
              
-             
+            
              {
                state.recipeSearchArr.map(item => <div>{item.label}</div> )
-             }
-
-           
+             }           
              
             </List>
           </div>
