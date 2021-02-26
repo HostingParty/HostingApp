@@ -4,6 +4,7 @@ import API from "../utils/API";
 import { useStoreContext } from "../utils/globalState";
 import { useHistory } from "react-router-dom";
 import PeopleListModal from "../components/PeopleModal"
+import TextField from '@material-ui/core/TextField';
 
 const MakeEvent = () => {
   const [eventInfo, setEventInfo] = useState({
@@ -114,6 +115,36 @@ const MakeEvent = () => {
                         placeholder="Event Date"
                         fullWidth
                         name="eventDate"
+                        variant="outlined"
+                        onChange={(e) => handleChange(e)}
+                      />
+                    </Grid>
+                    <Grid item>
+                      <TextField
+                        id="eventStartTime"
+                        type="date"
+                        placeholder="Start Time"
+                        fullWidth
+                        name="eventStartTime"
+                        variant="outlined"
+                        className={classes.textField}
+                        InputLabelProps={{
+                          shrink: true,
+                        }}
+                        inputProps={{
+                          step: 300, // 5 min
+                        }}
+                        onChange={(e) => handleChange(e)}
+                      />
+                    </Grid>
+                    <Grid item>
+                      <TextField
+                        id="eventEndTime"
+                        type="time"
+                        defaultValue="07:30"
+                        label="End Time"
+                        fullWidth
+                        name="eventEndTime"
                         variant="outlined"
                         onChange={(e) => handleChange(e)}
                       />
