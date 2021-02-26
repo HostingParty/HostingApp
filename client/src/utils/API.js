@@ -21,11 +21,31 @@ exports.updateUserPw = function (id, body) {
   return axios.put("/api/v1/users/pw/" + id, body);
 };
 
+exports.updateUserEvents = function (userId, eventId) {
+  let add = {
+    hosting: eventId,
+  };
+  return axios.put("/api/v1/users/array/" + userId, add);
+};
+
 exports.deleteUser = function (id) {
   return axios.delete("/api/v1/users/" + id);
 };
 
+exports.searchForUser = function (searchName) {
+  return axios.get("/api/v1/users/search", { params: { name: searchName } });
+};
+
+exports.addFriend = function (userId, friendId) {
+  let add = {
+    friends: friendId,
+  };
+
+  return axios.put("/api/v1/users/array/" + userId, add);
+};
+
 // Events
+//
 exports.addEvent = function (body) {
   return axios.post("/api/v1/events", body);
 };

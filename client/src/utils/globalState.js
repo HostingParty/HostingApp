@@ -116,10 +116,9 @@ const StoreProvider = ({ value = [], ...props }) => {
         notes: "B there or b square.",
       },
       guestList: {
-        pendingInvites: ["Dan", "Ben"], //will be array of User objects
-        attendingInvites: ["Brandon"], //will be array of User objects
-        maybeInvites: ["Maranda"], //will be array of User objects
-        declinedInvites: ["BenTA"], //will be array of User objects
+        pending: ["Dan", "Ben"], //will be array of User objects
+        accepted: ["Brandon", "Maranda"], //will be array of User objects
+        declined: ["BenTA"], //will be array of User objects
       },
       menu: {
         apps: [

@@ -1,37 +1,52 @@
-import React, { useEffect } from "react";
+import React, { useState } from "react";
 import { useStoreContext } from "../../utils/globalState";
 import "./style.css";
-import API from "../../utils/API";
-import NavBar from "../../components/Nav/index";
 import { makeStyles } from "@material-ui/core/styles";
-import Avatar from "../../components/Avatar/index";
-import { Grid, Paper, Card, CardContent, Typography, FormLabel, FormControl, Checkbox } from "@material-ui/core";
-import FriendList from "../../components/FriendList/friend-list.component";
+import Avatar from "@material-ui/core/Avatar";
+import { Container, Grid, Paper, FormLabel, FormControl } from "@material-ui/core";
+import FriendListContainer from "../../components/FriendListContainer/friend-list-container.component";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
+    justifyContent: "center",
   },
   formControl: {
     margin: theme.spacing(3),
+  },
+  large: {
+    width: theme.spacing(7),
+    height: theme.spacing(7),
+  },
+  item: {
+    display: "flex",
+    justifyContent: "flex-start",
+  },
+  mx: {
+    marginLeft: 18,
+    marginTop: 16,
+  },
+  paper: {
+    borderTop: "3px solid #2196F3",
   },
 }));
 
 function Profile() {
   const classes = useStyles();
   const [state, dispatch] = useStoreContext();
+  const [editProfPic, setEditProfPic] = useState();
 
   return (
-    <div className={classes.root}>
+    <Container maxWidth="md" className={classes.root}>
       <Grid container spacing={3}>
         <Grid item sm={12} md={6}>
-          <Paper>
+          <Paper className={classes.paper}>
             <Grid item sm={12}>
-              <Grid container>
-                <Grid item>
-                  <Avatar />
+              <Grid container className={classes.item}>
+                <Grid item className={classes.mx}>
+                  <Avatar src={state?.user?.profilePic} className={classes.large} />
                 </Grid>
-                <Grid item>
+                <Grid item className={classes.mx}>
                   <h2>
                     {state?.user?.name?.first} {state?.user?.name?.last}
                   </h2>
@@ -56,10 +71,10 @@ function Profile() {
         </Grid>
 
         <Grid item sm={12} md={6}>
-          {state.user && <FriendList friends={state?.user?.friends} />}
+          {state.user && <FriendListContainer userId={state.user._id} friends={state?.user?.friends} />}
         </Grid>
       </Grid>
-    </div>
+    </Container>
   );
 }
 

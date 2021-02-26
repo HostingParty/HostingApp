@@ -32,7 +32,6 @@ function SimpleDialog(props) {
   )))
 
   const handleClose = () => {
-    console.log("About the save the truthy values: ", state)
     // let invited = state.filter(item => item.status); //might be okay to keep invitedStatus on user obj
     setEventInfo({ ...eventInfo, pending: state.filter(item => item.invitedStatus) })
     onClose();
@@ -50,7 +49,7 @@ function SimpleDialog(props) {
       <DialogTitle id="simple-dialog-title">Select Guests</DialogTitle>
       <List>
         {state.map((person, index) => (
-          <ListItem button onClick={() => handleListItemClick(person, index)} key={person.name}>
+          <ListItem button onClick={() => handleListItemClick(person, index)} key={person._id}>
             <Checkbox
                 checked={person.status}
                 inputProps={{ 'aria-label': 'primary checkbox' }}
@@ -60,7 +59,7 @@ function SimpleDialog(props) {
                 <PersonIcon />
               </Avatar>
             </ListItemAvatar>
-            <ListItemText primary={person.name} />
+            <ListItemText primary={person.name.first + " " + person.name.last} />
           </ListItem>
         ))}
 
