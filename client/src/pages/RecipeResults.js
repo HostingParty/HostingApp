@@ -1,55 +1,11 @@
 import React, { useEffect, useState } from "react";
 import API from "../utils/API";
 import { useLocation } from "react-router-dom";
-import { StoreProvider, useStoreContext } from "../utils/globalState";
+import { StoreProvider, useStoreContext, searchRecipes } from "../utils/globalState";
 import { makeStyles, List, ListItem, ListItemText, Grid, Typography, Container } from '@material-ui/core';
-import { LOADING, SEARCH_RECIPES, ADD_RECIPE } from "../utils/actions";
-import RecipeReviewCard from '../components/RecipeCard';
+import { LOADING, SET_RECIPES, ADD_RECIPE } from "../utils/actions";
+// import RecipeList from '../components/RecipeList';
 
-
-export function Recipe () {
-  const [value, setValue] = React.useState(0);
-  const [state, dispatch] = useStoreContext();
-
-  useEffect(() => {
-    console.log("useEffect");
-    API.getRecipes(); 
-  }, [state]);
-
-  const Events = {
-    menu: {
-      apps: ["Chips", "Dip", "Salsa"],
-      sides: ["Green Salad", "Bread sticks"],
-      mains: ["Turducken"]
-    }
-  }
-
-  const RecipeList = () => {
-    
-    const getRecipes = () => {
-      dispatch({ type: LOADING });
-      dispatch({ type: SEARCH_RECIPES });
-        return (
-          <>
-            <h1>apps</h1>
-            {
-//               //map over recipeSearchArr -> this will map over the recipes coming from the search results from edemam
-              state.event.menu(i => <span> {i} </span>)
-            }
-          </>
-        )
-    };
-  
-    const handleChange = (event, newValue) => {
-      setValue(newValue);
-    };
-}};
-
-
-
-///////////////////////////  /////////////////////////////
-///////////////////////////  /////////////////////////////
-///////////////////////////  /////////////////////////////
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -77,7 +33,15 @@ export default function InteractiveList() {
   const [dense, setDense] = React.useState(false);
   const [secondary, setSecondary] = React.useState(false);
   const [state, dispatch] = useStoreContext();
-  console.log(state);
+  useEffect(() => {
+    (async () => {
+      const recipes = await searchRecipes (state.dishType)
+      dispatch({
+        type: SET_RECIPES,
+        payload: recipes,
+      })
+    })();
+  }, [state.dishType])
 
   return (
     <Container>
@@ -86,26 +50,18 @@ export default function InteractiveList() {
         <Grid item xs={12} md={6}>
         <Typography variant="h6" className={classes.title}>
           {`Search Results For ${state.dishType}`}         
-          
-        
-
-          { state.event.recipeSearchArr }
-          {console.log("this is the recipe page", state.event.recipeSearchArr)}
-           
-          </Typography>
-          <Typography variant="h6" className={classes.title}>
-            Text only
+          {console.log("this is the recipe page", state.recipeSearchArr)}
           </Typography>
           <div className={classes.demo}>
             <List dense={dense}>
-              {generate(
-                <ListItem>
-                  <ListItemText
-                    primary="Single-line item"
-                    secondary={secondary ? 'Secondary text' : null}
-                  />
-                </ListItem>,
-              )}
+             
+             
+             {
+               state.recipeSearchArr.map(item => <span>{item.label}</span> )
+             }
+
+           
+             
             </List>
           </div>
         </Grid>

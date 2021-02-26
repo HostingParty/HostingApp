@@ -1,5 +1,5 @@
 import React, { createContext, useReducer, useContext } from "react";
-import { ADD_INVITE, REMOVE_INVITE, SET_USER, SET_SELECTED_EVENT, SEARCH_RECIPES, ADD_RECIPE, PASS_DISH } from "./actions";
+import { ADD_INVITE, REMOVE_INVITE, SET_USER, SET_SELECTED_EVENT, SET_RECIPES, ADD_RECIPE, PASS_DISH } from "./actions";
 import API from "./API"
 
 const StoreContext = createContext();
@@ -32,18 +32,11 @@ const reducer = (state, action) => {
         ...state,
         selectedEvent: action.payload,
       };
-    case SEARCH_RECIPES:
+    case SET_RECIPES:
       return {
         ...state,
-        recipeSearchArr: searchRecipes(action.payload.dishType),
+        recipeSearchArr: action.payload,
       };
-
-    //   recipeSearchArr: new Promise ((resolve, reject) => {
-          
-    //   }) searchRecipes(action.payload.dishType),
-    // };
-
-    // saving in state before it gets the answer back
 
     case PASS_DISH:
       return {
@@ -56,20 +49,15 @@ const reducer = (state, action) => {
       ...state,
       selectedEvent: action.payload,
     };
-
-    // case DELETE_RECIPE:
-    //   return {
-    //       insert things here
-    //   };
     
     default:
       return state;
   }
 };
 
-async function searchRecipes(dishType) {
+export async function searchRecipes(dishType) {
   let results = await API.getRecipes(dishType);
-  let arr = await results.data.results.map(item =>item.recipe);
+  let arr = results.data.results.map(item =>item.recipe);
   console.log("From FOOD API, search results: ", arr);
   return arr;
 };
