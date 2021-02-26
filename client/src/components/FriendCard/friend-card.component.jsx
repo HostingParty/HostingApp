@@ -3,7 +3,10 @@ import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
   card: {
+    marginBottom: 8,
     display: "flex",
+    padding: 8,
+    paddingBottom: 8,
   },
 }));
 
@@ -12,23 +15,21 @@ const FriendCard = ({ friend, addFriend }) => {
 
   return (
     <>
-      <Card>
-        <CardContent className={classes.card}>
-          <Typography variant="h6">
-            {friend?.name?.first} {friend?.name?.last}
-          </Typography>
+      <Card className={classes.card}>
+        <Typography variant="h6">
+          {friend?.name?.first} {friend?.name?.last}
+        </Typography>
 
-          {/* Adds a button if passed addFriend function */}
-          {addFriend && (
-            <Button
-              onClick={() => {
-                addFriend(friend?._id);
-              }}
-            >
-              Add
-            </Button>
-          )}
-        </CardContent>
+        {/* Adds a button if passed addFriend function */}
+        {addFriend && (
+          <Button
+            onClick={() => {
+              addFriend(friend?._id);
+            }}
+          >
+            Add
+          </Button>
+        )}
       </Card>
     </>
   );

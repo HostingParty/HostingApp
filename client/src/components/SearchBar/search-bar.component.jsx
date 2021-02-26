@@ -1,10 +1,24 @@
 import { InputBase, Paper, IconButton, Button } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
+import { withStyles } from "@material-ui/core/styles";
+import { mergeClasses } from "@material-ui/styles";
 
-const SearchBar = ({ handleInput, handleSubmit, handleCancel }) => {
+const styles = (theme) => ({
+  mb: {
+    marginTop: 8,
+    marginBottom: 16,
+  },
+  px: {
+    paddingLeft: 16,
+    paddingright: 16,
+  },
+});
+
+const SearchBar = ({ handleInput, handleSubmit, handleCancel, classes }) => {
   return (
-    <Paper>
+    <Paper className={classes.mb}>
       <form
+        className={classes.px}
         onSubmit={(e) => {
           handleSubmit(e);
         }}
@@ -31,4 +45,4 @@ const SearchBar = ({ handleInput, handleSubmit, handleCancel }) => {
   );
 };
 
-export default SearchBar;
+export default withStyles(styles)(SearchBar);
