@@ -7,6 +7,10 @@ var upload = multer({ storage: storage });
 
 //POST route to upload a document file. 
 //Req has: {file.originalname, userId}
+exports.uploadPhoto = async (req, res, next) => {
+  
+}
+
 app.post("/api-aws/upload", upload.single("myPicture"), async function(req, res) {
     if (req.file.userId) {
       //Sleep for DB record to be created. TODO handle better in production.

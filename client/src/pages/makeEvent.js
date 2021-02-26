@@ -52,26 +52,10 @@ const MakeEvent = () => {
   const handleChange = (event) => {
     let { name } = event.target;
     setEventInfo({ ...eventInfo, [name]: event.target.value });
-    console.log(eventInfo, state.user);
 
     if (eventInfo.title && eventInfo.description && eventInfo.eventDate) {
       setIsBtnDisabled(false);
     }
-  };
-
-  const handleSuccessCreateEvent = async (_id) => {
-    API.getUserInfo(_id).then((data) => {
-      let user = data.data.data[0];
-
-      user = {
-        ...user,
-        password: "",
-      };
-
-      //refreshes events on user
-      dispatch({ type: "SET_USER", payload: user }); 
-      setError({ show: false, message: "" });
-    });
   };
 
   const handleSubmit = async (event) => {
@@ -83,9 +67,14 @@ const MakeEvent = () => {
       const { _id } = response.data.data;
 
       if (_id) {
-        handleSuccessCreateEvent(_id).then((data) => {
+        await API.updateUserEvents(state.user._id, _id)
+          .then((data) => {
+            dispatch({ type: "SET_USER", payload: data.data.data });
+          })
+          .catch((err) => {
+            console.log(err);
+          });
           history.push("/events");
-        });
       } else {
         setError({ show: true, message: response.data.message });
       }
