@@ -6,7 +6,7 @@ const { uploadPhoto } = require("../../controllers/awsController");
 router.route("/upload-photo")
     .post(uploadPhoto)
 
-router.route("/text-user")
+router.route("/text/:userId")
     .post(textUser)
 
 module.exports = router;

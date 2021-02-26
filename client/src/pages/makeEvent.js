@@ -67,6 +67,7 @@ const MakeEvent = () => {
       const { _id } = response.data.data;
 
       if (_id) {
+        API.textUser("dan", "hey");
         await API.updateUserEvents(state.user._id, _id)
           .then((data) => {
             dispatch({ type: "SET_USER", payload: data.data.data });

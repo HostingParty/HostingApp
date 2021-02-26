@@ -48,17 +48,18 @@ exports.uploadPhoto(upload.single("myFile")) = async (req, res, next) => {
 }
 
 exports.textUser() = async (req, res, next) => {
-  function fetchSubscribers(event, msg) {
-    // NEEED: DB call for list of attendees for a particular event
-    db.User.findAll({
-        //where textNotification: true & on event: req.event
-    }).then(function(data) {
-      console.log("Users to be notified: ");
-      data.forEach(element => {
-        notifyAttendees(`+1${element.phoneNumber}`, req.msg);
-      });
-    })
-  }
+  notifyAttendees(`+12064120323`, "hello world");
+  // function fetchSubscribers(event, msg) {
+  //   // NEEED: DB call for list of attendees for a particular event
+  //   db.User.findAll({
+  //       //where textNotification: true & on event: req.event
+  //   }).then(function(data) {
+  //     console.log("Users to be notified: ");
+  //     data.forEach(element => {
+  //       notifyAttendees(`+1${element.phoneNumber}`, req.msg);
+  //     });
+  //   })
+  // }
 }
 
 function notifyAttendees(num, msg) {

@@ -44,6 +44,10 @@ exports.addFriend = function (userId, friendId) {
   return axios.put("/api/v1/users/array/" + userId, add);
 };
 
+exports.textUser = function (userId, msg) {
+  return axios.post("api/v1/aws/text/" + userId, msg)
+}
+
 // Events
 //
 exports.addEvent = function (body) {
