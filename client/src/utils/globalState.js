@@ -1,5 +1,5 @@
 import React, { createContext, useReducer, useContext } from "react";
-import { ADD_INVITE, REMOVE_INVITE, SET_USER, SET_SELECTED_EVENT, SEARCH_RECIPES } from "./actions";
+import { ADD_INVITE, REMOVE_INVITE, SET_USER, SET_SELECTED_EVENT, SEARCH_RECIPES, ADD_RECIPE } from "./actions";
 import API from "./API"
 
 const StoreContext = createContext();
@@ -35,14 +35,28 @@ const reducer = (state, action) => {
     case SEARCH_RECIPES:
       return {
         ...state,
-        recipeSearchArr: searchRecipies(action.payload.dishType),
+        recipeSearchArr: searchRecipes(action.payload.dishType),
       };
+
+      // update event.menu + make db post // does it make sense to post to the db then update global state? 
+
+    // case ADD_RECIPE:
+    //   return {
+
+    //     insert things here
+    //   }   
+
+    // case DELETE_RECIPE:
+    //   return {
+    //       insert things here
+    //   };
+    
     default:
       return state;
   }
 };
 
-async function searchRecipies(dishType) {
+async function searchRecipes(dishType) {
   let results = await API.getRecipes(dishType);
   let arr = results.data.results.map(item =>item.recipe);
   console.log("From FOOD API, search results: ", arr);
