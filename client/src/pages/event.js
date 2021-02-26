@@ -114,29 +114,18 @@ export function Event() {
   }
 
   const handleRecipeAppStateChange = (e) => {
-    
-    // dispatch({ type: SEARCH_RECIPES, payload: {dishType: "Starter"}} );
-    // console.log(state, "after dispatch");
     dispatch({ type: PASS_DISH, payload: {dishType: "Starter"}});
     history.push("/recipe");
   };
   
   const handleRecipeSidesStateChange = (e) => {
-
-    // dispatch({ type: SEARCH_RECIPES, payload: {dishType: "Preps"}} );
     dispatch({ type: PASS_DISH, payload: {dishType: "Preps"}});
     history.push("/recipe");
   };
 
   const handleRecipeMainsStateChange = (e) => {
-
-    // dispatch({ type: SEARCH_RECIPES, payload: {dishType: "Main Course"}} );
     dispatch({ type: PASS_DISH, payload: {dishType: "Main Course"}});
     history.push("/recipe");
-    // callUpdateApi().then(res =>
-    //   dispatch ({
-    //     setLoading(!loading)
-    //   }))
   };
 
  return (

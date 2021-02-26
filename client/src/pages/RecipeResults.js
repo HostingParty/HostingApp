@@ -52,26 +52,15 @@ export default function InteractiveList() {
           {console.log("this is the recipe page", state.recipeSearchArr)}
           </Typography>
           <div className={classes.demo}>
-            <List dense={dense}>
-             
-            
-             {
-               state.recipeSearchArr.map(item => 
-               
-               
+            <List dense={dense}>            
+             { state.recipeSearchArr.map(item =>               
                 <List>
-                <a href="https://www.google.com">
+                <a href="/viewSelectedRecipe">
                   <ListItem button>
-                     <ListItemText primary=
-                     {item.label} />
+                     <ListItemText primary= {item.label} />
                    </ListItem>
                  </a>
-               </List>
-               
-              //  <div>{item.label}</div>
-                )
-             }           
-             
+               </List> )}           
             </List>
           </div>
         </Grid>
