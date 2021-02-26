@@ -56,7 +56,20 @@ export default function InteractiveList() {
              
             
              {
-               state.recipeSearchArr.map(item => <div>{item.label}</div> )
+               state.recipeSearchArr.map(item => 
+               
+               
+                <List>
+                <a href="https://www.google.com">
+                  <ListItem button>
+                     <ListItemText primary=
+                     {item.label} />
+                   </ListItem>
+                 </a>
+               </List>
+               
+              //  <div>{item.label}</div>
+                )
              }           
              
             </List>
