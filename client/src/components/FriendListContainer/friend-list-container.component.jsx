@@ -1,12 +1,23 @@
 import { useState } from "react";
-import { Card, CardContent, Typography } from "@material-ui/core";
+import { Paper, Card, CardContent, Typography } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
 import FriendList from "../FriendList/friend-list.component";
 import SearchBar from "../SearchBar/search-bar.component";
 import Alert from "@material-ui/lab/Alert";
 import API from "../../utils/API";
 import { useStoreContext } from "../../utils/globalState";
 
+const useStyles = makeStyles((theme) => ({
+  padding: {
+    padding: 16,
+  },
+  paper: {
+    borderTop: "3px solid #2196F3",
+  },
+}));
+
 const FriendListContainer = ({ friends, userId }) => {
+  const classes = useStyles();
   const [searchResult, setSearchResult] = useState({ showFriends: true, results: [] });
   const [searchInput, setSearchInput] = useState();
   const [error, setError] = useState({ show: false, message: "" });
@@ -53,25 +64,29 @@ const FriendListContainer = ({ friends, userId }) => {
   };
 
   return (
-    <Card>
-      <CardContent>
-        <Typography variant="h4">Your Friends</Typography>
+    <Paper className={classes.paper}>
+      <Card>
+        <CardContent>
+          <Typography variant="h4" className={classes.padding}>
+            Your Friends
+          </Typography>
 
-        {error.show && (
-          <Alert variant="outlined" severity="warning">
-            {error.message}
-          </Alert>
-        )}
+          {error.show && (
+            <Alert variant="outlined" severity="warning">
+              {error.message}
+            </Alert>
+          )}
 
-        <SearchBar handleInput={handleInput} handleSubmit={handleSubmit} handleCancel={handleCancel} />
+          <SearchBar handleInput={handleInput} handleSubmit={handleSubmit} handleCancel={handleCancel} />
 
-        {/* Search Result Friends. Show when searching */}
-        {searchResult.results && <FriendList friendsArray={searchResult.results} addFriend={addFriend} />}
+          {/* Search Result Friends. Show when searching */}
+          {searchResult.results && <FriendList friendsArray={searchResult.results} addFriend={addFriend} />}
 
-        {/* Current User Friends. Show when not searching */}
-        {friends && searchResult.showFriends && <FriendList friendsArray={friends} />}
-      </CardContent>
-    </Card>
+          {/* Current User Friends. Show when not searching */}
+          {friends && searchResult.showFriends && <FriendList friendsArray={friends} />}
+        </CardContent>
+      </Card>
+    </Paper>
   );
 };
 
