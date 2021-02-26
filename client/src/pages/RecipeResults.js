@@ -57,7 +57,7 @@ export default function InteractiveList() {
              
              
              {
-               state.recipeSearchArr.map(item => <span>{item.label}</span> )
+               state.recipeSearchArr.map(item => <div>{item.label}</div> )
              }
 
            
