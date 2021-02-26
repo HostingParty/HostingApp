@@ -26,9 +26,6 @@ const MakeEvent = () => {
     eventDate: getTime("today"),
     startTime: getTime("start"),
     endTime: getTime("end"),
-    // eventDate: "",
-    // startTime: "",
-    // endTime: "",
     pending: [],
   });
   const [error, setError] = useState({ show: false, message: "" });
@@ -79,13 +76,11 @@ const MakeEvent = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log("Saving event", eventInfo)
     try {
       let response = await API.addEvent(
         {...eventInfo, hosting: [state.user._id]}
       );
-      console.log("from make event:", response.data)
-      const { _id } = response.data;
+      const { _id } = response.data.data;
 
       if (_id) {
         handleSuccessCreateEvent(_id).then((data) => {
