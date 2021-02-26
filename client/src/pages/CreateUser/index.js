@@ -1,7 +1,8 @@
 import React from "react";
 import "./style.css";
-import { Button, TextField, Grid, Paper, Typography, Link } from "@material-ui/core";
+import { Button, TextField, Grid, Paper, Typography} from "@material-ui/core";
 import API from "../../utils/API";
+import { Link } from "react-router-dom";
 
 class CreateUser extends React.Component {
   constructor(props) {
@@ -104,7 +105,7 @@ class CreateUser extends React.Component {
                         />
                       </Grid>
                       <Grid item>
-                        <Link to="/login">
+                        
                           <Button
                             variant="contained"
                             color="primary"
@@ -114,23 +115,19 @@ class CreateUser extends React.Component {
                           >
                             Submit
                           </Button>
-                        </Link>
+                        
                       </Grid>
                     </Grid>
                   </form>
                 </Grid>
-                <Grid item>
-                  <Link
-                    to="/login"
-                    component="button"
-                    variant="body2"
-                    onClick={() => {
-                      console.info("I'm a button.");
-                    }}
-                  >
-                    Login
-                  </Link>
-                </Grid>
+                
+                
+                <Typography className="center" component={ Link } to="/login" variant="caption" display="block" gutterBottom>
+        Login
+      </Typography>
+             
+                
+                
               </Paper>
             </Grid>
           </Grid>

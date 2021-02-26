@@ -12,3 +12,9 @@ justify-content: center;
 min-height: 30vh;
 padding: 50px;
 }
+.center {
+    text-align: center;
+    margin-left: 100px;
+    margin-top: 50px;
+    
+  }
