@@ -19,7 +19,7 @@ function App() {
       <StoreProvider>
         <Nav />
         <Switch>
-          <Route exact path="/" component={CreateUser} />
+          <Route exact path="/create-user" component={CreateUser} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/make-event" component={MakeEvent} />
           <Route exact path="/events" component={CreateEvent} />

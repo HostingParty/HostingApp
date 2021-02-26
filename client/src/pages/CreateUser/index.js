@@ -119,8 +119,7 @@ class CreateUser extends React.Component {
                       </Grid>
                     </Grid>
                   </form>
-                </Grid>
-                
+                </Grid>               
                 
                 <Typography className="center" component={ Link } to="/login" variant="caption" display="block" gutterBottom>
         Login

@@ -59,19 +59,22 @@ acceptedEvents.forEach(element => {
 })
 
 
-useEffect(() => {
-  API.getEventInfo(state.selectedEvent)
-    .then((response) => {
-      const eventData = response.data.data[0];
-      // Set current event page with this event data      
-      console.log(state.selectedEvent)
-            // setEventInfo(eventData);
-    })
-    .catch((err) => {
-      console.log(err);
-      // Render error page???? Redirect to our 404 page???
-    });
-}, [state]);
+  // Global State for selectedEvent set once "View Event Button" is pressed.
+  useEffect(() => {
+    API.getEventInfo(state.selectedEvent)
+      .then((response) => {
+        const eventData = response.data.data[0];
+
+        // Set current event page with this event data
+        console.log(eventData, "State DATA:", state.event);
+        // setEventInfo(eventData);
+      })
+      .catch((err) => {
+        console.log(err);
+
+        // Render error page???? Redirect to our 404 page???
+      });
+  }, [state.selectedEvent]);
  
   return (
 
@@ -84,7 +87,7 @@ useEffect(() => {
     <List className={classes.root}>
       {events.map((value) => {
         // const labelId = `checkbox-list-label-${value}`;       
-       console.log(value.title)
+       
 
         return (
             <div>
