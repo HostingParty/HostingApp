@@ -32,7 +32,6 @@ function SimpleDialog(props) {
   )))
 
   const handleClose = () => {
-    console.log("About the save the truthy values: ", state)
     // let invited = state.filter(item => item.status); //might be okay to keep invitedStatus on user obj
     setEventInfo({ ...eventInfo, pending: state.filter(item => item.invitedStatus) })
     onClose();

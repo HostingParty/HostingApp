@@ -145,11 +145,6 @@ export function Event() {
           </Tabs>
         </AppBar>
         <TabPanel value={value} index={0}>
-            {/* <h4>Date: {state.event.details.date}</h4>
-            <h4>Time: {state.event.details.time}</h4>
-            <h4>Address: {state.event.details.address}</h4> */}
-            {/* <p>Description: {eventInfo.description}</p> */}
-           {/* <p>Description: {state.event.details.notes}</p> */}
           <Typography align="center" variant="h6">
             Date: {state.event.details.date}
           </Typography>
