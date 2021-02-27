@@ -85,12 +85,17 @@ export function Event() {
   const classes = useStyles();
 
   const [state, dispatch] = useStoreContext();
+  // let eventDateTxt;
+  // let dd = String(today.getDate()).padStart(2, '0');
+  // let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+  // let yyyy = today.getFullYear();
 
   // Global State for selectedEvent set once "View Event Button" is pressed.
   useEffect(() => {
     API.getEventInfo(state.selectedEvent)
       .then((response) => {
         const eventData = response.data.data[0];
+        console.log("In event page, event is ", eventData)
         dispatch({ type: SET_EVENT, payload: eventData} )
       })
       .catch((err) => {
