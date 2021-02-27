@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import API from "../utils/API";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import { useHistory, useLocation } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import Container from "@material-ui/core/Container";
 import PropTypes from "prop-types";
 import AppBar from "@material-ui/core/AppBar";
@@ -15,7 +14,7 @@ import Grid from "@material-ui/core/Grid";
 import Card from "@material-ui/core/Card";
 
 import { useStoreContext } from "../utils/globalState";
-import { LOADING, SEARCH_RECIPES } from "../utils/actions";
+import { LOADING, SEARCH_RECIPES, SET_EVENT } from "../utils/actions";
 
 import UserList from "../components/UserList";
 import RecipeReviewCard from "../components/RecipeCard";
@@ -86,35 +85,22 @@ export function Event() {
   const classes = useStyles();
 
   const [state, dispatch] = useStoreContext();
-  const preventDefault = (event) => event.preventDefault();
 
   // Global State for selectedEvent set once "View Event Button" is pressed.
   useEffect(() => {
     API.getEventInfo(state.selectedEvent)
       .then((response) => {
         const eventData = response.data.data[0];
-
-        // Set current event page with this event data
-        console.log(eventData, "State DATA:", state.event);
-        // setEventInfo(eventData);
+        dispatch({ type: SET_EVENT, payload: {...eventData}} )
       })
       .catch((err) => {
         console.log(err);
-
-        // Render error page???? Redirect to our 404 page???
       });
   }, [state.selectedEvent]);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-
-  function redirectRouter(route) {
-    if (route == "recipe") {
-      // return <Redirect to="recipe" />
-    }
-    // else return <Redirect to="/" />
-  }
 
   const handleRecipeAppStateChange = (e) => {
     dispatch({ type: SEARCH_RECIPES, payload: {dishType: "Starter"}} )
@@ -134,7 +120,7 @@ export function Event() {
  return (
       <Container fluid="true">
         <Typography variant="h4">
-          {state.event.details.name}
+          {state.event.title}
         </Typography>
 
         <AppBar position="static">
@@ -146,13 +132,16 @@ export function Event() {
         </AppBar>
         <TabPanel value={value} index={0}>
           <Typography align="center" variant="h6">
-            Date: {state.event.details.date}
+            Date: {state.event.eventDate}
           </Typography>
           <Typography align="center" variant="h6">
-            Address: {state.event.details.address}
+            Starts at: {state.event.address}
           </Typography>
           <Typography align="center" variant="h6">
-            Description: {state.event.details.notes}
+            Ends at: {state.event.address}
+          </Typography>
+          <Typography align="center" variant="h6">
+            Description: {state.event.description}
           </Typography>
           <Typography align="center" variant="h6">
               Map?
@@ -171,7 +160,7 @@ export function Event() {
               { title: "Pending", value: "pending" },
               { title: "Declined", value: "declined" },
             ].map((group) => (
-              <UserList key={group.value} groupName={group.title} people={state.event.guestList[group.value]} sm={12}/>
+              <UserList key={group.value} groupName={group.title} people={state.event[group.value]} sm={12}/>
             ))}
           </Grid>
           <Button variant="contained" color="primary" 
@@ -192,7 +181,7 @@ export function Event() {
             <AccordionDetails>
               <Grid container direction="column" width="full">
                 <Grid item xs={12}>
-                  { state.event.menu.apps.length ?
+                  { state.event.apps.length ?
                     <Typography>Below are your appetizers saved for the event</Typography>
                     : <Typography>No saved recipes found.</Typography>}
                   <Button variant="contained" color="secondary" 
@@ -203,7 +192,7 @@ export function Event() {
                 <Grid item container>
                   <Grid item xs={false} sm={2} />
                   <Grid item container xs={12} sm={8} spacing={3}>
-                    {state.event.menu.apps ? state.event.menu.apps.map((item) => (
+                    {state.event.apps ? state.event.apps.map((item) => (
                       <Grid item xs={12} sm={6} md={4}>
                         <RecipeReviewCard {...item} />
                       </Grid>
@@ -225,7 +214,7 @@ export function Event() {
             <AccordionDetails>
             <Grid container direction="column" width="full">
               <Grid item xs={12}>
-                { state.event.menu.sides.length ?
+                { state.event.sides.length ?
                   <Typography>Below are your side dishes saved for the event</Typography>
                   : <Typography>No saved recipes found.</Typography>}
                   <Button variant="contained" color="secondary" 
@@ -236,7 +225,7 @@ export function Event() {
                 <Grid item container>
                   <Grid item xs={false} sm={2}/>
                   <Grid item container xs={12} sm={8} spacing={3}>
-                    { state.event.menu.sides.map((item) => (
+                    { state.event.sides.map((item) => (
                       <Grid item xs={12} sm={6} md={4}>
                         <RecipeReviewCard {...item} />
                       </Grid>
@@ -258,7 +247,7 @@ export function Event() {
             <AccordionDetails>
             <Grid container direction="column" width="full">
               <Grid item xs={12}>
-                { state.event.menu.mains.length ?
+                { state.event.mains.length ?
                   <Typography>Below are your main dishes saved for the event</Typography>
                   : <Typography>No saved recipes found.</Typography>}
                   <Button variant="contained" color="secondary" 
@@ -269,7 +258,7 @@ export function Event() {
                 <Grid item container>
                   <Grid item xs={false} sm={2} />
                   <Grid item container xs={12} sm={8} spacing={3}>
-                    {state.event.menu.mains.map((item) => (
+                    {state.event.mains.map((item) => (
                       <Grid item xs={12} sm={6} md={4}>
                         <RecipeReviewCard {...item} />
                       </Grid>

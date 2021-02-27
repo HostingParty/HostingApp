@@ -1,5 +1,5 @@
 import React, { createContext, useReducer, useContext } from "react";
-import { ADD_INVITE, REMOVE_INVITE, SET_USER, SET_SELECTED_EVENT, SEARCH_RECIPES, ADD_RECIPE } from "./actions";
+import { ADD_INVITE, REMOVE_INVITE, SET_USER, SET_EVENT, SET_SELECTED_EVENT, SEARCH_RECIPES, ADD_RECIPE } from "./actions";
 import API from "./API"
 
 const StoreContext = createContext();
@@ -26,7 +26,11 @@ const reducer = (state, action) => {
         ...state,
         user: action.payload,
       };
-
+    case SET_EVENT:
+      return {
+        ...state,
+        event: action.payload,
+      };
     case SET_SELECTED_EVENT:
       return {
         ...state,

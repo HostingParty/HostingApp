@@ -56,6 +56,9 @@ const EventSchema = new mongoose.Schema(
     ],
     // This field might need to be updated. Each recipe might be an object with further information.... ie image, title, description, url etc.
     menu: [{}],
+    apps: [{}],
+    sides: [{}],
+    mains: [{}],
   },
   { collection: "Event" }
 );
