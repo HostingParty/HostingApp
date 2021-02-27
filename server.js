@@ -13,7 +13,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 const connectDB = async () => {
-  const connection = await mongoose.connect("mongodb://localhost:27017/HostParty", {
+  const connection = await mongoose.connect("mongodb://localhost:27017/HostParty2", {
     useNewUrlParser: true,
     useCreateIndex: true,
     useFindAndModify: false,
