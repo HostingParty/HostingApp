@@ -7,7 +7,7 @@ const passport = require("./config/passport");
 const session = require("express-session");
 // const morgan = require("morgan");
 
-require('dotenv').config()
+require("dotenv").config();
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -44,13 +44,6 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-// Just for development logging
-app.use((req, res, next) => {
-  console.log("req.session", req.session);
-  console.log("req.user", req.user);
-  return next();
-});
-
 // Auth Routes
 const authRoute = require("./routes/auth/authRoute");
 app.use("/", authRoute);
@@ -59,12 +52,13 @@ app.use("/", authRoute);
 const userRoutes = require("./routes/app-api/userRoutes");
 const eventRoutes = require("./routes/app-api/eventRoutes");
 const foodRoutes = require("./routes/food-api/foodRoutes");
-// const awsRoutes = require("./routes/aws-api/index");
+// const awsRoutes = require("./routes/aws-api/awsRoutes");
 
 app.use("/api/v1/users", userRoutes);
 app.use("/api/v1/events", eventRoutes);
 app.use("/api/v1/food", foodRoutes);
 // app.use("/api/v1/aws", awsRoutes);
+require("./controllers/awsController.js")(app)
 
 // Send every request to the React app
 // Define any API routes before this runs

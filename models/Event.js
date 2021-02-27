@@ -23,6 +23,12 @@ const EventSchema = new mongoose.Schema(
       type: Date,
       default: Date.now,
     },
+    startTime: {
+      type: String,
+    },
+    endTime: {
+      type: String,
+    },
     address: String,
     hosting: [
       {
@@ -49,12 +55,10 @@ const EventSchema = new mongoose.Schema(
       },
     ],
     // This field might need to be updated. Each recipe might be an object with further information.... ie image, title, description, url etc.
-    menu: {
-      apps: [String],
-      sides: [String],
-      main: [String],
-      dessert: [String],
-    },
+    menu: [{}],
+    apps: [{ type : Array , "default" : [] }],
+    sides: [{ type : Array , "default" : [] }],
+    mains: [{ type : Array , "default" : [] }],
   },
   { collection: "Event" }
 );

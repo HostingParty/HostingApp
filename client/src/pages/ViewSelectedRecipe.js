@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import API from "../utils/API";
-import { useLocation } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import { StoreProvider, useStoreContext } from "../utils/globalState";
 import { makeStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
@@ -20,35 +20,56 @@ const ViewSelectedRecipe = (props) => {
     const RecipeCard = props.className;
     const [value, setValue] = React.useState(0);
     const [state, dispatch] = useStoreContext();
+    let history = useHistory();
+    const dishTypeMapper = {
+      "starter": "apps",
+      "preps": "sides",
+      "main dish": "mains"
+    } 
+
     console.log(props);
 
+    const handleSaveRecipe = (e) => {
+      let recipe = {
+        uri : state.searchedRecipe.uri,
+        label: state.searchedRecipe.label,
+        dishType: state.searchedRecipe.dishType[0],
+        image: state.searchedRecipe.image,
+        ingredientLines: state.searchedRecipe.ingredientLines,
+        healthLabels: state.searchedRecipe.healthLabels
+      };
+      let dishTypeLowerCase = dishTypeMapper[recipe.dishType].toLowerCase();
+      console.log("About to hit API", (state.selectedEvent, dishTypeLowerCase, recipe))
+      API.addRecipes(state.selectedEvent, dishTypeMapper[recipe.dishType], recipe)
+        .then((data) => {
+          console.log("Saved event! ", data);
+        history.push("/event");
+      }).catch((error)=>{
+        console.log(error);
+      })
+    }
+
+    useEffect(() => {
+    }, [state]);
 
   return (
     <Container className={RecipeReviewCard}> 
-        <h2> Viewing Specific Recipe! </h2>
+        <h2> Viewing Recipe </h2>
       <Grid>
-        {state.event.menu.mains.map((item) => (
-        <RecipeReviewCard {...item} /> ))}
+        {
+          state.searchedRecipe ?
+          <RecipeReviewCard {...state.searchedRecipe} />
+          :
+          <h4>
+            No recipe found...
+          </h4>
+        }
         <Grid>
             <Button
-                variant="contained" 
-                color="primary" 
-                onClick={() => dispatch({ 
-                    type: ADD_RECIPE, 
-                    payload: 
-                        {dishType: "Starter", eventID: ""}} 
-                )}
-                // //  //  // //  //  //  // //  //  //  // //  //  //  // //  //  //  // //
-                //  -------- //  //  -------- //   //  -------- //  //  -------- // 
-                // they payload is the data passing through essentially. dishtype should come in from the info on the recipe object. EventID will tie the recipe to the actual event -> need to confirm the value for it though -- not sure "eventID" is what we'll use. Might not be needed if it's in global state.
-                //  -------- //  //  -------- //   //  -------- //  //  -------- // 
-                // //  //  // //  //  //  // //  //  //  // //  //  //  // //  //  //  // //
-            >  
+                variant="contained" color="primary" 
+                onClick={handleSaveRecipe} >  
                 Add to Event 
             </Button>
-        </Grid>
-        <Grid>
-            <Link>Go Back to Results</Link>
         </Grid>
       </Grid>
     </Container>

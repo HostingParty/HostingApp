@@ -1,148 +1,139 @@
-import React, { useEffect } from "react";
-import API from "../../utils/API";
+import React, { useState } from "react";
 import { useStoreContext } from "../../utils/globalState";
 import "./style.css";
-import NavBar from "../../components/Nav/index";
 import { makeStyles } from "@material-ui/core/styles";
-import Avatar from "../../components/Avatar/index";
-import SaveIcon from '@material-ui/icons/Save';
-import PrefrencesList from "../../components/PrefrencesList/index";
-import {
-  Button,
-  TextField,
-  Grid,
-  Paper,
-  AppBar,
-  Typography,
-  Toolbar,
-  Link,
-  IconButton,
-  Badge,
-  FormLabel,
-  FormControl,
-  FormGroup,
-  FormControlLabel,
-  FormHelperText,
-  Checkbox,
-} from "@material-ui/core";
+import Avatar from "@material-ui/core/Avatar";
+import { Container, Grid, Paper, FormLabel, FormControl, Button } from "@material-ui/core";
+import FriendListContainer from "../../components/FriendListContainer/friend-list-container.component";
+import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
+    justifyContent: "center",
   },
   formControl: {
     margin: theme.spacing(3),
+  },
+  large: {
+    width: theme.spacing(7),
+    height: theme.spacing(7),
+  },
+  item: {
+    display: "flex",
+    justifyContent: "flex-start",
+  },
+  mx: {
+    marginLeft: 18,
+    marginTop: 16,
+  },
+  paper: {
+    borderTop: "3px solid #2196F3",
+  },
+  avatar: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    marginLeft: 18,
+    marginTop: 16,
+  },
+  button: {
+    padding: 1,
+    marginTop: 5,
+    fontSize: 10,
+    background: "#ccc",
   },
 }));
 
 function Profile() {
   const classes = useStyles();
+  const [image, setImage] = useState({ preview: "", raw: "" });
   const [state, dispatch] = useStoreContext();
 
-  const [formState, setState] = React.useState({
-    fish: true,
-    peanuts: false,
-    dary: false,
-    chocolate: false,
-    none: false,
-    italian: false,
-    steak: false,
-    vegies: false,
-    fingerFoods: false,
-    pizza: false,
-  });
-
-  const handleChange = (event) => {
-    setState({ ...formState, [event.target.name]: event.target.checked });
+  const handleChange = (e) => {
+    if (e.target.files.length) {
+      setImage({
+        preview: URL.createObjectURL(e.target.files[0]),
+        raw: e.target.files[0],
+      });
+    }
   };
 
-  const { fish, peanuts, dary, chocolate, none, italian, steak, vegies, fingerFoods, pizza } = state;
-  const error =
-    [fish, peanuts, dary, chocolate, none, italian, steak, vegies, fingerFoods, pizza].filter((v) => v).length !== 2;
+  const handleUpload = async (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append("image", image.raw);
 
-  // const { italian, steak, vegies, fingerFoods, pizza } = state;
-  // const error = [italian, steak, vegies, fingerFoods, pizza].filter((v) => v).length !== 2;
+    const headers = {
+      "Content-Type": "multipart/form-data",
+    };
+
+    await axios.post("/api/v1/upload-photo", formData, { headers: headers });
+  };
+
+  const cancelUpload = (e) => {
+    e.preventDefault();
+    setImage({ preview: "", raw: "" });
+  };
 
   return (
-    <div className={classes.root}>
-      <NavBar />
-      <h2>
-        Welcome{" "}
-        <small>
-          {state.user.name.first} {state.user.name.last}
-        </small>
-      </h2>
-      <Avatar />
+    <Container maxWidth="md" className={classes.root}>
+      <Grid container spacing={3}>
+        <Grid item sm={12} md={6}>
+          <Paper className={classes.paper}>
+            <Grid item sm={12}>
+              <Grid container className={classes.item}>
+                <Grid item className={classes.avatar}>
+                  <label htmlFor="upload-button">
+                    {!image.preview ? (
+                      <Avatar src={state?.user?.profilePic} className={classes.large} />
+                    ) : (
+                      <Avatar src={image.preview} className={classes.large} />
+                    )}
+                  </label>
+                  <input type="file" id="upload-button" style={{ display: "none" }} onChange={handleChange} />
+                  <small>Click to change</small>
+                  {image.preview && (
+                    <div className="buttons">
+                      <Button className={classes.button} onClick={handleUpload}>
+                        Upload
+                      </Button>
+                      <Button className={classes.button} onClick={cancelUpload}>
+                        Cancel
+                      </Button>
+                    </div>
+                  )}
+                </Grid>
+                <Grid item className={classes.mx}>
+                  <h2>
+                    {state?.user?.name?.first} {state?.user?.name?.last}
+                  </h2>
+                </Grid>
+              </Grid>
+            </Grid>
 
-      <Grid container spacing={0} justify="center" direction="row">
-        <FormControl component="fieldset" className={classes.formControl}>
-          <FormLabel component="legend">Allergies</FormLabel>
-          <FormGroup>
-            <FormControlLabel control={<Checkbox checked={fish} onChange={handleChange} name="fish" />} label="Fish" />
-            <FormControlLabel
-              control={<Checkbox checked={peanuts} onChange={handleChange} name="peanuts" />}
-              label="Peanuts"
-            />
-            <FormControlLabel control={<Checkbox checked={dary} onChange={handleChange} name="dary" />} label="Dary" />
-            <FormControlLabel
-              control={<Checkbox checked={chocolate} onChange={handleChange} name="chocolate" />}
-              label="Chocolate"
-            />
-            <FormControlLabel control={<Checkbox checked={none} onChange={handleChange} name="none" />} label="None" />
-          </FormGroup>
-          <FormHelperText></FormHelperText>
-        </FormControl>
+            {/* Allergies List and Add/Edit Input */}
+            <Grid item sm={12}>
+              <FormControl component="fieldset" className={classes.formControl}>
+                <FormLabel component="legend">Allergies</FormLabel>
+              </FormControl>
+            </Grid>
 
-        <FormControl required error={error} component="fieldset" className={classes.formControl}>
-          <FormLabel component="legend">Prefrences</FormLabel>
-          <FormGroup>
-            <FormControlLabel
-              control={<Checkbox checked={italian} onChange={handleChange} name="italian" />}
-              label="Italian"
-            />
-            <FormControlLabel
-              control={<Checkbox checked={steak} onChange={handleChange} name="steak" />}
-              label="Steak"
-            />
-            <FormControlLabel
-              control={<Checkbox checked={vegies} onChange={handleChange} name="vegies" />}
-              label="Vegies"
-            />
-            <FormControlLabel
-              control={<Checkbox checked={fingerFoods} onChange={handleChange} name="fingerFoods" />}
-              label="Finger Foods"
-            />
-            <FormControlLabel
-              control={<Checkbox checked={pizza} onChange={handleChange} name="pizza" />}
-              label="Pizza"
-            />
-          </FormGroup>
-          <FormHelperText></FormHelperText>
-          <div className="center">
-      <Grid item xs={3} direction="row">
-          <Button
-        variant="contained"
-        color="primary"
-        size="small"
-        className={classes.button}
-        startIcon={<SaveIcon />}
-      >
-        Save
-      </Button>
+            {/* Preferences List and Add/Edit Input */}
+            <Grid item sm={12}>
+              <FormControl component="fieldset" className={classes.formControl}>
+                <FormLabel component="legend">Preferences</FormLabel>
+              </FormControl>
+            </Grid>
+          </Paper>
+        </Grid>
+
+        <Grid item sm={12} md={6}>
+          {state.user && <FriendListContainer userId={state.user._id} friends={state?.user?.friends} />}
+        </Grid>
       </Grid>
-      </div>
-      
-      <div className="center">
-        <PrefrencesList />
-      </div>
-        </FormControl>
-        
-     
-      </Grid>
-
-   
-      </div>       
-    
+    </Container>
   );
 }
 

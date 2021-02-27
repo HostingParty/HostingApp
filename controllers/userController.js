@@ -25,6 +25,7 @@ exports.getSingleUser = async (req, res, next) => {
   // Currently only returns event id and title. Edit populate for more event info.
   db.User.find({ _id: id })
     .populate("hosting pending accepted decline", "title description eventDate")
+    .populate("friends", "name phone pictureUrl")
     .exec((err, user) => {
       if (err) return res.status(400).json({ success: false, msg: err });
       if (user.length === 0) return res.status(400).json({ success: false, msg: "No User Found" });
@@ -34,6 +35,32 @@ exports.getSingleUser = async (req, res, next) => {
         data: user,
       });
     });
+};
+
+// @desc    Get a single user based on Name
+// @route   GET /api/v1/users/search
+// @access  Public
+exports.getUserByName = async (req, res, next) => {
+  console.log(req.query);
+  // Validation for this route is incomplete if name is just first or multiples
+  let { name } = req.query;
+  if (!name) return res.status(400).json({ success: false, msg: err });
+
+  let [firstName, lastName] = name.split(" ");
+
+  const firstNameRegex = new RegExp(firstName, "i");
+  const lastNameRegex = new RegExp(lastName, "i");
+
+  // Currently only returns event id and title. Edit populate for more event info.
+  db.User.find({ "name.first": firstNameRegex, "name.last": lastNameRegex }, (err, user) => {
+    if (err) return res.status(400).json({ success: false, msg: err });
+    if (user.length === 0) return res.status(400).json({ success: false, msg: "No User Found" });
+
+    res.status(200).json({
+      success: true,
+      data: user,
+    });
+  });
 };
 
 // @desc    Add a user
@@ -52,7 +79,7 @@ exports.addUser = async (req, res, next) => {
 };
 
 // @desc    Update a User
-// @route   POST /api/v1/users/:id
+// @route   PUT /api/v1/users/:id
 // @access  Public
 exports.updateUser = async (req, res, next) => {
   let id = req.params.id;
@@ -66,6 +93,28 @@ exports.updateUser = async (req, res, next) => {
       data: data,
     });
   });
+};
+
+// @desc    Update a User Array Fields
+// @route   PUT /api/v1/users/array/:id
+// @access  Public
+exports.updateUserArrayField = async (req, res, next) => {
+  let id = req.params.id;
+  console.log(req.body);
+
+  // req.body must include specified field ie "friends": "id number"
+  db.User.findByIdAndUpdate(id, { $push: req.body }, { returnOriginal: false })
+    .populate("hosting pending accepted decline", "title description eventDate")
+    .populate("friends", "name phone pictureUrl")
+    .exec((err, user) => {
+      if (err) return res.status(400).json({ success: false, msg: err });
+      if (user.length === 0) return res.status(400).json({ success: false, msg: "No User Found" });
+
+      res.status(200).json({
+        success: true,
+        data: user,
+      });
+    });
 };
 
 // @desc    Update a User Password
