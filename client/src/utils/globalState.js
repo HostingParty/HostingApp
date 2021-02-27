@@ -1,5 +1,5 @@
 import React, { createContext, useReducer, useContext } from "react";
-import { ADD_INVITE, REMOVE_INVITE, SET_USER, SET_SELECTED_EVENT, SEARCH_RECIPES, ADD_RECIPE } from "./actions";
+import { ADD_INVITE, REMOVE_INVITE, SET_USER, SET_SELECTED_EVENT, SET_RECIPES, ADD_RECIPE, PASS_DISH, DISH_VIEW } from "./actions";
 import API from "./API"
 
 const StoreContext = createContext();
@@ -32,40 +32,44 @@ const reducer = (state, action) => {
         ...state,
         selectedEvent: action.payload,
       };
-    case SEARCH_RECIPES:
+    case SET_RECIPES:
       return {
         ...state,
-        recipeSearchArr: searchRecipes(action.payload.dishType),
+        recipeSearchArr: [...action.payload],
       };
 
-      // update event.menu + make db post // does it make sense to post to the db then update global state? 
+    case PASS_DISH:
+      return {
+        ...state,
+        dishType: action.payload.dishType,
+      };
 
-    // case ADD_RECIPE:
-    //   return {
+    case DISH_VIEW:
+      return {
+        ...state,
+        searchedRecipe: action.payload,
+      }
 
-    //     insert things here
-    //   }   
-
-    // case DELETE_RECIPE:
-    //   return {
-    //       insert things here
-    //   };
+    case ADD_RECIPE:
+      return {
+      ...state,
+      selectedEvent: action.payload,
+    };
     
     default:
       return state;
   }
 };
 
-async function searchRecipes(dishType) {
+export async function searchRecipes(dishType) {
   let results = await API.getRecipes(dishType);
   let arr = results.data.results.map(item =>item.recipe);
-  console.log("From FOOD API, search results: ", arr);
   return arr;
 };
 
 const StoreProvider = ({ value = [], ...props }) => {
   const [state, dispatch] = useReducer(reducer, {
-    // selectedEvent: "6025e9bba968960008f31a20",
+    // selectedEvent: "6039a4eca4808f0a891a63d6",
     selectedEvent: "",
     user: {
       name: {
@@ -123,104 +127,105 @@ const StoreProvider = ({ value = [], ...props }) => {
       },
       menu: {
         apps: [
-          {
-            "uri": "http://www.edamam.com/ontologies/edamam.owl#recipe_b2e0224c6d3bc3b49e381c45c2385f03",
-            "label": "Pesto Pizza",
-            "image": "https://www.edamam.com/web-img/a33/a332121eaa60a84c93174a5ee54e06b2.jpg",
-            "source": "Food52",
-            "url": "https://food52.com/recipes/5156-pesto-pizza",
-            "shareAs": "http://www.edamam.com/recipe/pesto-pizza-b2e0224c6d3bc3b49e381c45c2385f03/pizza/peanut-free/low-carb",
-            "ingredientLines": [
-                "6 strips hickory smoked bacon",
-                "2 medium sized italian sausages",
-                "3 cups fresh mozzarella cheese",
-                "1 clove of garlic/crushed",
-                "1 medium size white onion/chopped",
-                "2 balls of fresh pizza dough",
-                "1 jar of 365 Everyday pesto sauce",
-                "1 jar sliced and drained black olives"
-            ]
-          },
-          {
-            "uri": "http://www.edamam.com/ontologies/edamam.owl#recipe_b2e0224c6d3bc3b49e381c45c2385f03",
-            "label": "Pesto Pizza",
-            "image": "https://www.edamam.com/web-img/a33/a332121eaa60a84c93174a5ee54e06b2.jpg",
-            "source": "Food52",
-            "url": "https://food52.com/recipes/5156-pesto-pizza",
-            "shareAs": "http://www.edamam.com/recipe/pesto-pizza-b2e0224c6d3bc3b49e381c45c2385f03/pizza/peanut-free/low-carb",
-            "ingredientLines": [
-                "6 strips hickory smoked bacon",
-                "2 medium sized italian sausages",
-                "3 cups fresh mozzarella cheese",
-                "1 clove of garlic/crushed",
-                "1 medium size white onion/chopped",
-                "2 balls of fresh pizza dough",
-                "1 jar of 365 Everyday pesto sauce",
-                "1 jar sliced and drained black olives"
-            ]
-          },
-          {
-            "uri": "http://www.edamam.com/ontologies/edamam.owl#recipe_b2e0224c6d3bc3b49e381c45c2385f03",
-            "label": "Pesto Pizza",
-            "image": "https://www.edamam.com/web-img/a33/a332121eaa60a84c93174a5ee54e06b2.jpg",
-            "source": "Food52",
-            "url": "https://food52.com/recipes/5156-pesto-pizza",
-            "shareAs": "http://www.edamam.com/recipe/pesto-pizza-b2e0224c6d3bc3b49e381c45c2385f03/pizza/peanut-free/low-carb",
-            "ingredientLines": [
-                "6 strips hickory smoked bacon",
-                "2 medium sized italian sausages",
-                "3 cups fresh mozzarella cheese",
-                "1 clove of garlic/crushed",
-                "1 medium size white onion/chopped",
-                "2 balls of fresh pizza dough",
-                "1 jar of 365 Everyday pesto sauce",
-                "1 jar sliced and drained black olives"
-            ]
-          }
+          // {
+          //   "uri": "http://www.edamam.com/ontologies/edamam.owl#recipe_b2e0224c6d3bc3b49e381c45c2385f03",
+          //   "label": "Pesto Pizza",
+          //   "image": "https://www.edamam.com/web-img/a33/a332121eaa60a84c93174a5ee54e06b2.jpg",
+          //   "source": "Food52",
+          //   "url": "https://food52.com/recipes/5156-pesto-pizza",
+          //   "shareAs": "http://www.edamam.com/recipe/pesto-pizza-b2e0224c6d3bc3b49e381c45c2385f03/pizza/peanut-free/low-carb",
+          //   "ingredientLines": [
+          //       "6 strips hickory smoked bacon",
+          //       "2 medium sized italian sausages",
+          //       "3 cups fresh mozzarella cheese",
+          //       "1 clove of garlic/crushed",
+          //       "1 medium size white onion/chopped",
+          //       "2 balls of fresh pizza dough",
+          //       "1 jar of 365 Everyday pesto sauce",
+          //       "1 jar sliced and drained black olives"
+          //   ]
+          // },
+          // {
+          //   "uri": "http://www.edamam.com/ontologies/edamam.owl#recipe_b2e0224c6d3bc3b49e381c45c2385f03",
+          //   "label": "Pesto Pizza",
+          //   "image": "https://www.edamam.com/web-img/a33/a332121eaa60a84c93174a5ee54e06b2.jpg",
+          //   "source": "Food52",
+          //   "url": "https://food52.com/recipes/5156-pesto-pizza",
+          //   "shareAs": "http://www.edamam.com/recipe/pesto-pizza-b2e0224c6d3bc3b49e381c45c2385f03/pizza/peanut-free/low-carb",
+          //   "ingredientLines": [
+          //       "6 strips hickory smoked bacon",
+          //       "2 medium sized italian sausages",
+          //       "3 cups fresh mozzarella cheese",
+          //       "1 clove of garlic/crushed",
+          //       "1 medium size white onion/chopped",
+          //       "2 balls of fresh pizza dough",
+          //       "1 jar of 365 Everyday pesto sauce",
+          //       "1 jar sliced and drained black olives"
+          //   ]
+          // },
+          // {
+          //   "uri": "http://www.edamam.com/ontologies/edamam.owl#recipe_b2e0224c6d3bc3b49e381c45c2385f03",
+          //   "label": "Pesto Pizza",
+          //   "image": "https://www.edamam.com/web-img/a33/a332121eaa60a84c93174a5ee54e06b2.jpg",
+          //   "source": "Food52",
+          //   "url": "https://food52.com/recipes/5156-pesto-pizza",
+          //   "shareAs": "http://www.edamam.com/recipe/pesto-pizza-b2e0224c6d3bc3b49e381c45c2385f03/pizza/peanut-free/low-carb",
+          //   "ingredientLines": [
+          //       "6 strips hickory smoked bacon",
+          //       "2 medium sized italian sausages",
+          //       "3 cups fresh mozzarella cheese",
+          //       "1 clove of garlic/crushed",
+          //       "1 medium size white onion/chopped",
+          //       "2 balls of fresh pizza dough",
+          //       "1 jar of 365 Everyday pesto sauce",
+          //       "1 jar sliced and drained black olives"
+          //   ]
+          // }
         ], //will be array of recipe objects
         sides: [], //will be array of recipe objects
         mains: [
-          {
-            "uri": "http://www.edamam.com/ontologies/edamam.owl#recipe_b2e0224c6d3bc3b49e381c45c2385f03",
-            "label": "Pesto Pizza",
-            "image": "https://www.edamam.com/web-img/a33/a332121eaa60a84c93174a5ee54e06b2.jpg",
-            "source": "Food52",
-            "url": "https://food52.com/recipes/5156-pesto-pizza",
-            "shareAs": "http://www.edamam.com/recipe/pesto-pizza-b2e0224c6d3bc3b49e381c45c2385f03/pizza/peanut-free/low-carb",
-            "ingredientLines": [
-                "6 strips hickory smoked bacon",
-                "2 medium sized italian sausages",
-                "3 cups fresh mozzarella cheese",
-                "1 clove of garlic/crushed",
-                "1 medium size white onion/chopped",
-                "2 balls of fresh pizza dough",
-                "1 jar of 365 Everyday pesto sauce",
-                "1 jar sliced and drained black olives"
-            ]
-          },
-          {
-            "uri": "http://www.edamam.com/ontologies/edamam.owl#recipe_b2e0224c6d3bc3b49e381c45c2385f03",
-            "label": "Pesto Pizza",
-            "image": "https://www.edamam.com/web-img/a33/a332121eaa60a84c93174a5ee54e06b2.jpg",
-            "source": "Food52",
-            "url": "https://food52.com/recipes/5156-pesto-pizza",
-            "shareAs": "http://www.edamam.com/recipe/pesto-pizza-b2e0224c6d3bc3b49e381c45c2385f03/pizza/peanut-free/low-carb",
-            "ingredientLines": [
-                "6 strips hickory smoked bacon",
-                "2 medium sized italian sausages",
-                "3 cups fresh mozzarella cheese",
-                "1 clove of garlic/crushed",
-                "1 medium size white onion/chopped",
-                "2 balls of fresh pizza dough",
-                "1 jar of 365 Everyday pesto sauce",
-                "1 jar sliced and drained black olives"
-            ]
-          }
+          // {
+          //   "uri": "http://www.edamam.com/ontologies/edamam.owl#recipe_b2e0224c6d3bc3b49e381c45c2385f03",
+          //   "label": "Pesto Pizza",
+          //   "image": "https://www.edamam.com/web-img/a33/a332121eaa60a84c93174a5ee54e06b2.jpg",
+          //   "source": "Food52",
+          //   "url": "https://food52.com/recipes/5156-pesto-pizza",
+          //   "shareAs": "http://www.edamam.com/recipe/pesto-pizza-b2e0224c6d3bc3b49e381c45c2385f03/pizza/peanut-free/low-carb",
+          //   "ingredientLines": [
+          //       "6 strips hickory smoked bacon",
+          //       "2 medium sized italian sausages",
+          //       "3 cups fresh mozzarella cheese",
+          //       "1 clove of garlic/crushed",
+          //       "1 medium size white onion/chopped",
+          //       "2 balls of fresh pizza dough",
+          //       "1 jar of 365 Everyday pesto sauce",
+          //       "1 jar sliced and drained black olives"
+          //   ]
+          // },
+          // {
+          //   "uri": "http://www.edamam.com/ontologies/edamam.owl#recipe_b2e0224c6d3bc3b49e381c45c2385f03",
+          //   "label": "Pesto Pizza",
+          //   "image": "https://www.edamam.com/web-img/a33/a332121eaa60a84c93174a5ee54e06b2.jpg",
+          //   "source": "Food52",
+          //   "url": "https://food52.com/recipes/5156-pesto-pizza",
+          //   "shareAs": "http://www.edamam.com/recipe/pesto-pizza-b2e0224c6d3bc3b49e381c45c2385f03/pizza/peanut-free/low-carb",
+          //   "ingredientLines": [
+          //       "6 strips hickory smoked bacon",
+          //       "2 medium sized italian sausages",
+          //       "3 cups fresh mozzarella cheese",
+          //       "1 clove of garlic/crushed",
+          //       "1 medium size white onion/chopped",
+          //       "2 balls of fresh pizza dough",
+          //       "1 jar of 365 Everyday pesto sauce",
+          //       "1 jar sliced and drained black olives"
+          //   ]
+          // }
         ], //will be array of recipe objects
       },
     },
     loading: false,
-    recipeSearchArr: [], //array of recipe objects (from API)
+    recipeSearchArr: [],
+    searchedRecipe: {}
   });
 
   return <Provider value={[state, dispatch]} {...props} />;

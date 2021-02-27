@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import API from "../utils/API";
-import { useLocation } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import { StoreProvider, useStoreContext } from "../utils/globalState";
 import { makeStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
@@ -20,34 +20,47 @@ const ViewSelectedRecipe = (props) => {
     const RecipeCard = props.className;
     const [value, setValue] = React.useState(0);
     const [state, dispatch] = useStoreContext();
+    let history = useHistory();
 
     console.log(props);
 
+    const handleSaveRecipe = (e) => {
+      let recipe = {
+        uri : state.searchedRecipe.uri,
+        label: state.searchedRecipe.label,
+        dishType: state.searchedRecipe.dishType[0],
+        image: state.searchedRecipe.image,
+        ingredientLines: state.searchedRecipe.ingredientLines,
+        healthLabels: state.searchedRecipe.healthLabels
+      };
+      API.addRecipes(state.selectedEvent, recipe)
+        .then((data) => {
+          console.log("Saved event! ", data);
+        history.push("/event");
+      })
+    }
+
+    useEffect(() => {
+    }, [state]);
 
   return (
     <Container className={RecipeReviewCard}> 
         <h2> Viewing Specific Recipe! </h2>
       <Grid>
-        {state.event.menu.mains.map((item) => (
-        <RecipeReviewCard {...item} /> ))}
+        {
+          state.searchedRecipe ?
+          <RecipeReviewCard {...state.searchedRecipe} />
+          :
+          <h4>
+            No recipe found...
+          </h4>
+        }
         <Grid>
             <Button
-                variant="contained" 
-                color="primary" 
-                // create handler for dispatch, then do the redirect through
-                onClick={() => dispatch({ 
-                    type: ADD_RECIPE, 
-                    payload: 
-                        {dishType: "Starter"}} 
-                )}
-
-            >  
+                variant="contained" color="primary" 
+                onClick={handleSaveRecipe} >  
                 Add to Event 
             </Button>
-            {/* // this needs to send the recipe to the  */}
-        </Grid>
-        <Grid>
-            <Link>Go Back to Results</Link>
         </Grid>
       </Grid>
     </Container>
