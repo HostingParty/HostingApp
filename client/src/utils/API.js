@@ -71,16 +71,13 @@ exports.getRecipes = function (dishType) {
   return axios.get(`/api/v1/food/recipes/${dishType}`);
 };
 
-exports.addRecipes = function (eventId, recipe) {
-  // let recipe = {
-  //   uri,
-  //   label,
-  //   dishType,
-  //   image,
-  //   ingredientLines,
-  //   healthLabels,
-  // };
-  return axios.put("/api/v1/events/recipe/" + eventId, recipe);
+exports.addRecipes = function (eventId, menu, recipe) {
+  let blob = {
+    recipe: recipe,
+    menu: menu
+  };
+
+  return axios.put("/api/v1/events/recipe/" + eventId, blob);
 };
 
 // exports.deleteRecipes = function (url) {
