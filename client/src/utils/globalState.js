@@ -73,159 +73,36 @@ export async function searchRecipes(dishType) {
 
 const StoreProvider = ({ value = [], ...props }) => {
   const [state, dispatch] = useReducer(reducer, {
-    // selectedEvent: "6039a4eca4808f0a891a63d6",
     selectedEvent: "",
     user: {
       name: {
-        first: "Brandon",
-        last: "Hexsel"
-    },
-    allergies: [],
-    preferences: [],
-    favoriteRecipes: [],
-    hosting: [
-        {
-            _id: "6025e9bba968960008f31a21",
-            title: "Chili Quest",
-            eventDate: "4/20/2021",
-            description: "Birthday"
-            
-        }
-    ],
-    pending: [
-        {
-            _id: "6025e9bba968960008f31a20",
-            title: "BBQ Cookoff",
-            eventDate: "4/25/2021",
-            description: "Anniversary"
-            
-        }
-    ],
-    accepted: [
-        {
-            _id: "6025e9bba968960008f31a22",
-            title: "Graduation Party",
-            eventDate: "4/30/2021",
-            description: "Graduation"
-            
-        }
-    ],
-    declined: [],
-    _id: "6025eb70e7fba90108abd748",
-    phone: "7134127111",
-    email: "brandon@b.com",
-    },
+        first: "",
+        last: ""
+      },
+      allergies: [],
+      preferences: [],
+      favoriteRecipes: [],
+      hosting: [],
+      pending: [],
+      accepted: [],
+      declined: [],
+      _id: "",
+      phone: "",
+      email: "",
+      },
     event: {
-      details: {
-        _id: 0,
-        name: "State Event Thing",
-        date: "2/16/2021",
-        time: "noon",
-        address: "101 NE 45th 981226",
-        notes: "B there or b square.",
-      },
-      guestList: {
-        pending: ["Dan", "Ben"], //will be array of User objects
-        accepted: ["Brandon", "Maranda"], //will be array of User objects
-        declined: ["BenTA"], //will be array of User objects
-      },
-      menu: {
-        apps: [
-          // {
-          //   "uri": "http://www.edamam.com/ontologies/edamam.owl#recipe_b2e0224c6d3bc3b49e381c45c2385f03",
-          //   "label": "Pesto Pizza",
-          //   "image": "https://www.edamam.com/web-img/a33/a332121eaa60a84c93174a5ee54e06b2.jpg",
-          //   "source": "Food52",
-          //   "url": "https://food52.com/recipes/5156-pesto-pizza",
-          //   "shareAs": "http://www.edamam.com/recipe/pesto-pizza-b2e0224c6d3bc3b49e381c45c2385f03/pizza/peanut-free/low-carb",
-          //   "ingredientLines": [
-          //       "6 strips hickory smoked bacon",
-          //       "2 medium sized italian sausages",
-          //       "3 cups fresh mozzarella cheese",
-          //       "1 clove of garlic/crushed",
-          //       "1 medium size white onion/chopped",
-          //       "2 balls of fresh pizza dough",
-          //       "1 jar of 365 Everyday pesto sauce",
-          //       "1 jar sliced and drained black olives"
-          //   ]
-          // },
-          // {
-          //   "uri": "http://www.edamam.com/ontologies/edamam.owl#recipe_b2e0224c6d3bc3b49e381c45c2385f03",
-          //   "label": "Pesto Pizza",
-          //   "image": "https://www.edamam.com/web-img/a33/a332121eaa60a84c93174a5ee54e06b2.jpg",
-          //   "source": "Food52",
-          //   "url": "https://food52.com/recipes/5156-pesto-pizza",
-          //   "shareAs": "http://www.edamam.com/recipe/pesto-pizza-b2e0224c6d3bc3b49e381c45c2385f03/pizza/peanut-free/low-carb",
-          //   "ingredientLines": [
-          //       "6 strips hickory smoked bacon",
-          //       "2 medium sized italian sausages",
-          //       "3 cups fresh mozzarella cheese",
-          //       "1 clove of garlic/crushed",
-          //       "1 medium size white onion/chopped",
-          //       "2 balls of fresh pizza dough",
-          //       "1 jar of 365 Everyday pesto sauce",
-          //       "1 jar sliced and drained black olives"
-          //   ]
-          // },
-          // {
-          //   "uri": "http://www.edamam.com/ontologies/edamam.owl#recipe_b2e0224c6d3bc3b49e381c45c2385f03",
-          //   "label": "Pesto Pizza",
-          //   "image": "https://www.edamam.com/web-img/a33/a332121eaa60a84c93174a5ee54e06b2.jpg",
-          //   "source": "Food52",
-          //   "url": "https://food52.com/recipes/5156-pesto-pizza",
-          //   "shareAs": "http://www.edamam.com/recipe/pesto-pizza-b2e0224c6d3bc3b49e381c45c2385f03/pizza/peanut-free/low-carb",
-          //   "ingredientLines": [
-          //       "6 strips hickory smoked bacon",
-          //       "2 medium sized italian sausages",
-          //       "3 cups fresh mozzarella cheese",
-          //       "1 clove of garlic/crushed",
-          //       "1 medium size white onion/chopped",
-          //       "2 balls of fresh pizza dough",
-          //       "1 jar of 365 Everyday pesto sauce",
-          //       "1 jar sliced and drained black olives"
-          //   ]
-          // }
-        ], //will be array of recipe objects
-        sides: [], //will be array of recipe objects
-        mains: [
-          // {
-          //   "uri": "http://www.edamam.com/ontologies/edamam.owl#recipe_b2e0224c6d3bc3b49e381c45c2385f03",
-          //   "label": "Pesto Pizza",
-          //   "image": "https://www.edamam.com/web-img/a33/a332121eaa60a84c93174a5ee54e06b2.jpg",
-          //   "source": "Food52",
-          //   "url": "https://food52.com/recipes/5156-pesto-pizza",
-          //   "shareAs": "http://www.edamam.com/recipe/pesto-pizza-b2e0224c6d3bc3b49e381c45c2385f03/pizza/peanut-free/low-carb",
-          //   "ingredientLines": [
-          //       "6 strips hickory smoked bacon",
-          //       "2 medium sized italian sausages",
-          //       "3 cups fresh mozzarella cheese",
-          //       "1 clove of garlic/crushed",
-          //       "1 medium size white onion/chopped",
-          //       "2 balls of fresh pizza dough",
-          //       "1 jar of 365 Everyday pesto sauce",
-          //       "1 jar sliced and drained black olives"
-          //   ]
-          // },
-          // {
-          //   "uri": "http://www.edamam.com/ontologies/edamam.owl#recipe_b2e0224c6d3bc3b49e381c45c2385f03",
-          //   "label": "Pesto Pizza",
-          //   "image": "https://www.edamam.com/web-img/a33/a332121eaa60a84c93174a5ee54e06b2.jpg",
-          //   "source": "Food52",
-          //   "url": "https://food52.com/recipes/5156-pesto-pizza",
-          //   "shareAs": "http://www.edamam.com/recipe/pesto-pizza-b2e0224c6d3bc3b49e381c45c2385f03/pizza/peanut-free/low-carb",
-          //   "ingredientLines": [
-          //       "6 strips hickory smoked bacon",
-          //       "2 medium sized italian sausages",
-          //       "3 cups fresh mozzarella cheese",
-          //       "1 clove of garlic/crushed",
-          //       "1 medium size white onion/chopped",
-          //       "2 balls of fresh pizza dough",
-          //       "1 jar of 365 Everyday pesto sauce",
-          //       "1 jar sliced and drained black olives"
-          //   ]
-          // }
-        ], //will be array of recipe objects
-      },
+      _id: null,
+      title: "",
+      description: "",
+      eventDate: "",
+      startTime: "",
+      endTime: "",
+      pending: [],
+      accepted: [],
+      declined: [],
+      apps: [], 
+      sides: [],
+      mains: [], 
     },
     loading: false,
     recipeSearchArr: [],

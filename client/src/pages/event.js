@@ -91,7 +91,8 @@ export function Event() {
     API.getEventInfo(state.selectedEvent)
       .then((response) => {
         const eventData = response.data.data[0];
-        dispatch({ type: SET_EVENT, payload: {...eventData}} )
+        console.log("From event.js, event (obj) is: ", eventData);
+        dispatch({ type: SET_EVENT, payload: eventData} )
       })
       .catch((err) => {
         console.log(err);
@@ -135,10 +136,10 @@ export function Event() {
             Date: {state.event.eventDate}
           </Typography>
           <Typography align="center" variant="h6">
-            Starts at: {state.event.address}
+            Starts at: {state.event.startTime}
           </Typography>
           <Typography align="center" variant="h6">
-            Ends at: {state.event.address}
+            Ends at: {state.event.endTime}
           </Typography>
           <Typography align="center" variant="h6">
             Description: {state.event.description}

@@ -10,7 +10,7 @@ module.exports = function(app) {
   var upload = multer({ storage: storage });
 
   // app.post("/upload-photo", upload.single("myPicture"), function(req, res) {
-  app.post("api/v1/upload-photo", upload.single("myPicture"), function(req, res) {
+  app.post("api/v1/upload-photo", upload.single("image"), function(req, res) {
     if (req.file.userId) {
 
       const file = req.file;
