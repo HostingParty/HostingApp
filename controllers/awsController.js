@@ -10,7 +10,7 @@ module.exports = function(app) {
   var upload = multer({ storage: storage });
 
   // app.post("/upload-photo", upload.single("myPicture"), function(req, res) {
-  app.post("/upload-photo", function(req, res) {
+  app.post("api/v1/upload-photo", function(req, res) {
     if (req.file.userId) {
 
       const file = req.file;
@@ -47,7 +47,7 @@ module.exports = function(app) {
     }
   });
 
-  app.post("/text/:number", function(req, res) {
+  app.post("api/v1/text/:number", function(req, res) {
       let params = {
         Message: req.body,
         PhoneNumber: req.params.number,
