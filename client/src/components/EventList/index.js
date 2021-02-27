@@ -47,7 +47,6 @@ export default function EventList() {
 
 hostingEvents.forEach(element => {
   events.push({...element, status: "Hosting"})  //add status
-  console.log(events)
 });
 
 pendingEvents.forEach(element => {
@@ -57,10 +56,9 @@ pendingEvents.forEach(element => {
 acceptedEvents.forEach(element => {
   events.push({...element, status: "Accepted"})
 })
-
-
   // Global State for selectedEvent set once "View Event Button" is pressed.
   useEffect(() => {
+<<<<<<< HEAD
     // API.updateUserEvents(state.event)
     //   .then((response) => {
     //     const eventData = response.data.data[0];
@@ -74,6 +72,9 @@ acceptedEvents.forEach(element => {
 
     //     // Render error page???? Redirect to our 404 page???
     //   });
+=======
+
+>>>>>>> 57e0fd7916978ff514b82369176d1fe3954387e7
   }, [state.event]);
  
   return (
@@ -86,13 +87,13 @@ acceptedEvents.forEach(element => {
 
     <List className={classes.root}>
       {events.map((value) => {
-        // const labelId = `checkbox-list-label-${value}`;       
-       
-
+        // const labelId = `checkbox-list-label-${value}`; 
         return (
             <div>
             
-          <ListItem alignItems="start" onClick={(e) => dispatch({ type: SET_SELECTED_EVENT, payload: value._id})} component={Link} to={"/event"} button="true" divider="true" key={value._id} role={undefined}> 
+          <ListItem alignItems="start" 
+            onClick={(e) => dispatch({ type: SET_SELECTED_EVENT, payload: value._id})} 
+            component={Link} to={"/event"} button="true" divider="true" key={value._id} role={undefined}> 
              <Grid item xs={6}>     
             <ListItemText id="" primary={value.title} secondary={value.description} />
             </Grid> 
