@@ -51,7 +51,7 @@ export default function RecipeReviewCard(props) {
       <CardHeader
         avatar={
           <Avatar aria-label="recipe" className={classes.avatar}>
-            {props?.label[0]}
+            {props?.label}
           </Avatar>
         }
         action={
@@ -61,11 +61,11 @@ export default function RecipeReviewCard(props) {
           </IconButton>
         }
         titleTypographyProps={{variant:'h4' }}
-        title={props.label}
+        title={props?.label}
       />
       <CardMedia
         className={classes.media}
-        image={props.image}
+        image={props?.image}
       />
       <CardActions disableSpacing>
         <Typography variant="h6">Ingredients:</Typography>
@@ -82,7 +82,7 @@ export default function RecipeReviewCard(props) {
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
-            {props.ingredientLines.map((ingredient) => (
+            {props.ingredientLines?.map((ingredient) => (
                 <Typography paragraph variant="subtitle2">{ingredient}</Typography>
             ))}
         </CardContent>

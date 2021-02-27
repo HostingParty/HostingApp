@@ -91,7 +91,6 @@ export function Event() {
     API.getEventInfo(state.selectedEvent)
       .then((response) => {
         const eventData = response.data.data[0];
-        console.log("From event.js, event (obj) is: ", eventData);
         dispatch({ type: SET_EVENT, payload: eventData} )
       })
       .catch((err) => {
