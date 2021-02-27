@@ -47,14 +47,14 @@ module.exports = function(app) {
     }
   });
 
-  app.post("api/v1/text/:number", function(req, res) {
+  app.post("api/v1/aws/text", function(req, res) {
       let params = {
-        Message: req.body,
-        PhoneNumber: req.params.number,
+        Message: "Hello world",
+        PhoneNumber: "+12064120323",
         MessageAttributes: {
             'AWS.SNS.SMS.SenderID': {
                 'DataType': 'String',
-                'StringValue': "PNWWhaler"
+                'StringValue': "Hosting Party"
             }
         }
       };

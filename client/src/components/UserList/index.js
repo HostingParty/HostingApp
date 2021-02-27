@@ -27,6 +27,7 @@ export default function UserList(props) {
   const { key, groupName } = props
   const [personStatus, setPersonStatus] = useState(groupName)
   const classes = useStyles();
+  console.log("In user list, props are " , props)
 
   return (
     <div className={classes.root}>
@@ -36,7 +37,7 @@ export default function UserList(props) {
         props.people.map(person => 
           <ListItem button>
             <PersonIcon color="secondary" ></PersonIcon>
-            <ListItemText primary={person} />
+            <ListItemText primary={`${person.name.first} ${person.name.last}`} />
         </ListItem>
           )
         : <Typography>No users found</Typography>}
