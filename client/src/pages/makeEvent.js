@@ -68,7 +68,13 @@ const MakeEvent = () => {
       const { _id } = response.data.data;
 
       if (_id) {
-        API.textUser("+12064120323");
+        // API.textUser("+12064120323")
+        //   .then((data) => {
+        //     console.log("After textUser, res is: ", data)
+        //   })
+        //   .catch((err) => {
+        //     console.log(err);
+        //   });
         await API.updateUserEvents(state.user._id, _id)
           .then((data) => {
             dispatch({ type: "SET_USER", payload: data.data.data });
