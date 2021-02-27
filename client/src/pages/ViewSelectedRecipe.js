@@ -24,10 +24,8 @@ const ViewSelectedRecipe = (props) => {
     const dishTypeMapper = {
       "starter": "apps",
       "preps": "sides",
-      "main dish": "mains"
-    } 
-
-    console.log(props);
+      "main course": "mains"
+    }
 
     const handleSaveRecipe = (e) => {
       let recipe = {
@@ -39,10 +37,8 @@ const ViewSelectedRecipe = (props) => {
         healthLabels: state.searchedRecipe.healthLabels
       };
       let dishTypeLowerCase = dishTypeMapper[recipe.dishType].toLowerCase();
-      console.log("About to hit API", (state.selectedEvent, dishTypeLowerCase, recipe))
       API.addRecipes(state.selectedEvent, dishTypeMapper[recipe.dishType], recipe)
         .then((data) => {
-          console.log("Saved event! ", data);
         history.push("/event");
       }).catch((error)=>{
         console.log(error);
