@@ -29,6 +29,9 @@ const ViewSelectedRecipe = (props) => {
       history.push("/recipe");
     };
 
+    useEffect(() => {
+      console.log(state.searchRecipeArr);
+    }, [state]);
 
   return (
     <Container className={RecipeReviewCard}> 

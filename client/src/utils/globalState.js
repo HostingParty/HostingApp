@@ -48,7 +48,7 @@ const reducer = (state, action) => {
       console.log(action.payload, "global state dishview")
       return {
         ...state,
-        recipeSearchArr: action.payload,
+        recipeSearchArr: action.payload.item,
       }
 
     case ADD_RECIPE:

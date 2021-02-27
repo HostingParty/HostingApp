@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import API from "../utils/API";
-import { useHistory, useLocation } from "react-router-dom";
+import { Link, useHistory, useLocation } from "react-router-dom";
 import { StoreProvider, useStoreContext, searchRecipes } from "../utils/globalState";
 import { makeStyles, List, ListItem, ListItemText, Grid, Typography, Container } from '@material-ui/core';
 import { LOADING, SET_RECIPES, ADD_RECIPE, DISH_VIEW } from "../utils/actions";
@@ -43,10 +43,10 @@ export default function InteractiveList() {
     })();
   }, [state.dishType])
 
-  const handleViewRecipe = (e) => {
-    dispatch({ type: DISH_VIEW, payload: {dishType: " testing"}});
-    history.push("/viewSelectedRecipe");
-  };
+  const handleViewRecipe = (item) => {
+    dispatch({ type: DISH_VIEW, payload: item });
+    history.push('/viewSelectedRecipe');
+  }
 
   return (
     <Container>
@@ -61,13 +61,14 @@ export default function InteractiveList() {
             <List dense={dense}>            
              { state.recipeSearchArr.map(item =>               
                 <List>
-                <a href="/viewSelectedRecipe">             
+                {/* <Link to="/viewSelectedRecipe">              */}
                   <ListItem button>
                      <ListItemText primary= {item.label} 
-                    onClick={handleViewRecipe} 
+                     onClick={() => handleViewRecipe(item)}
+                      // onClick={handleViewRecipe} 
                      />
                    </ListItem>
-                 </a>
+                 {/* </Link> */}
                </List> )}           
             </List>
           </div>
