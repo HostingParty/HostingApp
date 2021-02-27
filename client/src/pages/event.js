@@ -14,7 +14,7 @@ import Grid from "@material-ui/core/Grid";
 import Card from "@material-ui/core/Card";
 
 import { useStoreContext } from "../utils/globalState";
-import { LOADING, SEARCH_RECIPES, SET_EVENT } from "../utils/actions";
+import { LOADING, SEARCH_RECIPES, SET_EVENT, PASS_DISH } from "../utils/actions";
 
 import UserList from "../components/UserList";
 import RecipeReviewCard from "../components/RecipeCard";
@@ -103,17 +103,17 @@ export function Event() {
   };
 
   const handleRecipeAppStateChange = (e) => {
-    dispatch({ type: SEARCH_RECIPES, payload: {dishType: "Starter"}} )
+    dispatch({ type: PASS_DISH, payload: {dishType: "Starter"}});
     history.push("/recipe");
   };
-   
+  
   const handleRecipeSidesStateChange = (e) => {
-    dispatch({ type: SEARCH_RECIPES, payload: {dishType: "Preps"}} )
+    dispatch({ type: PASS_DISH, payload: {dishType: "Preps"}});
     history.push("/recipe");
   };
 
   const handleRecipeMainsStateChange = (e) => {
-    dispatch({ type: SEARCH_RECIPES, payload: {dishType: "Main Course"}} )
+    dispatch({ type: PASS_DISH, payload: {dishType: "Main Course"}});
     history.push("/recipe");
   };
 
