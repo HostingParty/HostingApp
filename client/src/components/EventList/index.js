@@ -61,19 +61,19 @@ acceptedEvents.forEach(element => {
 
   // Global State for selectedEvent set once "View Event Button" is pressed.
   useEffect(() => {
-    API.updateUserEvents(state.event)
-      .then((response) => {
-        const eventData = response.data.data[0];
+    // API.updateUserEvents(state.event)
+    //   .then((response) => {
+    //     const eventData = response.data.data[0];
 
-        // Set current event page with this event data
-        console.log(eventData, "State DATA:", state.event);
-        // setEventInfo(eventData);
-      })
-      .catch((err) => {
-        console.log(err);
+    //     // Set current event page with this event data
+    //     console.log(eventData, "State DATA:", state.event);
+    //     // setEventInfo(eventData);
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
 
-        // Render error page???? Redirect to our 404 page???
-      });
+    //     // Render error page???? Redirect to our 404 page???
+    //   });
   }, [state.event]);
  
   return (
