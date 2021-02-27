@@ -56,26 +56,7 @@ pendingEvents.forEach(element => {
 acceptedEvents.forEach(element => {
   events.push({...element, status: "Accepted"})
 })
-  // Global State for selectedEvent set once "View Event Button" is pressed.
-  useEffect(() => {
-<<<<<<< HEAD
-    // API.updateUserEvents(state.event)
-    //   .then((response) => {
-    //     const eventData = response.data.data[0];
 
-    //     // Set current event page with this event data
-    //     console.log(eventData, "State DATA:", state.event);
-    //     // setEventInfo(eventData);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-
-    //     // Render error page???? Redirect to our 404 page???
-    //   });
-=======
-
->>>>>>> 57e0fd7916978ff514b82369176d1fe3954387e7
-  }, [state.event]);
  
   return (
 
