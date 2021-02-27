@@ -32,12 +32,14 @@ export default function UserList(props) {
     <div className={classes.root}>
       <List align="center" component="nav" aria-label="event list of people">
       <Typography align="center" variant="h6">{props.groupName}</Typography>
-        {props.people.map(person => 
+        {props.people ?
+        props.people.map(person => 
           <ListItem button>
             <PersonIcon color="secondary" ></PersonIcon>
             <ListItemText primary={person} />
         </ListItem>
-          )}
+          )
+        : <Typography>No users found</Typography>}
       </List>
     </div>
   );

@@ -21,6 +21,11 @@ const ViewSelectedRecipe = (props) => {
     const [value, setValue] = React.useState(0);
     const [state, dispatch] = useStoreContext();
     let history = useHistory();
+    const dishTypeMapper = {
+      "starter": "apps",
+      "preps": "sides",
+      "main dish": "mains"
+    } 
 
     console.log(props);
 
@@ -33,7 +38,9 @@ const ViewSelectedRecipe = (props) => {
         ingredientLines: state.searchedRecipe.ingredientLines,
         healthLabels: state.searchedRecipe.healthLabels
       };
-      API.addRecipes(state.selectedEvent, recipe)
+      let dishTypeLowerCase = dishTypeMapper[recipe.dishType].toLowerCase();
+      console.log("About to hit API", (state.selectedEvent, dishTypeLowerCase, recipe))
+      API.addRecipes(state.selectedEvent, dishTypeMapper[recipe.dishType], recipe)
         .then((data) => {
           console.log("Saved event! ", data);
         history.push("/event");

@@ -52,12 +52,13 @@ app.use("/", authRoute);
 const userRoutes = require("./routes/app-api/userRoutes");
 const eventRoutes = require("./routes/app-api/eventRoutes");
 const foodRoutes = require("./routes/food-api/foodRoutes");
-// const awsRoutes = require("./routes/aws-api/index");
+// const awsRoutes = require("./routes/aws-api/awsRoutes");
 
 app.use("/api/v1/users", userRoutes);
 app.use("/api/v1/events", eventRoutes);
 app.use("/api/v1/food", foodRoutes);
 // app.use("/api/v1/aws", awsRoutes);
+require("./controllers/awsController.js")(app)
 
 // Send every request to the React app
 // Define any API routes before this runs
