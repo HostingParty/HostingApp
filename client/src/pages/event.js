@@ -144,7 +144,7 @@ export function Event() {
             Description: {state.event.description}
           </Typography>
           <Typography align="center" variant="h6">
-              Map?
+          <br></br>
           </Typography>
           <Button variant="contained" color="primary" 
                 component={Link} to={"/make-event"}
