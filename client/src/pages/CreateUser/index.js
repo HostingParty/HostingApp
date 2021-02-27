@@ -3,6 +3,7 @@ import "./style.css";
 import { Button, TextField, Grid, Paper, Typography} from "@material-ui/core";
 import API from "../../utils/API";
 import { Link } from "react-router-dom";
+import Login from "../Login/index";
 
 class CreateUser extends React.Component {
   constructor(props) {
@@ -19,6 +20,7 @@ class CreateUser extends React.Component {
 
   handleSubmit = async (event) => {
     event.preventDefault();
+    
 
     let { firstName, lastName, email, password, phone } = this.state;
     let user = {
@@ -105,17 +107,18 @@ class CreateUser extends React.Component {
                         />
                       </Grid>
                       <Grid item>
-                        
-                          <Button
+                                   
+                          <Button 
+                                               
                             variant="contained"
                             color="primary"
                             type="submit"
                             className="button-block"
                             onClick={(e) => this.handleSubmit(e)}
-                          >
-                            Submit
-                          </Button>
-                        
+                          >  
+                            <p component={ Link } to="/login">Submit</p>
+                          </Button> 
+                                               
                       </Grid>
                     </Grid>
                   </form>
