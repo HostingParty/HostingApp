@@ -108,15 +108,13 @@ class CreateUser extends React.Component {
                       </Grid>
                       <Grid item>
                                    
-                          <Button 
-                                               
+                          <Button                                               
                             variant="contained"
                             color="primary"
                             type="submit"
                             className="button-block"
                             onClick={(e) => this.handleSubmit(e)}
-                          >  
-                            <p component={ Link } to="/login">Submit</p>
+                          >                              
                           </Button> 
                                                
                       </Grid>
