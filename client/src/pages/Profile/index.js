@@ -69,7 +69,7 @@ function Profile() {
       "Content-Type": "multipart/form-data",
     };
 
-    await axios("/api/aws", formData, { headers: headers });
+    await axios("/api/v1/upload-photo", formData, { headers: headers });
   };
 
   const cancelUpload = (e) => {
