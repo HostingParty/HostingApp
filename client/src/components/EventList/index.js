@@ -47,7 +47,6 @@ export default function EventList() {
 
 hostingEvents.forEach(element => {
   events.push({...element, status: "Hosting"})  //add status
-  console.log(events)
 });
 
 pendingEvents.forEach(element => {
@@ -58,23 +57,6 @@ acceptedEvents.forEach(element => {
   events.push({...element, status: "Accepted"})
 })
 
-
-useEffect(() => {
-  API.getEventInfo(state.selectedEvent)
-    .then((response) => {
-      const eventData = response.data.data[0];
-
-      // Set current event page with this event data
-      
-      console.log(state.selectedEvent)
-      // setEventInfo(eventData);
-    })
-    .catch((err) => {
-      console.log(err);
-
-      // Render error page???? Redirect to our 404 page???
-    });
-}, [state]);
  
   return (
 
@@ -86,15 +68,15 @@ useEffect(() => {
 
     <List className={classes.root}>
       {events.map((value) => {
-        const labelId = `checkbox-list-label-${value}`;       
-       
-
+        // const labelId = `checkbox-list-label-${value}`; 
         return (
             <div>
             
-          <ListItem alignItems="start" onClick={(e) => dispatch({ type: SET_SELECTED_EVENT, payload: value._id})} component={Link} to={"/event"} button="true" divider="true" key={value._id} role={undefined}> 
+          <ListItem alignItems="start" 
+            onClick={(e) => dispatch({ type: SET_SELECTED_EVENT, payload: value._id})} 
+            component={Link} to={"/event"} button="true" divider="true" key={value._id} role={undefined}> 
              <Grid item xs={6}>     
-            <ListItemText id={labelId} primary={value.title} secondary={value.description} />
+            <ListItemText id="" primary={value.title} secondary={value.description} />
             </Grid> 
             <Grid item xs={6}>
             <ListItemText primary={value.status} secondary={value.eventDate} />           

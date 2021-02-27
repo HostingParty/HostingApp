@@ -12,11 +12,7 @@ Paper,
 } from "@material-ui/core";
 import { makeStyles } from '@material-ui/core/styles';
 import { Link } from "react-router-dom";
-import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
 import { useStoreContext } from "../../utils/globalState";
-import { useHistory } from "react-router-dom";
-import { SET_SELECTED_EVENT } from "../../utils/actions";
-
 
 const useStyles = makeStyles((theme) => ({
     container: {

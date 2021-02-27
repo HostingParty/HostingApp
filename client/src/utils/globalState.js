@@ -28,6 +28,7 @@ const reducer = (state, action) => {
       };
 
     case SET_SELECTED_EVENT:
+      console.log("in reducer, selected event id is: ", action.payload)
       return {
         ...state,
         selectedEvent: action.payload,
