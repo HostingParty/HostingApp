@@ -30,7 +30,7 @@ const ViewSelectedRecipe = (props) => {
     };
 
     useEffect(() => {
-      console.log(state.searchRecipeArr);
+      console.log(state.recipeSearchArr);
     }, [state]);
 
   return (
@@ -38,7 +38,8 @@ const ViewSelectedRecipe = (props) => {
         <h2> Viewing Specific Recipe! </h2>
       <Grid>
         {state.event.menu.mains.map((item) => (
-        <RecipeReviewCard {...item} /> ))}
+          <h4> {item.label} test </h4> ))}
+        {/* // <RecipeReviewCard {...item} /> ))} */}
         <Grid>
             <Button
                 variant="contained" color="primary" 
