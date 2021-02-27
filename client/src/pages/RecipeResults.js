@@ -55,7 +55,6 @@ export default function InteractiveList() {
         <Grid item xs={12} md={6}>
         <Typography variant="h6" className={classes.title}>
           {`Search Results For ${state.dishType}`}         
-          {/* {console.log("this is the recipe page", state.recipeSearchArr)} */}
           </Typography>
           <div className={classes.demo}>
             <List dense={dense}>            

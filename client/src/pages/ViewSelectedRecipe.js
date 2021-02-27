@@ -25,30 +25,42 @@ const ViewSelectedRecipe = (props) => {
     console.log(props);
 
     const handleSaveRecipe = (e) => {
-      dispatch({ type: ADD_RECIPE, payload: {dishType: "Starter"}});
-      history.push("/recipe");
-    };
+      let recipe = {
+        uri : state.searchedRecipe.uri,
+        label: state.searchedRecipe.label,
+        dishType: state.searchedRecipe.dishType[0],
+        image: state.searchedRecipe.image,
+        ingredientLines: state.searchedRecipe.ingredientLines,
+        healthLabels: state.searchedRecipe.healthLabels
+      };
+      API.addRecipes(state.selectedEvent, recipe)
+        .then((data) => {
+          console.log("Saved event! ", data);
+        history.push("/event");
+      })
+    }
 
     useEffect(() => {
-      console.log(state.recipeSearchArr);
     }, [state]);
 
   return (
     <Container className={RecipeReviewCard}> 
         <h2> Viewing Specific Recipe! </h2>
       <Grid>
-        {state.event.menu.mains.map((item) => (
-          <h4> {item.label} test </h4> ))}
-        {/* // <RecipeReviewCard {...item} /> ))} */}
+        {
+          state.searchedRecipe ?
+          <RecipeReviewCard {...state.searchedRecipe} />
+          :
+          <h4>
+            No recipe found...
+          </h4>
+        }
         <Grid>
             <Button
                 variant="contained" color="primary" 
                 onClick={handleSaveRecipe} >  
                 Add to Event 
             </Button>
-        </Grid>
-        <Grid>
-            <Link href="/recipe">Go Back to Results</Link>
         </Grid>
       </Grid>
     </Container>

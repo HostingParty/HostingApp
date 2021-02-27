@@ -35,7 +35,7 @@ const reducer = (state, action) => {
     case SET_RECIPES:
       return {
         ...state,
-        recipeSearchArr: action.payload,
+        recipeSearchArr: [...action.payload],
       };
 
     case PASS_DISH:
@@ -45,10 +45,9 @@ const reducer = (state, action) => {
       };
 
     case DISH_VIEW:
-      console.log(action.payload, "global state dishview")
       return {
         ...state,
-        recipeSearchArr: action.payload.item,
+        searchedRecipe: action.payload,
       }
 
     case ADD_RECIPE:
@@ -65,13 +64,12 @@ const reducer = (state, action) => {
 export async function searchRecipes(dishType) {
   let results = await API.getRecipes(dishType);
   let arr = results.data.results.map(item =>item.recipe);
-  console.log("From FOOD API, search results: ", arr);
   return arr;
 };
 
 const StoreProvider = ({ value = [], ...props }) => {
   const [state, dispatch] = useReducer(reducer, {
-    // selectedEvent: "6025e9bba968960008f31a20",
+    // selectedEvent: "6039a4eca4808f0a891a63d6",
     selectedEvent: "",
     user: {
       name: {
@@ -226,7 +224,8 @@ const StoreProvider = ({ value = [], ...props }) => {
       },
     },
     loading: false,
-    recipeSearchArr: [], //array of recipe objects (from API)   
+    recipeSearchArr: [],
+    searchedRecipe: {}
   });
 
   return <Provider value={[state, dispatch]} {...props} />;
