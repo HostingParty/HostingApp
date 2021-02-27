@@ -29,7 +29,7 @@
 
 ## About the Project
 
-![Hosting Party Gif](/public/giphy.gif)
+![Hosting Party Gif](./public/giphy.gif)
 
 ## Installation
 
