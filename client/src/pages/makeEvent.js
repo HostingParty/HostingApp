@@ -61,13 +61,20 @@ const MakeEvent = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
+      console.log("In makeEvent, About to create a new event: ", eventInfo)
       let response = await API.addEvent(
         {...eventInfo, hosting: [state.user._id]}
       );
       const { _id } = response.data.data;
 
       if (_id) {
-        API.textUser("dan", "hey");
+        // API.textUser("+12064120323")
+        //   .then((data) => {
+        //     console.log("After textUser, res is: ", data)
+        //   })
+        //   .catch((err) => {
+        //     console.log(err);
+        //   });
         await API.updateUserEvents(state.user._id, _id)
           .then((data) => {
             dispatch({ type: "SET_USER", payload: data.data.data });
