@@ -165,9 +165,9 @@ export default function PersistentDrawerRight() {
             {/* <ListItem component={ Link } to="/create-user">
               Signup
             </ListItem>            */}
-            <ListItem component={ Link } to="/login">
+            {/* <ListItem component={ Link } to="/login">
               Login
-            </ListItem>           
+            </ListItem>            */}
             <ListItem component={ Link } to="/">
               Log Out
             </ListItem>
