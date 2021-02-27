@@ -61,7 +61,7 @@ acceptedEvents.forEach(element => {
 
   // Global State for selectedEvent set once "View Event Button" is pressed.
   useEffect(() => {
-    API.getEventInfo(state.selectedEvent)
+    API.updateUserEvents(state.event)
       .then((response) => {
         const eventData = response.data.data[0];
 
@@ -74,7 +74,7 @@ acceptedEvents.forEach(element => {
 
         // Render error page???? Redirect to our 404 page???
       });
-  }, [state.selectedEvent]);
+  }, [state.event]);
  
   return (
 
