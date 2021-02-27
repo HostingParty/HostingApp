@@ -37,6 +37,8 @@ const ViewSelectedRecipe = (props) => {
         .then((data) => {
           console.log("Saved event! ", data);
         history.push("/event");
+      }).catch((error)=>{
+        console.log(error);
       })
     }
 
@@ -45,7 +47,7 @@ const ViewSelectedRecipe = (props) => {
 
   return (
     <Container className={RecipeReviewCard}> 
-        <h2> Viewing Specific Recipe! </h2>
+        <h2> Viewing Recipe </h2>
       <Grid>
         {
           state.searchedRecipe ?
