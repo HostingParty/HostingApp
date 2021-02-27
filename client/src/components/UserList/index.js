@@ -27,17 +27,20 @@ export default function UserList(props) {
   const { key, groupName } = props
   const [personStatus, setPersonStatus] = useState(groupName)
   const classes = useStyles();
+  console.log("In user list, props are " , props)
 
   return (
     <div className={classes.root}>
       <List align="center" component="nav" aria-label="event list of people">
       <Typography align="center" variant="h6">{props.groupName}</Typography>
-        {props.people.map(person => 
+        {props.people ?
+        props.people.map(person => 
           <ListItem button>
             <PersonIcon color="secondary" ></PersonIcon>
-            <ListItemText primary={person} />
+            <ListItemText primary={`${person.name.first} ${person.name.last}`} />
         </ListItem>
-          )}
+          )
+        : <Typography>No users found</Typography>}
       </List>
     </div>
   );
