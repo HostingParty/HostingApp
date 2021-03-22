@@ -107,3 +107,4 @@ dist
 .todos
 .env
 .DS_Store
+.vscode/*
